@@ -3,7 +3,7 @@
 body {
     background-color: #f4e6d3;
     margin: 0;
-    padding: 40px;
+    padding: 0;
     color: #3a2b1f;
     line-height: 1.8;
     font-family: 'Noto Serif SC', serif;
@@ -11,7 +11,7 @@ body {
 
 .container {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 40px auto;
     background: rgba(255, 252, 249, 0.95);
     padding: 50px;
     border-radius: 15px;
@@ -49,12 +49,13 @@ body {
     font-size: 18px;
 }
 
-.poemLine {
+.poem-line {
     margin-bottom: 20px;
     position: relative;
     text-align: center;
     color: #3a2b1f;
     transition: color 0.3s ease;
+    cursor: pointer;
 }
 
 .translation {
@@ -68,6 +69,16 @@ body {
     text-align: center;
 }
 
-.poemLine:hover .translation {
-    display: block;
+.translation-toggle {
+    text-align: center;
+    color: #8b4513;
+    cursor: pointer;
+    font-size: 16px;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
+}
+
+.translation-toggle:hover {
+    color: #654321;
+    text-decoration: underline;
 }

@@ -1,6 +1,6 @@
 .container {
     max-width: 700px;
-    margin: 0 auto;
+    margin: 40px auto;
     background: rgba(255, 252, 249, 0.95);
     padding: 50px;
     border-radius: 15px;
@@ -15,6 +15,7 @@
     margin-bottom: 20px;
     border-bottom: 2px solid #8b4513;
     padding-bottom: 15px;
+    font-family: 'Noto Serif SC', serif;
 }
 
 .poemList {
@@ -25,6 +26,7 @@
 .poemList li {
     margin: 10px 0;
     font-size: 20px;
+    font-family: 'Noto Serif SC', serif;
 }
 
 .poemList li a {

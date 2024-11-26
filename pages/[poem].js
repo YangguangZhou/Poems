@@ -2,15 +2,25 @@ import fs from 'fs';
 import path from 'path';
 import styles from '../styles/Poem.module.css';
 
-export default function Poem({ poem }) {
+export default function PoemPage({ poem }) {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{poem.title}</h1>
       <h2 className={styles.author}>{poem.author}</h2>
+
       {poem.preface && <div className={styles.preface}>{poem.preface}</div>}
+
+      <div className={styles.translationToggle} onClick={toggleAllTranslations}>
+        显示/隐藏注解
+      </div>
+
       <div className={styles.content}>
         {poem.content.map((line, index) => (
-          <div key={index} className={styles.poemLine}>
+          <div
+            key={index}
+            className={styles.poemLine}
+            onClick={() => toggleTranslation(index)}
+          >
             {line}
             {poem.translation[index] && (
               <div className={styles.translation}>{poem.translation[index]}</div>
@@ -22,11 +32,28 @@ export default function Poem({ poem }) {
   );
 }
 
+function toggleTranslation(index) {
+  const translation = document.querySelectorAll('.translation')[index];
+  if (translation.style.display === 'block') {
+    translation.style.display = 'none';
+  } else {
+    translation.style.display = 'block';
+  }
+}
+
+function toggleAllTranslations() {
+  const translations = document.querySelectorAll('.translation');
+  const isAnyVisible = Array.from(translations).some(t => t.style.display === 'block');
+  translations.forEach(translation => {
+    translation.style.display = isAnyVisible ? 'none' : 'block';
+  });
+}
+
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), 'public', 'poems.txt');
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const poems = parsePoems(fileContents);
-  const paths = poems.map((poem) => ({
+  const paths = poems.map(poem => ({
     params: { poem: encodeURIComponent(poem.title) },
   }));
   return { paths, fallback: false };
@@ -36,7 +63,7 @@ export async function getStaticProps({ params }) {
   const filePath = path.join(process.cwd(), 'public', 'poems.txt');
   const fileContents = fs.readFileSync(filePath, 'utf8');
   const poems = parsePoems(fileContents);
-  const poem = poems.find((p) => p.title === decodeURIComponent(params.poem));
+  const poem = poems.find(p => p.title === decodeURIComponent(params.poem));
   return {
     props: {
       poem,
@@ -60,14 +87,10 @@ function parsePoems(data) {
     const translation = [];
     for (let i = contentStart; i < lines.length; i++) {
       if (lines[i].trim() === '') continue;
-      const parts = lines[i].split('。');
-      parts.forEach((part) => {
-        if (part.trim()) {
-          const [original, trans] = part.split('、');
-          content.push(original.trim());
-          if (trans) translation.push(trans.trim());
-        }
-      });
+      const original = lines[i].split('、')[0].replace('。', '');
+      const trans = lines[i].split('、')[1]?.replace('。', '');
+      content.push(original.trim());
+      if (trans) translation.push(trans.trim());
     }
     return { title, author, preface, content, translation };
   });

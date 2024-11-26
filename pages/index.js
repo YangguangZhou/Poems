@@ -47,14 +47,10 @@ function parsePoems(data) {
     const translation = [];
     for (let i = contentStart; i < lines.length; i++) {
       if (lines[i].trim() === '') continue;
-      const parts = lines[i].split('。');
-      parts.forEach((part) => {
-        if (part.trim()) {
-          const [original, trans] = part.split('、');
-          content.push(original.trim());
-          if (trans) translation.push(trans.trim());
-        }
-      });
+      const original = lines[i].split('、')[0].replace('。', '');
+      const trans = lines[i].split('、')[1]?.replace('。', '');
+      content.push(original.trim());
+      if (trans) translation.push(trans.trim());
     }
     return { title, author, preface, content, translation };
   });
