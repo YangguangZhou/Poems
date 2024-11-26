@@ -1,18 +1,41 @@
 import fs from 'fs';
 import path from 'path';
 import styles from '../styles/Poem.module.css';
+import { useState } from 'react';
 
 export default function PoemPage({ poem }) {
+  const [showTranslations, setShowTranslations] = useState(false);
+
+  const toggleTranslation = (index) => {
+    const translation = document.getElementById(`translation-${index}`);
+    if (translation) {
+      translation.style.display = 
+        translation.style.display === 'block' ? 'none' : 'block';
+    }
+  };
+
+  const toggleAllTranslations = () => {
+    setShowTranslations(!showTranslations);
+    const translations = document.querySelectorAll('.translation');
+    translations.forEach(translation => {
+      translation.style.display = !showTranslations ? 'block' : 'none';
+    });
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{poem.title}</h1>
       <h2 className={styles.author}>{poem.author}</h2>
-
-      {poem.preface && <div className={styles.preface}>{poem.preface}</div>}
-
+      
       <div className={styles.translationToggle} onClick={toggleAllTranslations}>
         显示/隐藏注解
       </div>
+
+      {poem.preface && (
+        <div className={styles.preface}>
+          {poem.preface}
+        </div>
+      )}
 
       <div className={styles.content}>
         {poem.content.map((line, index) => (
@@ -22,9 +45,12 @@ export default function PoemPage({ poem }) {
             onClick={() => toggleTranslation(index)}
           >
             {line}
-            {poem.translation[index] && (
-              <div className={styles.translation}>{poem.translation[index]}</div>
-            )}
+            <div 
+              id={`translation-${index}`}
+              className={styles.translation}
+            >
+              {poem.translation[index]}
+            </div>
           </div>
         ))}
       </div>
