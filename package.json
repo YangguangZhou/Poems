@@ -1,0 +1,15 @@
+{
+    "name": "gu-shi-wen",
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "next": "latest",
+        "nvm": "^0.0.4",
+        "react": "latest",
+        "react-dom": "latest"
+    }
+}

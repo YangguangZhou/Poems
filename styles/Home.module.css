@@ -1,0 +1,39 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(255, 252, 249, 0.95);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+.title {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    color: #4a3626;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #8b4513;
+    padding-bottom: 15px;
+}
+
+.poemList {
+    list-style: none;
+    padding: 0;
+}
+
+.poemList li {
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.poemList li a {
+    color: #8b4513;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.poemList li a:hover {
+    color: #654321;
+    text-decoration: underline;
+}
