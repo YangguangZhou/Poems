@@ -35,23 +35,41 @@ function parsePoems(data) {
   const poemsData = data.trim().split('\n\n\n');
   return poemsData.map((poem) => {
     const lines = poem.split('\n');
-    const title = lines[0];
-    const author = lines[1];
-    let preface = '';
-    let contentStart = 2;
-    if (lines[2].startsWith('>')) {
-      preface = lines[2].substring(1).trim();
-      contentStart = 4;
+    let index = 0;
+    const title = lines[index++].trim();
+    const author = lines[index++].trim();
+
+    // 处理序
+    index += 1; // 跳过两行换行
+    const prefaceLines = [];
+    while (index < lines.length && lines[index].startsWith('> ')) {
+      prefaceLines.push(lines[index].substring(2).trim());
+      index++;
     }
-    const content = [];
-    const translation = [];
-    for (let i = contentStart; i < lines.length; i++) {
-      if (lines[i].trim() === '') continue;
-      const original = lines[i].split('、')[0].replace('。', '');
-      const trans = lines[i].split('、')[1]?.replace('。', '');
-      content.push(original.trim());
-      if (trans) translation.push(trans.trim());
+    const preface = prefaceLines.join('\n');
+
+    // 跳过两行换行
+    index += 1;
+
+    // 处理原文
+    const contentLines = [];
+    while (index < lines.length && lines[index].trim() !== '') {
+      contentLines.push(lines[index].trim());
+      index++;
     }
+    const content = contentLines.join('\n');
+
+    // 跳过两行换行
+    index += 1;
+
+    // 处理翻译
+    const translationLines = [];
+    while (index < lines.length && lines[index].trim() !== '') {
+      translationLines.push(lines[index].trim());
+      index++;
+    }
+    const translation = translationLines.join('\n');
+
     return { title, author, preface, content, translation };
   });
 }
