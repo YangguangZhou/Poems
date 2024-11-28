@@ -13,7 +13,8 @@ export default function Home({ poems }) {
         {poems.map((poem, index) => (
           <li key={index}>
             <Link href={`/${encodeURIComponent(poem.title)}`}>
-              {poem.title} - {poem.author}
+              <span className={styles.poemTitle}>{poem.title}</span>
+              <span className={styles.poemAuthor}>{poem.author}</span>
             </Link>
           </li>
         ))}
