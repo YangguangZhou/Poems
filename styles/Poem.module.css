@@ -26,17 +26,6 @@
     font-family: 'Noto Serif SC', serif;
 }
 
-.preface {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    background: #f9f0e6;
-    border-left: 5px solid #8b4513;
-    padding: 15px 20px;
-    margin-bottom: 30px;
-    border-radius: 0 8px 8px 0;
-    color: #5a3a1f;
-}
-
 .poemLine {
     margin-bottom: 20px;
     position: relative;
