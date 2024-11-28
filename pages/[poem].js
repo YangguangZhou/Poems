@@ -7,21 +7,20 @@ import { parsePoems } from '../lib/parsePoems';
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
+  const [visibleTranslations, setVisibleTranslations] = useState(
+    poem.content.map(() => false)
+  );
 
   const toggleTranslation = (index) => {
-    const translation = document.getElementById(`translation-${index}`);
-    if (translation) {
-      translation.style.display = 
-        translation.style.display === 'block' ? 'none' : 'block';
-    }
+    const newVisible = [...visibleTranslations];
+    newVisible[index] = !newVisible[index];
+    setVisibleTranslations(newVisible);
   };
 
   const toggleAllTranslations = () => {
-    setShowTranslations(!showTranslations);
-    const translations = document.querySelectorAll('.translation');
-    translations.forEach(translation => {
-      translation.style.display = !showTranslations ? 'block' : 'none';
-    });
+    const newShow = !showTranslations;
+    setShowTranslations(newShow);
+    setVisibleTranslations(poem.content.map(() => newShow));
   };
 
   return (
@@ -30,7 +29,7 @@ export default function PoemPage({ poem }) {
       <h2 className={styles.author}>{poem.author}</h2>
       
       <div className={styles.translationToggle} onClick={toggleAllTranslations}>
-        显示/隐藏注解
+        显示/隐藏翻译
       </div>
 
       <div className={styles.content}>
@@ -41,13 +40,11 @@ export default function PoemPage({ poem }) {
             onClick={() => toggleTranslation(index)}
           >
             {line}
-            <div 
-              id={`translation-${index}`}
-              className={styles.translation}
-              style={{ display: 'none' }}
-            >
-              {poem.translation[index]}
-            </div>
+            {visibleTranslations[index] && (
+              <div className={styles.translation}>
+                {poem.translation[index]}
+              </div>
+            )}
           </div>
         ))}
       </div>

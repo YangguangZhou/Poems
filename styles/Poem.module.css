@@ -33,6 +33,7 @@
     color: #3a2b1f;
     transition: color 0.3s ease;
     cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
 }
 
 .translation {
