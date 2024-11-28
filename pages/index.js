@@ -7,19 +7,24 @@ import { parsePoems } from '../lib/parsePoems';
 
 export default function Home({ poems }) {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>古诗文</h1>
-      <ul className={styles.poemList}>
-        {poems.map((poem, index) => (
-          <li key={index}>
-            <Link href={`/${encodeURIComponent(poem.title)}`}>
-              <span className={styles.poemTitle}>{poem.title}</span>
-              <span className={styles.poemAuthor}>{poem.author}</span>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <>
+      <Head>
+        <title>古诗文</title>
+      </Head>
+      <div className={styles.container}>
+        <h1 className={styles.title}>古诗文</h1>
+        <ul className={styles.poemList}>
+          {poems.map((poem, index) => (
+            <li key={index}>
+              <Link href={`/${encodeURIComponent(poem.title)}`}>
+                <span className={styles.poemTitle}>{poem.title}</span>
+                <span className={styles.poemAuthor}>{poem.author}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 

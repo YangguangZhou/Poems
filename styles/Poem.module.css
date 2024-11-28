@@ -61,3 +61,19 @@
     color: #654321;
     text-decoration: underline;
 }
+
+.homeButton {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #8b4513;
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-family: 'Noto Serif SC', serif;
+    margin-bottom: 20px;
+    transition: background 0.3s ease;
+}
+
+.homeButton:hover {
+    background: #654321;
+}
