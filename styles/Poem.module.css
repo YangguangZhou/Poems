@@ -37,7 +37,6 @@
 }
 
 .translation {
-    display: none; /* 确保翻译默认隐藏 */
     font-family: 'Noto Serif SC', serif;
     font-size: 16px;
     color: #6b4423;

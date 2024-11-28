@@ -7,20 +7,21 @@ import { parsePoems } from '../lib/parsePoems';
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
-  const [visibleTranslations, setVisibleTranslations] = useState(
-    poem.content.map(() => false)
-  );
 
   const toggleTranslation = (index) => {
-    const newVisible = [...visibleTranslations];
-    newVisible[index] = !newVisible[index];
-    setVisibleTranslations(newVisible);
+    const translation = document.getElementById(`translation-${index}`);
+    if (translation) {
+      translation.style.display = 
+        translation.style.display === 'block' ? 'none' : 'block';
+    }
   };
 
   const toggleAllTranslations = () => {
-    const newShow = !showTranslations;
-    setShowTranslations(newShow);
-    setVisibleTranslations(poem.content.map(() => newShow));
+    setShowTranslations(!showTranslations);
+    const translations = document.querySelectorAll(`.${styles.translation}`);
+    translations.forEach(translation => {
+      translation.style.display = !showTranslations ? 'block' : 'none';
+    });
   };
 
   return (
@@ -40,11 +41,12 @@ export default function PoemPage({ poem }) {
             onClick={() => toggleTranslation(index)}
           >
             {line}
-            {visibleTranslations[index] && (
-              <div className={styles.translation}>
-                {poem.translation[index]}
-              </div>
-            )}
+            <div 
+              id={`translation-${index}`}
+              className={styles.translation}
+            >
+              {poem.translation[index]}
+            </div>
           </div>
         ))}
       </div>

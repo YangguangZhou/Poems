@@ -49,7 +49,7 @@ body {
 }
 
 .translation {
-    display: none;
+    /* display: none; */
     font-size: 16px;
     color: #6b4423;
     margin-top: 10px;
