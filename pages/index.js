@@ -1,4 +1,5 @@
 // index.js
+import Head from 'next/head';  // 添加这行
 import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
