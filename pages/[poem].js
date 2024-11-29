@@ -34,7 +34,7 @@ export default function PoemPage({ poem }) {
       </Head>
       <div className={styles.container}>
         <Link href="/" className={styles.homeButton}>
-          返回首页
+          ← 返回首页
         </Link>
         <h1 className={styles.title}>{poem.title}</h1>
         <h2 className={styles.author}>{poem.author}</h2>

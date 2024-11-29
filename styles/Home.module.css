@@ -39,3 +39,39 @@
     color: #654321;
     text-decoration: underline;
 }
+
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+  }
+
+  .poemList li {
+    font-size: 18px;
+    margin: 8px 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 10px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+
+  .poemList li {
+    font-size: 16px;
+    margin: 6px 0;
+  }
+}

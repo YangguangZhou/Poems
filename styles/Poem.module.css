@@ -1,61 +1,50 @@
 .container {
-    max-width: 800px;
+    max-width: 700px;
     margin: 40px auto;
-    background: rgba(253, 246, 236, 0.95);
+    background: rgba(255, 252, 249, 0.95);
     padding: 50px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
-    border: 1px solid rgba(139, 69, 19, 0.2);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 .title {
     text-align: center;
-    font-size: 42px;
+    font-size: 36px;
     font-weight: 600;
-    color: #8b4513;
-    margin-bottom: 15px;
+    color: #4a3626;
+    margin-bottom: 10px;
     border-bottom: 2px solid #8b4513;
     padding-bottom: 15px;
     font-family: "Ma Shan Zheng", "楷体", serif;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .author {
     text-align: right;
-    font-size: 20px;
+    font-size: 18px;
     color: #6b4423;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     font-family: 'Noto Serif SC', serif;
-    font-style: italic;
 }
 
 .poemLine {
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     position: relative;
     text-align: center;
     color: #3a2b1f;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     cursor: pointer;
     font-family: 'Noto Serif SC', serif;
-    font-size: 20px;
-    line-height: 1.8;
-}
-
-.poemLine:hover {
-    color: #8b4513;
-    transform: scale(1.02);
 }
 
 .translation {
     font-family: 'Noto Serif SC', serif;
     font-size: 16px;
     color: #6b4423;
-    margin-top: 12px;
+    margin-top: 10px;
     padding: 15px;
-    background: rgba(249, 240, 230, 0.8);
+    background: #f9f0e6;
     border-radius: 8px;
     text-align: center;
-    border: 1px dashed #d4a161;
 }
 
 .translationToggle {
@@ -64,50 +53,68 @@
     cursor: pointer;
     font-family: 'Noto Serif SC', serif;
     font-size: 16px;
-    margin: 20px 0 30px;
-    padding: 10px;
-    background: rgba(139, 69, 19, 0.1);
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    transition: color 0.3s ease;
 }
 
 .translationToggle:hover {
-    background: rgba(139, 69, 19, 0.15);
-    transform: scale(1.02);
+    color: #654321;
+    text-decoration: underline;
 }
 
 .homeButton {
-    position: relative;
-    display: inline-block;
-    padding: 8px 25px;
-    margin-bottom: 30px;
-    color: #8b4513;
-    text-decoration: none;
-    font-family: 'Ma Shan Zheng', serif;
-    font-size: 18px;
-    border: 2px solid #8b4513;
-    border-radius: 4px;
-    background: transparent;
-    transition: all 0.3s ease;
-    overflow: hidden;
-}
-
-.homeButton::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: rgba(139, 69, 19, 0.1);
-    transition: all 0.3s ease;
-}
-
-.homeButton:hover::before {
-    left: 0;
+  display: block;
+  color: #8b4513;
+  text-decoration: none;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
 }
 
 .homeButton:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
+  color: #654321;
+  text-decoration: underline;
+}
+
+/* 添加移动设备适配 */
+@media screen and (max-width: 768px) {
+  .container {
+    margin: 20px;
+    padding: 30px;
+  }
+
+  .title {
+    font-size: 28px;
+  }
+
+  .author {
+    font-size: 16px;
+  }
+
+  .poemLine {
+    font-size: 16px;
+  }
+
+  .translation {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .homeButton,
+  .translationToggle {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    margin: 10px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
 }
