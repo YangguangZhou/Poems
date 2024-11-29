@@ -11,6 +11,7 @@ export default function Home({ poems }) {
     <>
       <Head>
         <title>古诗文</title>
+        <link rel="icon" href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"></link>
       </Head>
       <div className={styles.container}>
         <h1 className={styles.title}>古诗文</h1>

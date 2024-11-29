@@ -1,79 +1,141 @@
 .container {
-    max-width: 700px;
+    max-width: 800px;
     margin: 40px auto;
-    background: rgba(255, 252, 249, 0.95);
+    background: rgba(253, 246, 236, 0.95);
     padding: 50px;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
+    border: 1px solid rgba(139, 69, 19, 0.2);
+    position: relative;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    border: 2px solid rgba(139, 69, 19, 0.1);
+    border-radius: 10px;
+    pointer-events: none;
 }
 
 .title {
     text-align: center;
-    font-size: 36px;
-    font-weight: 600;
-    color: #4a3626;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #8b4513;
-    padding-bottom: 15px;
-    font-family: 'Noto Serif SC', serif;
-}
-
-.author {
-    text-align: right;
-    font-size: 18px;
-    color: #6b4423;
-    margin-bottom: 20px;
-    font-family: 'Noto Serif SC', serif;
-}
-
-.poemLine {
-    margin-bottom: 20px;
+    font-size: 42px;
+    font-weight: 500;
+    color: #8B4513;
+    margin-bottom: 15px;
+    padding-bottom: 20px;
+    font-family: "Ma Shan Zheng", "楷体", serif;
     position: relative;
-    text-align: center;
-    color: #3a2b1f;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
 }
 
-.translation {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    color: #6b4423;
-    margin-top: 10px;
-    padding: 15px;
-    background: #f9f0e6;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.translationToggle {
-    text-align: center;
-    color: #8b4513;
-    cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    margin-bottom: 30px;
-    transition: color 0.3s ease;
-}
-
-.translationToggle:hover {
-    color: #654321;
-    text-decoration: underline;
+.title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8B4513, transparent);
 }
 
 .homeButton {
-    display: inline-block;
-    padding: 10px 20px;
-    background: #8b4513;
-    color: #fff;
-    border-radius: 8px;
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: transparent;
+    color: #8B4513;
+    border: 1px solid #8B4513;
+    border-radius: 4px;
     text-decoration: none;
     font-family: 'Noto Serif SC', serif;
-    margin-bottom: 20px;
-    transition: background 0.3s ease;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .homeButton:hover {
-    background: #654321;
+    background: rgba(139, 69, 19, 0.1);
+    transform: translateY(-2px);
+}
+
+.homeButton::before {
+    content: '←';
+    margin-right: 8px;
+    font-size: 16px;
+}
+
+.poemLine {
+    margin: 25px 0;
+    font-size: 22px;
+    line-height: 1.8;
+    text-align: center;
+    color: #4A3626;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.poemLine:hover {
+    color: #8B4513;
+    transform: translateY(-2px);
+}
+
+.translation {
+    font-size: 16px;
+    color: #6B4423;
+    margin-top: 12px;
+    padding: 15px;
+    background: rgba(139, 69, 19, 0.05);
+    border-radius: 8px;
+    border: 1px dashed rgba(139, 69, 19, 0.2);
+}
+
+.translationToggle {
+    display: inline-block;
+    padding: 8px 20px;
+    margin: 20px 0;
+    color: #8B4513;
+    cursor: pointer;
+    border: 1px solid rgba(139, 69, 19, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.translationToggle:hover {
+    background: rgba(139, 69, 19, 0.05);
+    transform: translateY(-2px);
+}
+
+.author {
+    text-align: center;
+    font-size: 18px;
+    color: #6B4423;
+    margin: 20px 0;
+    font-family: "Ma Shan Zheng", "楷体", serif;
+    position: relative;
+    padding: 0 40px;
+}
+
+.author::before,
+.author::after {
+    content: '•';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #8B4513;
+    font-size: 24px;
+}
+
+.author::before {
+    left: 0;
+}
+
+.author::after {
+    right: 0;
 }

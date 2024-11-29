@@ -30,6 +30,7 @@ export default function PoemPage({ poem }) {
     <>
       <Head>
         <title>{poem.title}</title>
+        <link rel="icon" href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"></link>
       </Head>
       <div className={styles.container}>
         <Link href="/" className={styles.homeButton}>
