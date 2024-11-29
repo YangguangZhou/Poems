@@ -4,9 +4,22 @@ import Link from 'next/link';
 import fs from 'fs';
 import path from 'path';
 import styles from '../styles/Home.module.css';
+import { useState } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 
 export default function Home({ poems }) {
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  const filteredPoems = poems.filter(poem => {
+    const searchContent = (
+      poem.title + 
+      poem.author + 
+      poem.content.join('') + 
+      poem.translation.join('')
+    ).toLowerCase();
+    return searchContent.includes(searchTerm.toLowerCase());
+  });
+
   return (
     <>
       <Head>
@@ -15,12 +28,32 @@ export default function Home({ poems }) {
       </Head>
       <div className={styles.container}>
         <h1 className={styles.title}>古诗文</h1>
+        
+        <div className={styles.searchContainer}>
+          <input
+            type="text"
+            placeholder="搜索诗词..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className={styles.searchInput}
+          />
+        </div>
+
         <ul className={styles.poemList}>
-          {poems.map((poem, index) => (
-            <li key={index}>
+          {filteredPoems.map((poem, index) => (
+            <li key={index} className={styles.poemItem}>
               <Link href={`/${encodeURIComponent(poem.title)}`}>
-                <span className={styles.poemTitle}>{poem.title}</span>
-                <span className={styles.poemAuthor}>{poem.author}</span>
+                <div className={styles.poemCard}>
+                  <div className={styles.poemHeader}>
+                    <span className={styles.poemTitle}>{poem.title}</span>
+                    <span className={styles.poemAuthor}>{poem.author}</span>
+                  </div>
+                  <div className={styles.poemPreview}>
+                    {poem.content.slice(0, 2).map((line, i) => (
+                      <p key={i}>{line}</p>
+                    ))}
+                  </div>
+                </div>
               </Link>
             </li>
           ))}

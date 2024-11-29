@@ -35,9 +35,77 @@
     transition: color 0.3s ease;
 }
 
-.poemList li a:hover {
+.poemList li a div div .poemTitle:hover {
     color: #654321;
     text-decoration: underline;
+}
+
+.searchContainer {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.searchInput {
+  width: 80%;
+  padding: 10px 15px;
+  font-size: 16px;
+  border: 1.5px solid #8b4513;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #4a3626;
+  font-family: 'Noto Serif SC', serif;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #654321;
+  box-shadow: 0 0 5px rgba(139, 69, 19, 0.2);
+}
+
+.poemItem {
+  margin: 15px 0;
+}
+
+.poemCard {
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 10px;
+  padding: 15px 20px;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(139, 69, 19, 0.2);
+}
+
+.poemCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(139, 69, 19, 0.1);
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.poemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.poemTitle {
+  font-size: 20px;
+  color: #4a3626;
+  font-weight: 600;
+}
+
+.poemAuthor {
+  color: #8b4513;
+  font-size: 16px;
+}
+
+.poemPreview {
+  color: #666;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.poemPreview p {
+  margin: 5px 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -56,6 +124,26 @@
     font-size: 18px;
     margin: 8px 0;
   }
+
+  .searchInput {
+    width: 90%;
+  }
+
+  .poemCard {
+    padding: 12px 15px;
+  }
+
+  .poemTitle {
+    font-size: 18px;
+  }
+
+  .poemAuthor {
+    font-size: 14px;
+  }
+
+  .poemPreview {
+    font-size: 13px;
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -73,5 +161,10 @@
   .poemList li {
     font-size: 16px;
     margin: 6px 0;
+  }
+
+  .searchInput {
+    width: 95%;
+    font-size: 14px;
   }
 }
