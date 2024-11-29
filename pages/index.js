@@ -35,11 +35,11 @@ export default function Home({ poems }) {
   const getPreview = (poem) => {
     const isClassical = poem.tags.includes('文言文');
     const firstTwoLines = poem.content.slice(0, 2).join('\n');
-    if (isClassical && firstTwoLines.length > 50) {
+    if (isClassical && firstTwoLines.length > 100) {
       let preview = '';
       let count = 0;
       for (let char of firstTwoLines) {
-        if (count < 50) {
+        if (count < 100) {
           preview += char;
           count++;
         } else {
