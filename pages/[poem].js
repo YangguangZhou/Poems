@@ -1,14 +1,20 @@
-// [poem].js
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
 import styles from '../styles/Poem.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 import Link from 'next/link';
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
+  const isClassical = poem.tags.includes('文言文');
+
+  useEffect(() => {
+    const access = JSON.parse(localStorage.getItem('accessOrder')) || [];
+    const updatedAccess = [poem.title, ...access.filter(title => title !== poem.title)];
+    localStorage.setItem('accessOrder', JSON.stringify(updatedAccess));
+  }, [poem.title]);
 
   const toggleTranslation = (index) => {
     const translation = document.getElementById(`translation-${index}`);
@@ -39,11 +45,17 @@ export default function PoemPage({ poem }) {
         <h1 className={styles.title}>{poem.title}</h1>
         <h2 className={styles.author}>{poem.author}</h2>
 
+        <div className={styles.tags}>
+          {poem.tags.map((tag, i) => (
+            <span key={i} className={styles.tag}>{tag}</span>
+          ))}
+        </div>
+
         <div className={styles.translationToggle} onClick={toggleAllTranslations}>
           显示/隐藏翻译
         </div>
 
-        <div className={styles.content}>
+        <div className={isClassical ? styles.contentClassical : styles.content}>
           {poem.content.map((line, index) => (
             <div
               key={index}

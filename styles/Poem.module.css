@@ -5,6 +5,29 @@
     padding: 50px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    background: linear-gradient(to bottom, rgba(255, 252, 249, 0.97), rgba(255, 252, 249, 0.93));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(139, 69, 19, 0.1);
+}
+
+.tags {
+    margin-bottom: 20px;
+}
+
+.tag {
+    display: inline-block;
+    background-color: #f0e68c;
+    color: #654321;
+    padding: 5px 10px;
+    border-radius: 12px;
+    margin-right: 5px;
+    font-size: 14px;
+}
+
+.contentClassical {
+    text-align: left;
+    text-indent: 2em;
 }
 
 .title {
@@ -34,6 +57,16 @@
     transition: color 0.3s ease;
     cursor: pointer;
     font-family: 'Noto Serif SC', serif;
+    font-size: 18px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    padding: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.poemLine:hover {
+    color: #8b4513;
+    transform: translateY(-1px);
 }
 
 .translation {
@@ -45,6 +78,9 @@
     background: #f9f0e6;
     border-radius: 8px;
     text-align: center;
+    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+    transform: translateY(5px);
+    transition: all 0.3s ease;
 }
 
 .translationToggle {
