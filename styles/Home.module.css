@@ -259,7 +259,7 @@
     }
 
     .searchInput {
-        width: 95%;
+        /* width: 95%; */
         font-size: 14px;
     }
 }
