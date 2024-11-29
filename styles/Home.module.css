@@ -179,6 +179,12 @@
 
 .poemPreview p {
     margin: 5px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2; /* 显示两行 */
+    -webkit-box-orient: vertical;
 }
 
 .clearCacheButton {

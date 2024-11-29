@@ -54,16 +54,12 @@
 }
 
 .poemLine {
-    margin-bottom: 20px;
     position: relative;
-    /* text-align: center; */
     color: #3a2b1f;
     transition: color 0.3s ease;
     cursor: pointer;
     font-family: 'Noto Serif SC', serif;
     font-size: 18px;
-    line-height: 1.8;
-    letter-spacing: 1px;
     padding: 10px 0;
     transition: all 0.3s ease;
 }

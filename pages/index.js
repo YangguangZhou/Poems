@@ -32,6 +32,31 @@ export default function Home({ poems }) {
     localStorage.setItem('searchHistory', JSON.stringify(newHistory));
   };
 
+  const getPreview = (poem) => {
+    const isClassical = poem.tags.includes('文言文');
+    const firstTwoLines = poem.content.slice(0, 2).join('\n');
+    if (isClassical && firstTwoLines.length > 50) {
+      let preview = '';
+      let count = 0;
+      for (let char of firstTwoLines) {
+        if (count < 50) {
+          preview += char;
+          count++;
+        } else {
+          preview += '...';
+          break;
+        }
+      }
+      return preview.split('\n').map((line, index) => (
+        <p key={index}>{line}</p>
+      ));
+    } else {
+      return poem.content.slice(0, 2).map((line, i) => (
+        <p key={i}>{line}</p>
+      ));
+    }
+  };
+
   const filteredPoems = poems.filter(poem => {
     const searchContent = (
       poem.title +
@@ -99,9 +124,7 @@ export default function Home({ poems }) {
                     ))}
                   </div>
                   <div className={styles.poemPreview}>
-                    {poem.content.slice(0, 2).map((line, i) => (
-                      <p key={i}>{line}</p>
-                    ))}
+                    {getPreview(poem)}
                   </div>
                 </div>
               </Link>
