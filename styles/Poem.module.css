@@ -6,136 +6,108 @@
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(139, 69, 19, 0.1);
     border: 1px solid rgba(139, 69, 19, 0.2);
-    position: relative;
-}
-
-.container::before {
-    content: '';
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 2px solid rgba(139, 69, 19, 0.1);
-    border-radius: 10px;
-    pointer-events: none;
 }
 
 .title {
     text-align: center;
     font-size: 42px;
-    font-weight: 500;
-    color: #8B4513;
+    font-weight: 600;
+    color: #8b4513;
     margin-bottom: 15px;
-    padding-bottom: 20px;
+    border-bottom: 2px solid #8b4513;
+    padding-bottom: 15px;
     font-family: "Ma Shan Zheng", "楷体", serif;
-    position: relative;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.title::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #8B4513, transparent);
-}
-
-.homeButton {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    display: flex;
-    align-items: center;
-    padding: 8px 16px;
-    background: transparent;
-    color: #8B4513;
-    border: 1px solid #8B4513;
-    border-radius: 4px;
-    text-decoration: none;
+.author {
+    text-align: right;
+    font-size: 20px;
+    color: #6b4423;
+    margin-bottom: 30px;
     font-family: 'Noto Serif SC', serif;
-    font-size: 14px;
-    transition: all 0.3s ease;
-}
-
-.homeButton:hover {
-    background: rgba(139, 69, 19, 0.1);
-    transform: translateY(-2px);
-}
-
-.homeButton::before {
-    content: '←';
-    margin-right: 8px;
-    font-size: 16px;
+    font-style: italic;
 }
 
 .poemLine {
-    margin: 25px 0;
-    font-size: 22px;
-    line-height: 1.8;
+    margin-bottom: 25px;
+    position: relative;
     text-align: center;
-    color: #4A3626;
-    cursor: pointer;
+    color: #3a2b1f;
     transition: all 0.3s ease;
+    cursor: pointer;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    line-height: 1.8;
 }
 
 .poemLine:hover {
-    color: #8B4513;
-    transform: translateY(-2px);
+    color: #8b4513;
+    transform: scale(1.02);
 }
 
 .translation {
+    font-family: 'Noto Serif SC', serif;
     font-size: 16px;
-    color: #6B4423;
+    color: #6b4423;
     margin-top: 12px;
     padding: 15px;
-    background: rgba(139, 69, 19, 0.05);
+    background: rgba(249, 240, 230, 0.8);
     border-radius: 8px;
-    border: 1px dashed rgba(139, 69, 19, 0.2);
+    text-align: center;
+    border: 1px dashed #d4a161;
 }
 
 .translationToggle {
-    display: inline-block;
-    padding: 8px 20px;
-    margin: 20px 0;
-    color: #8B4513;
+    text-align: center;
+    color: #8b4513;
     cursor: pointer;
-    border: 1px solid rgba(139, 69, 19, 0.3);
-    border-radius: 20px;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    margin: 20px 0 30px;
+    padding: 10px;
+    background: rgba(139, 69, 19, 0.1);
+    border-radius: 8px;
     transition: all 0.3s ease;
 }
 
 .translationToggle:hover {
-    background: rgba(139, 69, 19, 0.05);
-    transform: translateY(-2px);
+    background: rgba(139, 69, 19, 0.15);
+    transform: scale(1.02);
 }
 
-.author {
-    text-align: center;
-    font-size: 18px;
-    color: #6B4423;
-    margin: 20px 0;
-    font-family: "Ma Shan Zheng", "楷体", serif;
+.homeButton {
     position: relative;
-    padding: 0 40px;
+    display: inline-block;
+    padding: 8px 25px;
+    margin-bottom: 30px;
+    color: #8b4513;
+    text-decoration: none;
+    font-family: 'Ma Shan Zheng', serif;
+    font-size: 18px;
+    border: 2px solid #8b4513;
+    border-radius: 4px;
+    background: transparent;
+    transition: all 0.3s ease;
+    overflow: hidden;
 }
 
-.author::before,
-.author::after {
-    content: '•';
+.homeButton::before {
+    content: '';
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #8B4513;
-    font-size: 24px;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(139, 69, 19, 0.1);
+    transition: all 0.3s ease;
 }
 
-.author::before {
+.homeButton:hover::before {
     left: 0;
 }
 
-.author::after {
-    right: 0;
+.homeButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(139, 69, 19, 0.2);
 }
