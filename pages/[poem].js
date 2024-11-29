@@ -53,6 +53,7 @@ export default function PoemPage({ poem }) {
               <div
                 id={`translation-${index}`}
                 className={styles.translation}
+                style={{ display: 'none' }}
               >
                 {poem.translation[index]}
               </div>
