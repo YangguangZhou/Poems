@@ -111,7 +111,7 @@ export default function PoemPage({ poem }) {
         <div>
           Copyright © 2024
           {' '}
-          <a href="https://jerryz.com.cn" target="_blank" style="text-decoration: none;">
+          <a href="https://jerryz.com.cn" target="_blank">
             Jerry Zhou
           </a>
         </div>

@@ -1,101 +1,101 @@
 .container {
-    max-width: 700px;
-    margin: 40px auto;
-    background: rgba(255, 252, 249, 0.95);
-    padding: 50px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    background: linear-gradient(to bottom, rgba(255, 252, 249, 0.97), rgba(255, 252, 249, 0.93));
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(139, 69, 19, 0.1);
+  max-width: 700px;
+  margin: 40px auto;
+  background: rgba(255, 252, 249, 0.95);
+  padding: 50px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  background: linear-gradient(to bottom, rgba(255, 252, 249, 0.97), rgba(255, 252, 249, 0.93));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 69, 19, 0.1);
 }
 
 .tags {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .tag {
-    display: inline-block;
-    background-color: #ffcd9b;
-    color: #654321;
-    padding: 5px 10px;
-    border-radius: 12px;
-    margin-right: 5px;
-    font-size: 14px;
+  display: inline-block;
+  background-color: #ffcd9b;
+  color: #654321;
+  padding: 5px 10px;
+  border-radius: 12px;
+  margin-right: 5px;
+  font-size: 14px;
 }
 
 .title {
-    text-align: center;
-    font-size: 36px;
-    font-weight: 600;
-    color: #4a3626;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #8b4513;
-    padding-bottom: 15px;
-    font-family: "Ma Shan Zheng", "楷体", serif;
+  text-align: center;
+  font-size: 36px;
+  font-weight: 600;
+  color: #4a3626;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #8b4513;
+  padding-bottom: 15px;
+  font-family: "Ma Shan Zheng", "楷体", serif;
 }
 
 .author {
-    text-align: right;
-    font-size: 18px;
-    color: #6b4423;
-    margin-bottom: 20px;
-    font-family: 'Noto Serif SC', serif;
+  text-align: right;
+  font-size: 18px;
+  color: #6b4423;
+  margin-bottom: 20px;
+  font-family: 'Noto Serif SC', serif;
 }
 
 .contentClassical {
-    text-align: left;
-    text-indent: 2em;
-    line-height: 1.8;
+  text-align: left;
+  text-indent: 2em;
+  line-height: 1.8;
 }
 
 .content {
-    text-align: center;
+  text-align: center;
 }
 
 .poemLine {
-    position: relative;
-    color: #3a2b1f;
-    transition: color 0.3s ease;
-    cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 18px;
-    padding: 10px 0;
-    transition: all 0.3s ease;
+  position: relative;
+  color: #3a2b1f;
+  /* transition: color 0.3s ease; */
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 18px;
+  padding: 10px 0;
+  /* transition: all 0.3s ease; */
 }
 
-.poemLine:hover {
+/* .poemLine:hover {
     color: #8b4513;
     transform: translateY(-1px);
-}
+} */
 
 .translation {
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    color: #6b4423;
-    margin-top: 10px;
-    padding: 15px;
-    background: #f9f0e6;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
-    transform: translateY(5px);
-    transition: all 0.3s ease;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px;
+  color: #6b4423;
+  margin-top: 10px;
+  padding: 15px;
+  background: #f9f0e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
+  /* transform: translateY(5px);
+    transition: all 0.3s ease; */
 }
 
 .translationToggle {
-    text-align: center;
-    color: #8b4513;
-    cursor: pointer;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 16px;
-    margin-bottom: 30px;
-    transition: color 0.3s ease;
+  text-align: center;
+  color: #8b4513;
+  cursor: pointer;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 16px;
+  margin-bottom: 30px;
+  transition: color 0.3s ease;
 }
 
 .translationToggle:hover {
-    color: #654321;
-    text-decoration: underline;
+  color: #654321;
+  text-decoration: underline;
 }
 
 .homeButton {
@@ -155,13 +155,18 @@
   }
 }
 
-/* 新增 Footer 样式 */
 .footer {
   text-align: center;
   margin-top: 40px;
   color: #888;
   font-family: 'Noto Serif SC', serif;
   font-size: 14px;
+}
+
+.footer div a {
+  text-decoration: none;
+  color: #888;
+  font-weight: bold;
 }
 
 .clearCacheLink {
