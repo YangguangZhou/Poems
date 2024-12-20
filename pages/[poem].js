@@ -28,32 +28,26 @@ export default function PoemPage({ poem }) {
 
   const toggleAllTranslations = () => {
     setShowTranslations(!showTranslations);
-    const translations = document.querySelectorAll(`.${styles.translation}`);
-    translations.forEach(translation => {
+    document.querySelectorAll(`.${styles.translation}`).forEach(translation => {
       translation.style.display = !showTranslations ? 'block' : 'none';
     });
   };
 
-  // 使用 <ruby><rt> 标签将带音调拼音显示在每个字符上方
-  const renderLineWithPinyin = (line) => {
-    return (
-      <>
-        {line.split('').map((char, i) => {
-          if (/\s/.test(char)) {
-            return <span key={i}>{char}</span>;
-          }
-          return (
+  const renderLineWithPinyin = (line) => (
+    <>
+      {line.split('').map((char, i) => (
+        /\s/.test(char)
+          ? <span key={i}>{char}</span>
+          : (
             <ruby key={i}>
               {char}
               <rt>{pinyin(char, { toneType: 'mark' })}</rt>
             </ruby>
-          );
-        })}
-      </>
-    );
-  };
+          )
+      ))}
+    </>
+  );
 
-  // 清除缓存函数（仅示例，可以根据需求添加环境判断）
   const handleClearCache = async () => {
     await fetch('/api/clearCache', { method: 'POST' });
     localStorage.clear();
@@ -90,41 +84,38 @@ export default function PoemPage({ poem }) {
         </div>
 
         <div className={isClassical ? styles.contentClassical : styles.content}>
-          {poem.content.map((line, index) => (
+          {poem.content.map((line, idx) => (
             <div
-              key={index}
-              className={styles.poemLine}
-              onClick={() => toggleTranslation(index)}
+              key={idx}
+              className={`${styles.poemLine} ${showPinyin ? styles.showPinyin : ''}`}
+              onClick={() => toggleTranslation(idx)}
             >
-              {!showPinyin 
-                ? line
-                : renderLineWithPinyin(line)
-              }
+              {showPinyin ? renderLineWithPinyin(line) : line}
               <div
-                id={`translation-${index}`}
+                id={`translation-${idx}`}
                 className={styles.translation}
                 style={{ display: 'none' }}
               >
-                {poem.translation[index]}
+                {poem.translation[idx]}
               </div>
             </div>
           ))}
         </div>
-
-        {/* 底部 Footer */}
-        <footer className={styles.footer}>
-          <a className={styles.clearCacheLink} onClick={handleClearCache}>
-            清除缓存
-          </a>
-          <div>
-            Copyright © 2024 
-            {' '}
-            <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
-              Jerry Zhou
-            </a>
-          </div>
-        </footer>
       </div>
+
+      {/* 底部 Footer */}
+      <footer className={styles.footer}>
+        <a className={styles.clearCacheLink} onClick={handleClearCache}>
+          清除缓存
+        </a>
+        <div>
+          Copyright © 2024
+          {' '}
+          <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
+            Jerry Zhou
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

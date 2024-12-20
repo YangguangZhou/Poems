@@ -148,20 +148,20 @@ export default function Home({ poems }) {
           ))}
         </ul>
 
-        {/* 新增 Footer */}
-        <footer className={styles.footer}>
-          <a className={styles.clearCacheLink} onClick={handleClearCache}>
-            清除缓存
-          </a>
-          <div>
-            Copyright © 2024 
-            {' '}
-            <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
-              Jerry Zhou
-            </a>
-          </div>
-        </footer>
       </div>
+      {/* 底部 Footer */}
+      <footer className={styles.footer}>
+        <a className={styles.clearCacheLink} onClick={handleClearCache}>
+          清除缓存
+        </a>
+        <div>
+          Copyright © 2024
+          {' '}
+          <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
+            Jerry Zhou
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

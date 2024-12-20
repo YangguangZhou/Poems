@@ -172,3 +172,10 @@
   color: #888;
   text-decoration: none;
 }
+
+.showPinyin {
+  letter-spacing: 3px;
+}
+.showPinyin ruby rt {
+  font-size: 18px;
+}
