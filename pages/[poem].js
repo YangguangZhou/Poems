@@ -1,3 +1,4 @@
+// 1) 安装依赖：npm install pinyin-pro
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -5,9 +6,11 @@ import styles from '../styles/Poem.module.css';
 import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 import Link from 'next/link';
+import { pinyin } from 'pinyin-pro'; // 新增导入
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
+  const [showPinyin, setShowPinyin] = useState(false); // 新增开关
   const isClassical = poem.tags.includes('文言文');
 
   useEffect(() => {
@@ -32,6 +35,11 @@ export default function PoemPage({ poem }) {
     });
   };
 
+  // 新增：拼音生成
+  const getPinyin = (line) => {
+    return pinyin(line, { toneType: 'none' }); 
+  };
+
   return (
     <>
       <Head>
@@ -54,6 +62,10 @@ export default function PoemPage({ poem }) {
         <div className={styles.translationToggle} onClick={toggleAllTranslations}>
           显示/隐藏翻译
         </div>
+        {/* 新增拼音按钮 */}
+        <div className={styles.translationToggle} onClick={() => setShowPinyin(!showPinyin)}>
+          显示/隐藏拼音
+        </div>
 
         <div className={isClassical ? styles.contentClassical : styles.content}>
           {poem.content.map((line, index) => (
@@ -63,6 +75,11 @@ export default function PoemPage({ poem }) {
               onClick={() => toggleTranslation(index)}
             >
               {line}
+              {showPinyin && (
+                <div className={styles.pinyin}>
+                  {getPinyin(line)}
+                </div>
+              )}
               <div
                 id={`translation-${index}`}
                 className={styles.translation}

@@ -9,6 +9,7 @@
     "dependencies": {
         "debug": "^4.3.7",
         "next": "latest",
+        "pinyin-pro": "^3.26.0",
         "react": "latest",
         "react-dom": "latest"
     }
