@@ -95,7 +95,7 @@ export default function Home({ poems }) {
         />
       </Head>
       <div className={styles.container}>
-        <h1 className={styles.title}>古诗文</h1>
+        <h1 className={styles.title}>古诗文 | Jerry Zhou</h1>
 
         <div className={styles.searchContainer}>
           <input

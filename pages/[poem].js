@@ -57,7 +57,7 @@ export default function PoemPage({ poem }) {
   return (
     <>
       <Head>
-        <title>{poem.title}</title>
+        <title>{poem.title} | 古诗文</title>
         <link
           rel="icon"
           href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
