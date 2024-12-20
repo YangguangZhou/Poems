@@ -1,4 +1,3 @@
-// 1) 安装依赖：npm install pinyin-pro
 import fs from 'fs';
 import path from 'path';
 import Head from 'next/head';
@@ -6,11 +5,11 @@ import styles from '../styles/Poem.module.css';
 import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 import Link from 'next/link';
-import { pinyin } from 'pinyin-pro'; // 新增导入
+import { pinyin } from 'pinyin-pro';
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
-  const [showPinyin, setShowPinyin] = useState(false); // 新增开关
+  const [showPinyin, setShowPinyin] = useState(false);
   const isClassical = poem.tags.includes('文言文');
 
   useEffect(() => {
@@ -35,16 +34,33 @@ export default function PoemPage({ poem }) {
     });
   };
 
-  // 新增：拼音生成
-  const getPinyin = (line) => {
-    return pinyin(line, { toneType: 'none' }); 
+  // 使用 <ruby><rt> 标签将带音调拼音显示在每个字符上方
+  const renderLineWithPinyin = (line) => {
+    return (
+      <>
+        {line.split('').map((char, i) => {
+          if (/\s/.test(char)) {
+            return <span key={i}>{char}</span>;
+          }
+          return (
+            <ruby key={i}>
+              {char}
+              <rt>{pinyin(char, { toneType: 'mark' })}</rt>
+            </ruby>
+          );
+        })}
+      </>
+    );
   };
 
   return (
     <>
       <Head>
         <title>{poem.title}</title>
-        <link rel="icon" href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"></link>
+        <link
+          rel="icon"
+          href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
+        />
       </Head>
       <div className={styles.container}>
         <Link href="/" className={styles.homeButton}>
@@ -62,7 +78,6 @@ export default function PoemPage({ poem }) {
         <div className={styles.translationToggle} onClick={toggleAllTranslations}>
           显示/隐藏翻译
         </div>
-        {/* 新增拼音按钮 */}
         <div className={styles.translationToggle} onClick={() => setShowPinyin(!showPinyin)}>
           显示/隐藏拼音
         </div>
@@ -74,12 +89,10 @@ export default function PoemPage({ poem }) {
               className={styles.poemLine}
               onClick={() => toggleTranslation(index)}
             >
-              {line}
-              {showPinyin && (
-                <div className={styles.pinyin}>
-                  {getPinyin(line)}
-                </div>
-              )}
+              {!showPinyin 
+                ? line
+                : renderLineWithPinyin(line)
+              }
               <div
                 id={`translation-${index}`}
                 className={styles.translation}
