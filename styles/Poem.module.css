@@ -173,9 +173,14 @@
   text-decoration: none;
 }
 
-.showPinyin {
+/* .showPinyin {
   letter-spacing: 3px;
+} */
+
+.showPinyin ruby {
+  margin: 0 5px;
 }
+
 .showPinyin ruby rt {
-  font-size: 18px;
+  font-size: 14px;
 }

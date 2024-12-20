@@ -157,7 +157,7 @@ export default function Home({ poems }) {
         <div>
           Copyright © 2024
           {' '}
-          <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
+          <a href="https://jerryz.com.cn" target="_blank" style="text-decoration: none;">
             Jerry Zhou
           </a>
         </div>
