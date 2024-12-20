@@ -47,6 +47,7 @@
 .searchContainer {
     margin: 20px 0;
     text-align: center;
+    position: relative;
 }
 
 .searchInput {
@@ -82,12 +83,6 @@
     font-size: 14px;
 }
 
-.searchContainer {
-  margin: 20px 0;
-  text-align: center;
-  position: relative;
-}
-
 .searchHistoryDropdown {
   position: absolute;
   top: 100%;
@@ -117,18 +112,6 @@
 
 .searchHistoryItem:hover {
   background: rgba(139, 69, 19, 0.1);
-}
-
-@media screen and (max-width: 768px) {
-  .searchHistoryDropdown {
-    width: 90%;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .searchHistoryDropdown {
-    width: 95%;
-  }
 }
 
 .poemItem {
@@ -183,24 +166,13 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     line-clamp: 2;
-    -webkit-line-clamp: 2; /* 显示两行 */
+    -webkit-line-clamp: 2; 
     -webkit-box-orient: vertical;
 }
 
+/* 原有的清除缓存按钮不再使用，请改为 link */
 .clearCacheButton {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #ff6347;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
-
-.clearCacheButton:hover {
-    background-color: #ff4500;
+    display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -259,7 +231,24 @@
     }
 
     .searchInput {
-        /* width: 95%; */
         font-size: 14px;
     }
+}
+
+/* 新增 Footer 样式 */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #888;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px;
+}
+
+.clearCacheLink {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #888;
+  text-decoration: none;
 }

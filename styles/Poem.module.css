@@ -78,7 +78,6 @@
     padding: 15px;
     background: #f9f0e6;
     border-radius: 8px;
-    /* text-align: center; */
     box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
     transform: translateY(5px);
     transition: all 0.3s ease;
@@ -115,7 +114,7 @@
   text-decoration: underline;
 }
 
-/* 添加移动设备适配 */
+/* 移动设备适配 */
 @media screen and (max-width: 768px) {
   .container {
     margin: 20px;
@@ -154,4 +153,22 @@
   .title {
     font-size: 24px;
   }
+}
+
+/* 新增 Footer 样式 */
+.footer {
+  text-align: center;
+  margin-top: 40px;
+  color: #888;
+  font-family: 'Noto Serif SC', serif;
+  font-size: 14px;
+}
+
+.clearCacheLink {
+  display: inline-block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #888;
+  text-decoration: none;
 }

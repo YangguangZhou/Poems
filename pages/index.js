@@ -57,29 +57,42 @@ export default function Home({ poems }) {
     }
   };
 
-  const filteredPoems = poems.filter(poem => {
-    const searchContent = (
-      poem.title +
-      poem.author +
-      poem.content.join('') +
-      poem.translation.join('') +
-      poem.tags.join(',')
-    ).toLowerCase();
-    return searchContent.includes(searchTerm.toLowerCase());
-  }).sort((a, b) => {
-    const aIndex = accessOrder.indexOf(a.title);
-    const bIndex = accessOrder.indexOf(b.title);
-    if (aIndex === -1 && bIndex === -1) return 0;
-    if (aIndex === -1) return 1;
-    if (bIndex === -1) return -1;
-    return aIndex - bIndex;
-  });
+  const filteredPoems = poems
+    .filter((poem) => {
+      const searchContent = (
+        poem.title +
+        poem.author +
+        poem.content.join('') +
+        poem.translation.join('') +
+        poem.tags.join(',')
+      ).toLowerCase();
+      return searchContent.includes(searchTerm.toLowerCase());
+    })
+    .sort((a, b) => {
+      const aIndex = accessOrder.indexOf(a.title);
+      const bIndex = accessOrder.indexOf(b.title);
+      if (aIndex === -1 && bIndex === -1) return 0;
+      if (aIndex === -1) return 1;
+      if (bIndex === -1) return -1;
+      return aIndex - bIndex;
+    });
+
+  const handleClearCache = async () => {
+    await fetch('/api/clearCache', { method: 'POST' });
+    localStorage.clear();
+    setSearchHistory([]);
+    setAccessOrder([]);
+    alert('缓存已清除');
+  };
 
   return (
     <>
       <Head>
         <title>古诗文</title>
-        <link rel="icon" href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"></link>
+        <link
+          rel="icon"
+          href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
+        />
       </Head>
       <div className={styles.container}>
         <h1 className={styles.title}>古诗文</h1>
@@ -112,7 +125,10 @@ export default function Home({ poems }) {
         <ul className={styles.poemList}>
           {filteredPoems.map((poem, index) => (
             <li key={index} className={styles.poemItem}>
-              <Link href={`/${encodeURIComponent(poem.title)}`} onClick={() => handleSearchClick(poem)}>
+              <Link
+                href={`/${encodeURIComponent(poem.title)}`}
+                onClick={() => handleSearchClick(poem)}
+              >
                 <div className={styles.poemCard}>
                   <div className={styles.poemHeader}>
                     <span className={styles.poemTitle}>{poem.title}</span>
@@ -131,19 +147,20 @@ export default function Home({ poems }) {
             </li>
           ))}
         </ul>
-        {process.env.NODE_ENV === 'development' && (
-          <button
-            onClick={async () => {
-              await fetch('/api/clearCache', { method: 'POST' });
-              localStorage.clear();
-              setSearchHistory([]);
-              setAccessOrder([]);
-            }}
-            className={styles.clearCacheButton}
-          >
+
+        {/* 新增 Footer */}
+        <footer className={styles.footer}>
+          <a className={styles.clearCacheLink} onClick={handleClearCache}>
             清除缓存
-          </button>
-        )}
+          </a>
+          <div>
+            Copyright © 2024 
+            {' '}
+            <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
+              Jerry Zhou
+            </a>
+          </div>
+        </footer>
       </div>
     </>
   );

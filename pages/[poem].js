@@ -53,6 +53,13 @@ export default function PoemPage({ poem }) {
     );
   };
 
+  // 清除缓存函数（仅示例，可以根据需求添加环境判断）
+  const handleClearCache = async () => {
+    await fetch('/api/clearCache', { method: 'POST' });
+    localStorage.clear();
+    alert('缓存已清除');
+  };
+
   return (
     <>
       <Head>
@@ -103,6 +110,20 @@ export default function PoemPage({ poem }) {
             </div>
           ))}
         </div>
+
+        {/* 底部 Footer */}
+        <footer className={styles.footer}>
+          <a className={styles.clearCacheLink} onClick={handleClearCache}>
+            清除缓存
+          </a>
+          <div>
+            Copyright © 2024 
+            {' '}
+            <a href="https://jerryz.com.cn" target="_blank" rel="noreferrer">
+              Jerry Zhou
+            </a>
+          </div>
+        </footer>
       </div>
     </>
   );
