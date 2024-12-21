@@ -88,14 +88,14 @@ export default function Home({ poems }) {
   return (
     <>
       <Head>
-        <title>古诗文</title>
+        <title>古诗文 | Jerry Zhou</title>
         <link
           rel="icon"
           href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
         />
       </Head>
       <div className={styles.container}>
-        <h1 className={styles.title}>古诗文 | Jerry Zhou</h1>
+        <h1 className={styles.title}>古诗文</h1>
 
         <div className={styles.searchContainer}>
           <input
