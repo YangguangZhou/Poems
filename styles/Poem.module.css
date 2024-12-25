@@ -191,7 +191,7 @@
 }
 
 #printStamp {
-  display: none;
+  display: none !important;
 }
 
 @media print {
