@@ -189,3 +189,23 @@
 .showPinyin ruby rt {
   font-size: 14px;
 }
+
+#printStamp {
+  display: none;
+}
+
+@media print {
+  .homeButton,
+  .translationToggle,
+  .clearCacheLink,
+  .printLink {
+    display: none !important;
+  }
+  #printStamp {
+    display: block;
+    margin-bottom: 10px;
+    color: #333;
+    font-family: 'Noto Serif SC', serif;
+    font-size: 12px;
+  }
+}

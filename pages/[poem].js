@@ -54,6 +54,12 @@ export default function PoemPage({ poem }) {
     alert('缓存已清除');
   };
 
+  const handlePrint = () => {
+    if (typeof window !== 'undefined') {
+      window.print();
+    }
+  };
+
   return (
     <>
       <Head>
@@ -103,10 +109,13 @@ export default function PoemPage({ poem }) {
         </div>
       </div>
 
-      {/* 底部 Footer */}
       <footer className={styles.footer}>
+        <div id="printStamp" className={styles.printStamp}>Printed by poems.jerryz.com.cn</div>
         <a className={styles.clearCacheLink} onClick={handleClearCache}>
           清除缓存
+        </a>
+        <a className={`${styles.clearCacheLink} printLink`} onClick={handlePrint}>
+          打印为 PDF
         </a>
         <div>
           Copyright © 2024
