@@ -110,7 +110,7 @@ export default function PoemPage({ poem }) {
       </div>
 
       <footer className={styles.footer}>
-        <div id="printStamp" className={styles.printStamp} style={{ display: 'none' }}>Printed by poems.jerryz.com.cn</div>
+        <div id="printStamp" className={styles.printStamp}>Printed by poems.jerryz.com.cn</div>
         <a className={styles.clearCacheLink} onClick={handleClearCache}>
           清除缓存
         </a>

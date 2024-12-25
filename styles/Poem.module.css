@@ -190,7 +190,7 @@
   font-size: 14px;
 }
 
-#printStamp {
+.printStamp {
   display: none !important;
 }
 
@@ -202,7 +202,7 @@
   .printLink {
     display: none !important;
   }
-  #printStamp {
+  .printStamp {
     display: block;
     margin-bottom: 10px;
     color: #333;
