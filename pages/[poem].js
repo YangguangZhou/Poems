@@ -10,7 +10,7 @@ import { pinyin } from 'pinyin-pro';
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
   const [showPinyin, setShowPinyin] = useState(false);
-  const isClassical = poem.tags.includes('文言文');
+  const isClassical = poem.tags.includes('文言文') || poem.tags.includes('词');
 
   useEffect(() => {
     const access = JSON.parse(localStorage.getItem('accessOrder')) || [];
