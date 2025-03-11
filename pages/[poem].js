@@ -68,6 +68,8 @@ export default function PoemPage({ poem }) {
           rel="icon"
           href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
         />
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
+        <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
       </Head>
       <div className={styles.container}>
         <Link href="/" className={styles.homeButton}>
