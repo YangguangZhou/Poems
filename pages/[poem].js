@@ -84,7 +84,7 @@ export default function PoemPage({ poem }) {
         description={truncatedDesc}
         canonical={`https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`}
         openGraph={{
-          title: `${poem.title} | 古诗文`,
+          title: `${poem.title} | Poems`,
           description: truncatedDesc,
           url: `https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`,
         }}

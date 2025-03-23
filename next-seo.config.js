@@ -1,5 +1,5 @@
 export default {
-    titleTemplate: '%s | Poems',
+    titleTemplate: '%s',
     defaultTitle: 'Poems - 古诗文',
     description: '提供高中语文必背古诗文，支持查看原文、翻译和拼音标注。',
     canonical: 'https://poems.jerryz.com.cn/',

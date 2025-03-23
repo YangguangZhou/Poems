@@ -457,12 +457,12 @@ export default function RecitePage({ poem }) {
                                         </button>
                                     )}
 
-                                    {hideLevel !== 0 && hideLevel < 5 && (
+                                    {hideLevel !== 0 && hideLevel < 6 && (
                                         <>
                                             <button
                                                 className={`${styles.controlButton} ${styles.difficultyUp}`}
                                                 onClick={increaseHideLevel}
-                                                disabled={hideLevel >= 4}
+                                                disabled={hideLevel >= 5}
                                             >
                                                 增加难度
                                             </button>
