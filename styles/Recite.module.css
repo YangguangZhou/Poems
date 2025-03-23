@@ -1,3 +1,5 @@
+/* 主要样式修改，使字体更小，优化背诵界面 */
+
 .reciteContainer {
     max-width: 800px;
     margin: 0 auto;
@@ -10,18 +12,146 @@
     margin-bottom: 2rem;
 }
 
-.reciteContainer::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 3px;
-    background-color: var(--accent);
-    border-top-left-radius: var(--radius);
-    border-bottom-left-radius: var(--radius);
+/* 通读模式样式 */
+.readthroughMode {
+    padding: 1.5rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
+.lineWithTranslation {
+    margin: 1rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px dashed var(--border);
+}
+
+.originalLine {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.hiddenLine {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.translationLine {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 0.4rem 0.8rem;
+    background-color: rgba(179, 109, 97, 0.08);
+    border-radius: var(--radius);
+}
+
+/* 背诵控制头部 */
+.reciteHeader {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1.5rem;
+}
+
+.difficultyInfo {
+    margin-bottom: 0.75rem;
+    text-align: center;
+}
+
+.difficultyLabel {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.8rem;
+    background-color: var(--background);
+    border-radius: 20px;
+    color: var(--text-light);
+    display: inline-block;
+}
+
+.controlButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.controlButton {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.translationToggle {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.difficultyUp {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.difficultyDown {
+    background-color: #38a169;
+    color: white;
+}
+
+.showOriginal {
+    background-color: var(--accent);
+    color: white;
+}
+
+.controlButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.controlButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+}
+
+/* 背诵内容区域 */
+.reciteAllContent {
+    background-color: var(--background);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.finishButtonContainer {
+    margin-top: 1.5rem;
+    text-align: center;
+}
+
+.finishButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.finishButton:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 其他样式保持不变... */
 .backButton {
     display: inline-block;
     margin-bottom: 2rem;
@@ -353,18 +483,6 @@
     margin-bottom: 1rem;
 }
 
-.activeLineContainer {
-    margin: 1.5rem 0;
-}
-
-.activeLine {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin: 0.5rem 0;
-    text-align: center;
-    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
-}
-
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -438,36 +556,6 @@
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
 
-.readthroughMode {
-    padding: 1rem;
-    background-color: var(--background);
-    border-radius: var(--radius);
-    margin-bottom: 1.5rem;
-}
-
-.lineWithTranslation {
-    margin: 1.5rem 0;
-    padding-bottom: 1rem;
-    border-bottom: 1px dashed var(--border);
-}
-
-.originalLine {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 0.75rem;
-    text-align: center;
-    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
-}
-
-.translationLine {
-    font-size: 0.9rem;
-    color: var(--text-light);
-    font-style: italic;
-    padding: 0.5rem 1rem;
-    background-color: rgba(179, 109, 97, 0.08);
-    border-radius: var(--radius);
-}
-
 .startButton {
     background-color: var(--accent);
     color: white;
@@ -501,4 +589,32 @@
 .dangerButton:hover {
     background-color: #c53030;
     transform: translateY(-2px);
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+    .reciteContainer {
+        margin: 1rem 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .controlButtons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .originalLine,
+    .hiddenLine {
+        font-size: 1rem;
+    }
+
+    .translationLine {
+        font-size: 0.8rem;
+    }
+
+    .reciteAllContent,
+    .readthroughMode {
+        max-height: 400px;
+        padding: 1rem;
+    }
 }

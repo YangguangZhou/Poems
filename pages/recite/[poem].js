@@ -7,22 +7,22 @@ import path from 'path';
 import styles from '../../styles/Recite.module.css';
 import { parsePoems } from '../../lib/parsePoems';
 import { NextSeo } from 'next-seo';
-import { pinyin } from 'pinyin-pro';
 
 export default function RecitePage({ poem }) {
   const router = useRouter();
   const [mode, setMode] = useState('prepare'); // prepare, recite, test, complete
-  const [hideLevel, setHideLevel] = useState(0); // 0: 通读模式(全部显示), 1-3: 不同程度挖空, 4: 测试模式(全隐藏)
-  const [recitingIndex, setRecitingIndex] = useState(0);
+  const [hideLevel, setHideLevel] = useState(0);
   const [mastery, setMastery] = useState({});
   const [stats, setStats] = useState({ startTime: null, attempts: 0, hints: 0 });
   const [theme, setTheme] = useState('light');
   const [nextReviewDate, setNextReviewDate] = useState(null);
   const [showingOriginal, setShowingOriginal] = useState(false);
+  const [showTranslations, setShowTranslations] = useState(true);
+  const [isFirstRecitation, setIsFirstRecitation] = useState(true);
   const timerRef = useRef(null);
   
   // 定义标点符号集合
-  const punctuations = "，。、；：？！“”‘’「」『』《》（）【】—…";
+  const punctuations = "，。、；：？！「」『』《》（）【】—…,.;:?!\"'`()<>{}[]“”‘’……";
   
   // 初始化数据
   useEffect(() => {
@@ -38,6 +38,7 @@ export default function RecitePage({ poem }) {
     const savedMastery = JSON.parse(localStorage.getItem('poemMastery')) || {};
     if (savedMastery[poem.title]) {
       setMastery(savedMastery[poem.title]);
+      setIsFirstRecitation(false);
       
       // 计算下次复习时间
       if (savedMastery[poem.title].lastReview) {
@@ -58,19 +59,44 @@ export default function RecitePage({ poem }) {
     };
   }, [poem]);
 
-  // 开始背诵 - 现在从通读模式开始
+  // 根据掌握程度决定初始挖空难度
+  const getDifficultyByMastery = (masteryLevel) => {
+    // 基于掌握程度自动设置难度
+    switch(masteryLevel) {
+      case 0:
+      case 1:
+        return 1; // 初学阶段：少量挖空
+      case 2:
+        return 2; // 已记阶段：中等挖空
+      case 3:
+        return 3; // 熟悉阶段：大量挖空
+      case 4:
+      case 5:
+        return 4; // 精通或完美阶段：几乎全部挖空
+      default:
+        return 1;
+    }
+  };
+
+  // 开始背诵
   const startReciting = () => {
+    if (isFirstRecitation) {
+      // 首次背诵从通读模式开始
+      setHideLevel(0);
+    } else {
+      // 非首次背诵直接进入挖空模式，根据掌握程度设置难度
+      const difficulty = getDifficultyByMastery(mastery.level || 0);
+      setHideLevel(difficulty);
+    }
+    
     setMode('recite');
-    setRecitingIndex(0); // 确保总是从第一段开始
-    setHideLevel(0); // 从通读模式开始 (全部显示)
     setStats({ ...stats, startTime: new Date() });
   };
 
   // 开始测试
   const startTest = () => {
     setMode('test');
-    setRecitingIndex(0); // 确保从第一段开始
-    setHideLevel(4); // 测试模式，全部隐藏
+    setHideLevel(5); // 测试模式，全部隐藏
   };
   
   // 重置背诵记录
@@ -84,16 +110,39 @@ export default function RecitePage({ poem }) {
         localStorage.setItem('poemMastery', JSON.stringify(allMastery));
         setMastery({});
         setNextReviewDate(null);
+        setIsFirstRecitation(true);
         alert("背诵记录已清除");
       }
     }
   };
 
-  // 查看原文/隐藏原文
+  // 从通读模式进入背诵模式
+  const startHiding = () => {
+    setHideLevel(1); // 开始少量挖空
+  };
+
+  // 增加挖空级别（更难）
+  const increaseHideLevel = () => {
+    if (hideLevel < 4) {
+      setHideLevel(hideLevel + 1);
+      setStats({ ...stats, hints: stats.hints - 1 }); // 减少提示次数
+    }
+  };
+  
+  // 减少挖空级别（更简单，算作使用提示）
+  const decreaseHideLevel = () => {
+    if (hideLevel > 1) {
+      setHideLevel(hideLevel - 1);
+      setStats({ ...stats, hints: stats.hints + 1 }); // 增加提示次数
+    }
+  };
+
+  // 查看原文
   const toggleOriginal = () => {
     if (!showingOriginal) {
       // 显示原文
       setShowingOriginal(true);
+      setStats({ ...stats, hints: stats.hints + 1 }); // 增加提示次数
       // 3秒后自动隐藏
       timerRef.current = setTimeout(() => {
         setShowingOriginal(false);
@@ -104,46 +153,6 @@ export default function RecitePage({ poem }) {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
-    }
-  };
-
-  // 从通读模式进入背诵模式
-  const startHiding = () => {
-    setHideLevel(1); // 开始少量挖空
-  };
-
-  // 增加挖空级别
-  const increaseHideLevel = () => {
-    if (hideLevel < 3) {
-      setHideLevel(hideLevel + 1);
-    }
-  };
-
-  // 下一句
-  const nextLine = () => {
-    if (recitingIndex < poem.content.length - 1) {
-      setRecitingIndex(recitingIndex + 1);
-      
-      if (hideLevel === 0) {
-        // 如果是通读模式，保持显示所有内容
-      } else if (mode === 'test') {
-        // 测试模式保持全部隐藏
-        setHideLevel(4);
-      } else {
-        // 背诵模式，如果不是通读模式，逐渐增加隐藏
-        if (hideLevel < 3) {
-          setHideLevel(hideLevel + 1); // 挖空越来越多
-        }
-      }
-      
-      // 重置查看原文状态
-      setShowingOriginal(false);
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-    } else {
-      // 完成背诵
-      finishReciting();
     }
   };
 
@@ -178,6 +187,9 @@ export default function RecitePage({ poem }) {
     const nextReview = new Date();
     nextReview.setDate(nextReview.getDate() + reviewIntervals[level]);
     setNextReviewDate(nextReview);
+    
+    // 更新首次背诵状态
+    setIsFirstRecitation(false);
     
     // 回到完成状态
     setMode('complete');
@@ -214,6 +226,12 @@ export default function RecitePage({ poem }) {
     return labels[level] || '未学';
   };
 
+  // 获取难度级别的描述
+  const getDifficultyLabel = (level) => {
+    const labels = ['通读模式', '入门难度', '中等难度', '高级难度', '专家难度', '测试模式'];
+    return labels[level] || '未知难度';
+  };
+
   // 格式化时间显示
   const formatDuration = (seconds) => {
     const minutes = Math.floor(seconds / 60);
@@ -232,56 +250,34 @@ export default function RecitePage({ poem }) {
     return punctuations.includes(char);
   };
 
-  // 渲染带遮盖和提示的内容
-  const renderReciteLine = (line, index) => {
-    if (index !== recitingIndex) {
-      return <div className={styles.inactiveLine}>{line}</div>;
+  // 根据难度级别生成挖空内容
+  const generateHiddenContent = (line, level) => {
+    if (showingOriginal || level === 0) return line;
+    
+    switch (level) {
+      case 1: // 入门难度：隐藏约25%，随机
+        return line.split('').map((char, i) => 
+          isPunctuation(char) || Math.random() > 0.25 ? char : '__'
+        ).join('');
+      case 2: // 中等难度：隐藏约50%，随机
+        return line.split('').map((char, i) => 
+          isPunctuation(char) || Math.random() > 0.5 ? char : '__'
+        ).join('');
+      case 3: // 高级难度：隐藏约75%，随机
+        return line.split('').map((char, i) => 
+          isPunctuation(char) || Math.random() > 0.75 ? char : '__'
+        ).join('');
+      case 4: // 专家难度：隐藏约90%，随机保留几个关键字
+        return line.split('').map((char, i) => 
+          isPunctuation(char) || Math.random() > 0.9 ? char : '__'
+        ).join('');
+      case 5: // 测试模式：隐藏全部（除标点）
+        return line.split('').map(char => 
+          isPunctuation(char) ? char : '__'
+        ).join('');
+      default:
+        return line;
     }
-    
-    // 通读模式或已经显示原文
-    if (hideLevel === 0 || showingOriginal) {
-      return (
-        <div className={styles.activeLineContainer}>
-          <div className={styles.activeLine}>{line}</div>
-        </div>
-      );
-    }
-    
-    // 根据不同级别的隐藏程度处理
-    let processedLine;
-    
-    if (mode === 'test' || hideLevel === 4) {
-      // 测试模式或最高隐藏级别：全部隐藏（除了标点符号）
-      processedLine = line.split('').map(char => 
-        char === ' ' || char === '\n' || isPunctuation(char) ? char : '__'
-      ).join('');
-    } else if (hideLevel === 3) {
-      // 隐藏大部分（约75%，除标点符号外）
-      processedLine = line.split('').map((char, i) => 
-        char === ' ' || char === '\n' || isPunctuation(char) || i % 4 === 0 ? char : '__'
-      ).join('');
-    } else if (hideLevel === 2) {
-      // 隐藏中等（约50%，除标点符号外）
-      processedLine = line.split('').map((char, i) => 
-        char === ' ' || char === '\n' || isPunctuation(char) || i % 2 === 0 ? char : '__'
-      ).join('');
-    } else {
-      // 隐藏少量（约25%，除标点符号外）
-      processedLine = line.split('').map((char, i) => 
-        char === ' ' || char === '\n' || isPunctuation(char) || i % 4 !== 0 ? char : '__'
-      ).join('');
-    }
-    
-    // 处理换行，确保正确显示
-    const parts = processedLine.split('\n');
-    
-    return (
-      <div className={styles.activeLineContainer}>
-        {parts.map((part, i) => (
-          <div key={i} className={styles.activeLine}>{part}</div>
-        ))}
-      </div>
-    );
   };
 
   // 检查页面是否在加载中
@@ -321,12 +317,12 @@ export default function RecitePage({ poem }) {
   return (
     <>
       <NextSeo
-        title={`背诵 ${poem.title} | Poems`}
+        title={`背诵 ${poem.title} | 古诗文背诵练习`}
         description={`背诵《${poem.title}》- ${poem.author}的经典作品。提供分步提示、记忆辅助功能和艾宾浩斯复习计划。学习古诗文，提高记忆力。`}
         canonical={`https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`}
         openGraph={{
           type: 'website',
-          title: `背诵《${poem.title}》| Poems`,
+          title: `背诵《${poem.title}》| 古诗文背诵练习`,
           description: `背诵《${poem.title}》- ${poem.author}的经典作品。与原文、翻译、解析对照背诵，提高记忆效率。`,
           url: `https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`,
           images: [
@@ -376,7 +372,9 @@ export default function RecitePage({ poem }) {
               </div>
               
               <p className={styles.instructions}>
-                背诵模式将从通读全文开始，帮助你逐步记忆这首诗。系统会随着进度逐渐隐藏更多内容，提高记忆强度。
+                {isFirstRecitation 
+                  ? "首次背诵将从通读全文开始，熟悉内容后进入背诵模式。" 
+                  : "背诵难度将根据您的掌握程度自动调整，助您高效记忆。"}
               </p>
               
               <div className={styles.buttonGroup}>
@@ -412,69 +410,95 @@ export default function RecitePage({ poem }) {
           
           {(mode === 'recite' || mode === 'test') && (
             <div className={styles.reciteMode}>
-              <div className={styles.progress}>
-                <div 
-                  className={styles.progressBar} 
-                  style={{width: `${(recitingIndex / poem.content.length) * 100}%`}}
-                ></div>
-                <span className={styles.progressText}>
-                  {recitingIndex + 1} / {poem.content.length}
-                </span>
+              <div className={styles.reciteHeader}>
+                <div className={styles.difficultyInfo}>
+                  <span className={styles.difficultyLabel}>
+                    {getDifficultyLabel(hideLevel)}
+                  </span>
+                </div>
+                
+                <div className={styles.controlButtons}>
+                  <button 
+                    className={`${styles.controlButton} ${styles.translationToggle}`} 
+                    onClick={() => setShowTranslations(!showTranslations)}
+                  >
+                    {showTranslations ? '隐藏翻译' : '显示翻译'}
+                  </button>
+                  
+                  {hideLevel !== 0 && hideLevel !== 5 && (
+                    <>
+                      <button 
+                        className={`${styles.controlButton} ${styles.difficultyUp}`} 
+                        onClick={increaseHideLevel}
+                        disabled={hideLevel >= 4}
+                      >
+                        增加难度
+                      </button>
+                      <button 
+                        className={`${styles.controlButton} ${styles.difficultyDown}`} 
+                        onClick={decreaseHideLevel}
+                        disabled={hideLevel <= 1}
+                      >
+                        降低难度
+                      </button>
+                    </>
+                  )}
+                  
+                  {hideLevel > 0 && (
+                    <button 
+                      className={`${styles.controlButton} ${styles.showOriginal}`} 
+                      onClick={toggleOriginal}
+                    >
+                      {showingOriginal ? '隐藏原文' : '查看原文'}
+                    </button>
+                  )}
+                </div>
               </div>
               
               <div className={styles.reciteContent}>
-                {hideLevel === 0 && (
-                  // 通读模式，显示全部内容和翻译
+                {hideLevel === 0 ? (
+                  // 通读模式：显示全部内容
                   <div className={styles.readthroughMode}>
                     {poem.content.map((line, index) => (
                       <div key={index} className={styles.lineWithTranslation}>
                         <div className={styles.originalLine}>{line}</div>
-                        <div className={styles.translationLine}>{poem.translation[index]}</div>
+                        {showTranslations && (
+                          <div className={styles.translationLine}>{poem.translation[index]}</div>
+                        )}
+                      </div>
+                    ))}
+                    
+                    <button className={styles.startButton} onClick={startHiding}>
+                      开始背诵
+                    </button>
+                  </div>
+                ) : (
+                  // 背诵或测试模式：一次性显示全部内容，但应用不同级别的挖空
+                  <div className={styles.reciteAllContent}>
+                    {poem.content.map((line, index) => (
+                      <div key={index} className={styles.lineWithTranslation}>
+                        <div className={styles.hiddenLine}>
+                          {generateHiddenContent(line, hideLevel)}
+                        </div>
+                        {showTranslations && (
+                          <div className={styles.translationLine}>{poem.translation[index]}</div>
+                        )}
                       </div>
                     ))}
                   </div>
                 )}
-                
-                {hideLevel > 0 && (
-                  // 背诵或测试模式
-                  poem.content.map((line, index) => (
-                    <div key={index} className={styles.lineContainer}>
-                      {renderReciteLine(line, index)}
-                      {index === recitingIndex && (
-                        <div className={styles.translation}>
-                          {poem.translation[index]}
-                        </div>
-                      )}
-                    </div>
-                  ))
-                )}
               </div>
               
-              <div className={styles.reciteControls}>
-                {hideLevel === 0 ? (
-                  // 通读模式下的控制按钮
-                  <button className={styles.startButton} onClick={startHiding}>
-                    开始背诵
+              {hideLevel > 0 && (
+                <div className={styles.finishButtonContainer}>
+                  <button 
+                    className={styles.finishButton} 
+                    onClick={finishReciting}
+                  >
+                    完成背诵
                   </button>
-                ) : (
-                  // 背诵模式下的控制按钮组
-                  <>
-                    <button 
-                      className={styles.hintButton} 
-                      onClick={toggleOriginal} 
-                      disabled={mode === 'test' && hideLevel === 4}
-                    >
-                      {showingOriginal ? '隐藏原文' : '查看原文'}
-                    </button>
-                    <button 
-                      className={styles.nextButton} 
-                      onClick={nextLine}
-                    >
-                      {recitingIndex < poem.content.length - 1 ? '下一句' : '完成背诵'}
-                    </button>
-                  </>
-                )}
-              </div>
+                </div>
+              )}
             </div>
           )}
           
@@ -546,7 +570,7 @@ export async function getStaticPaths() {
     const paths = poems.map(poem => ({
       params: { poem: encodeURIComponent(poem.title) },
     }));
-    return { paths, fallback: 'blocking' }; // 使用 blocking 而不是 false
+    return { paths, fallback: 'blocking' };
   } catch (error) {
     console.error('Error generating static paths:', error);
     return { paths: [], fallback: 'blocking' };
@@ -560,23 +584,16 @@ export async function getStaticProps({ params }) {
     const poems = parsePoems(fileContents);
     const poem = poems.find(p => p.title === decodeURIComponent(params.poem));
     
-    // 如果找不到诗，返回404
     if (!poem) {
-      return {
-        notFound: true
-      };
+      return { notFound: true };
     }
     
     return {
-      props: {
-        poem,
-      },
-      revalidate: 3600, // 添加增量静态再生成，每小时重新验证一次
+      props: { poem },
+      revalidate: 3600,
     };
   } catch (error) {
     console.error('Error fetching poem:', error);
-    return {
-      notFound: true
-    };
+    return { notFound: true };
   }
 }
