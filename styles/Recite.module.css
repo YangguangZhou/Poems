@@ -1,0 +1,400 @@
+.reciteContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.reciteContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--accent);
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.backButton {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background-color: var(--background);
+    color: var(--primary);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.backButton:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateX(-5px);
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    color: var(--primary);
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.author {
+    text-align: center;
+    color: var(--text-light);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+/* 准备模式 */
+.prepareMode {
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.masteryInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.masteryBadge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    background-color: var(--background);
+    color: var(--text-light);
+}
+
+.masteryBadge[data-level="1"] {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #B7932A;
+}
+
+.masteryBadge[data-level="2"] {
+    background-color: rgba(234, 179, 8, 0.2);
+    color: #A07900;
+}
+
+.masteryBadge[data-level="3"] {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3B82F6;
+}
+
+.masteryBadge[data-level="4"] {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #10B981;
+}
+
+.masteryBadge[data-level="5"] {
+    background-color: rgba(16, 185, 129, 0.25);
+    color: #047857;
+}
+
+.reviewDate {
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.instructions {
+    max-width: 500px;
+    margin: 0 auto 2rem;
+    color: var(--text-light);
+    line-height: 1.6;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.primaryButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.primaryButton:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.secondaryButton {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.secondaryButton:hover {
+    background-color: var(--border);
+    transform: translateY(-2px);
+}
+
+.history {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+}
+
+.history h3 {
+    margin-bottom: 1rem;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+.history ul {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.history li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--border);
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* 背诵模式 */
+.reciteMode {
+    padding: 1rem 0;
+}
+
+.progress {
+    height: 8px;
+    background-color: var(--background);
+    border-radius: 4px;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.progressBar {
+    height: 100%;
+    background-color: var(--accent);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progressText {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 0.8rem;
+    color: var(--text-light);
+}
+
+.reciteContent {
+    margin: 2rem 0;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.lineContainer {
+    margin: 1.5rem 0;
+    position: relative;
+    padding: 1rem;
+    border-radius: var(--radius);
+}
+
+.lineContainer:nth-child(odd) {
+    background-color: var(--background);
+}
+
+.inactiveLine {
+    color: var(--text-light);
+    opacity: 0.6;
+}
+
+.fullReveal,
+.partialReveal,
+.firstCharReveal,
+.noReveal {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+.revealed {
+    color: var(--primary);
+}
+
+.hidden {
+    color: transparent;
+    border-bottom: 1px solid var(--text-light);
+    margin: 0 2px;
+}
+
+.placeholder {
+    color: var(--text-light);
+    opacity: 0.4;
+    margin: 0 2px;
+}
+
+.translation {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--border);
+}
+
+.reciteControls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.hintButton {
+    background-color: var(--background);
+    color: var(--text);
+    border: 1px solid var(--border);
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.hintButton:hover:not(:disabled) {
+    background-color: var(--border);
+}
+
+.hintButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.nextButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.nextButton:hover {
+    background-color: var(--primary);
+}
+
+/* 完成模式 */
+.completeMode {
+    text-align: center;
+    padding: 1rem 0;
+}
+
+.completeBadge {
+    margin: 2rem 0;
+    animation: fadeInUp 0.5s ease;
+}
+
+.completeBadge svg {
+    color: #10B981;
+    margin-bottom: 1rem;
+}
+
+.completeBadge h2 {
+    color: var(--primary);
+    margin-bottom: 0;
+}
+
+.stats {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    animation: fadeInUp 0.7s ease;
+}
+
+.stats p {
+    margin: 0.5rem 0;
+}
+
+.highlight {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.advice {
+    margin: 2rem 0;
+    animation: fadeInUp 0.9s ease;
+}
+
+.advice h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+    .reciteContainer {
+        margin: 1rem 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .buttonGroup {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .reciteControls {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .hintButton,
+    .nextButton {
+        width: 100%;
+    }
+
+    .fullReveal,
+    .partialReveal,
+    .firstCharReveal,
+    .noReveal {
+        font-size: 1.1rem;
+    }
+}

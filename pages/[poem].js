@@ -128,6 +128,9 @@ export default function PoemPage({ poem }) {
             <div className={styles.translationToggle} onClick={() => setShowPinyin(!showPinyin)}>
               {showPinyin ? '隐藏拼音' : '显示拼音'}
             </div>
+            <Link href={`/recite/${encodeURIComponent(poem.title)}`} className={styles.translationToggle}>
+              开始背诵
+            </Link>
           </div>
 
           <div className={isClassical ? styles.contentClassical : styles.content}>

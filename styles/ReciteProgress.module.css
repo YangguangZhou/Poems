@@ -1,0 +1,265 @@
+.progressContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 4px 20px var(--shadow);
+    position: relative;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.progressContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--accent);
+    border-top-left-radius: var(--radius);
+    border-bottom-left-radius: var(--radius);
+}
+
+.backButton {
+    display: inline-block;
+    margin-bottom: 2rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    background-color: var(--background);
+    color: var(--primary);
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.backButton:hover {
+    background-color: var(--accent);
+    color: white;
+    transform: translateX(-5px);
+}
+
+.title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--primary);
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.statsCards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-bottom: 3rem;
+}
+
+.statCard {
+    background-color: var(--background);
+    border-radius: var(--radius);
+    padding: 1.5rem 1rem;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.statCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.statValue {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.statLabel {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.section {
+    margin: 3rem 0;
+}
+
+.sectionTitle {
+    font-size: 1.5rem;
+    color: var(--primary);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.reviewList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.reviewItem {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.reviewItem:hover {
+    background-color: var(--primary);
+    color: white;
+    transform: translateX(5px);
+}
+
+.reviewTitle {
+    flex: 1;
+    font-weight: 500;
+}
+
+.reviewAuthor {
+    color: var(--text-light);
+    margin-right: 1rem;
+}
+
+.reviewItem:hover .reviewAuthor {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.reviewBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    background-color: rgba(179, 109, 97, 0.2);
+    color: var(--accent);
+    margin-right: 1rem;
+}
+
+.reviewItem:hover .reviewBadge {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.reviewArrow {
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+.reviewItem:hover .reviewArrow {
+    opacity: 1;
+    transform: translateX(3px);
+}
+
+.poemProgress {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.poemProgressItem {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: var(--radius);
+    background-color: var(--background);
+    transition: var(--transition);
+    opacity: 0.7;
+    position: relative;
+    overflow: hidden;
+}
+
+.poemProgressItem::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 3px;
+    background-color: var(--text-light);
+    opacity: 0.3;
+}
+
+.poemProgressItem.started {
+    opacity: 1;
+}
+
+.poemProgressItem.started::before {
+    background-color: var(--accent);
+    opacity: 1;
+}
+
+.poemProgressItem[data-level="3"]::before,
+.poemProgressItem[data-level="4"]::before,
+.poemProgressItem[data-level="5"]::before {
+    background-color: #10B981;
+}
+
+.poemProgressItem:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--shadow);
+}
+
+.poemProgressTitle {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.poemProgressAuthor {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+}
+
+.poemProgressBadge {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    background-color: var(--background);
+    color: var(--text-light);
+}
+
+.poemProgressItem[data-level="1"] .poemProgressBadge,
+.poemProgressItem[data-level="2"] .poemProgressBadge {
+    background-color: rgba(234, 179, 8, 0.15);
+    color: #B7932A;
+}
+
+.poemProgressItem[data-level="3"] .poemProgressBadge,
+.poemProgressItem[data-level="4"] .poemProgressBadge {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: #3B82F6;
+}
+
+.poemProgressItem[data-level="5"] .poemProgressBadge {
+    background-color: rgba(16, 185, 129, 0.15);
+    color: #10B981;
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
+    .progressContainer {
+        margin: 1rem 0.5rem;
+        padding: 1.5rem;
+    }
+
+    .title {
+        font-size: 1.8rem;
+    }
+
+    .statsCards {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .statCard {
+        padding: 1rem;
+    }
+
+    .statValue {
+        font-size: 1.5rem;
+    }
+
+    .poemProgress {
+        grid-template-columns: 1fr;
+    }
+}

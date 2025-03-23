@@ -1,120 +1,146 @@
 :root {
     /* 中国传统色配色方案 */
-    --primary: #4a5667; /* 青黛 */
-    --accent: #b36d61; /* 绾红 */
-    --background: #f4f4f9; /* 霜色 */
-    --card-bg: #ffffff; /* 素白 */
-    --text: #2b2b2b; /* 墨黑 */
-    --text-light: #7a7374; /* 鸠羽灰 */
-    --border: #e0d9d3; /* 珍珠灰 */
+    --primary: #4a5667;
+    /* 青黛 */
+    --accent: #b36d61;
+    /* 绾红 */
+    --background: #f4f4f9;
+    /* 霜色 */
+    --card-bg: #ffffff;
+    /* 素白 */
+    --text: #2b2b2b;
+    /* 墨黑 */
+    --text-light: #7a7374;
+    /* 鸠羽灰 */
+    --border: #e0d9d3;
+    /* 珍珠灰 */
     --shadow: rgba(0, 0, 0, 0.08);
-    
+
     /* 特殊元素颜色 */
-    --pinyin: #ca6924; /* 琥珀 - 拼音色 */
-    --highlight: #86624e; /* 赭石 - 突出色 */
-    --link-hover: #8c4b31; /* 赫赤 - 链接悬停色 */
-    
+    --pinyin: #ca6924;
+    /* 琥珀 - 拼音色 */
+    --highlight: #86624e;
+    /* 赭石 - 突出色 */
+    --link-hover: #8c4b31;
+    /* 赫赤 - 链接悬停色 */
+
     --transition: all 0.3s ease;
     --radius: 8px;
-  }
-  
-  [data-theme='dark'] {
-    --primary: #8da9c4; /* 秋水蓝 */
-    --accent: #d19c86; /* 檀唇 */
-    --background: #222830; /* 玄青 */
-    --card-bg: #2e3846; /* 青钢 */
-    --text: #e0e0e0; /* 月白 */
-    --text-light: #a9bbc6; /* 云峰白 */
-    --border: #3f4e5e; /* 黯色 */
+}
+
+[data-theme='dark'] {
+    --primary: #8da9c4;
+    /* 秋水蓝 */
+    --accent: #d19c86;
+    /* 檀唇 */
+    --background: #222830;
+    /* 玄青 */
+    --card-bg: #2e3846;
+    /* 青钢 */
+    --text: #e0e0e0;
+    /* 月白 */
+    --text-light: #a9bbc6;
+    /* 云峰白 */
+    --border: #3f4e5e;
+    /* 黯色 */
     --shadow: rgba(0, 0, 0, 0.25);
-    
+
     /* 特殊元素颜色 */
-    --pinyin: #e6b422; /* 栀子黄 - 拼音色 */
-    --highlight: #c27c48; /* 琥珀棕 - 突出色 */
-    --link-hover: #f0a1a8; /* 水红 - 链接悬停色 */
-  }
-  
-  * {
+    --pinyin: #e6b422;
+    /* 栀子黄 - 拼音色 */
+    --highlight: #c27c48;
+    /* 琥珀棕 - 突出色 */
+    --link-hover: #f0a1a8;
+    /* 水红 - 链接悬停色 */
+}
+
+* {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-  }
-  
-  html,
-  body {
+}
+
+html,
+body {
     font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     background-color: var(--background);
     color: var(--text);
     line-height: 1.6;
     transition: var(--transition);
     scroll-behavior: smooth;
-  }
-  
-  h1, h2, h3, h4, h5, h6 {
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
     font-weight: 500;
     letter-spacing: 0.5px;
     color: var(--primary);
     margin-bottom: 0.8em;
-  }
-  
-  a {
+}
+
+a {
     color: var(--primary);
     text-decoration: none;
     transition: var(--transition);
-  }
-  
-  a:hover {
+}
+
+a:hover {
     color: var(--accent);
-  }
-  
-  /* 文本选择样式 */
-  ::selection {
+}
+
+/* 文本选择样式 */
+::selection {
     background-color: var(--accent);
     color: white;
-  }
-  
-  /* 自定义滚动条 */
-  ::-webkit-scrollbar {
+}
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
     width: 8px;
     height: 8px;
-  }
-  
-  ::-webkit-scrollbar-track {
+}
+
+::-webkit-scrollbar-track {
     background: transparent;
-  }
-  
-  ::-webkit-scrollbar-thumb {
+}
+
+::-webkit-scrollbar-thumb {
     background-color: var(--text-light);
     border-radius: 4px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
+}
+
+::-webkit-scrollbar-thumb:hover {
     background-color: var(--primary);
-  }
-  
-  /* 打印样式 */
-  @media print {
+}
+
+/* 打印样式 */
+@media print {
     body {
-      background-color: white;
-      color: black;
+        background-color: white;
+        color: black;
     }
-    
-    .printLink, .clearCacheLink {
-      display: none !important;
+
+    .printLink,
+    .clearCacheLink {
+        display: none !important;
     }
-    
+
     .printStamp {
-      display: block !important;
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: #888;
+        display: block !important;
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.8rem;
+        color: #888;
     }
-  }
-  
-  /* 添加纸张纹理背景 */
-  body::before {
+}
+
+/* 添加纸张纹理背景 */
+body::before {
     content: '';
     position: fixed;
     top: 0;
@@ -124,15 +150,15 @@
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw1AUhU9TpSIVBTuIOGSoThZERRy1CkWoEGqFVh1MXvoHTRqSFBdHwbXg4M9i1cHFWVcHV0EQ/AFxdXFSdJES70sKLWK88x6+e+65L3DYqDLN6pkAtN02U0k5mc+urMoB7yDEMMZExCxmFrOpZOopBc9xJgL+JQ/+3ON80FzFOp/Pjcpn3OcE0cmCRYfeJo4xjW2I58TTtu18nifsmCkx49NzxnXigcS8bHWNe4xVc7L55BzxlFFVyhexWiw1WOtSVjFV4jTiKSMqplQ+MM9YltXyLXnNUw6c85ihtJJESByLSEEDFdRQggWb8TQTbDTpeukWk8QnOvhjzF/KJb7NmGtJwAqPfgb/7OxZiom4lygCAs+OzPs4AII7QLNh29/Htt06AfzPwJXW9lcbwOwn6c22FjkC+reBi+u2Ju8BlzvA0JMhm7IjhWkh1wPvZ/RNCmD4Fuhfc3tr7+P0AchTV24qx+DgEBgpUva6x7vDnX3798za/f0AT8dyo9nyr9cAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnCw0FBSEKkBzxAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAFtJREFUaN7t0zERACAMBEGgDwkIwwEO8NCPBZJpEuxvZnb7PtNkzdrMI2KvGREREREREXmqqqpqzKy238fdLSIOb3+IiIiIiIiIiIiIiIiIiIiIiIiIiIh8dgETSYZ2fTlGFAAAAABJRU5ErkJggg==');
     opacity: 0.03;
     pointer-events: none;
-  }
-  
-  .container {
+}
+
+.container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 1.5rem;
-  }
-  
-  .theme-switch {
+}
+
+.theme-switch {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -148,15 +174,15 @@
     justify-content: center;
     z-index: 100;
     transition: var(--transition);
-  }
-  
-  .theme-switch:hover {
+}
+
+.theme-switch:hover {
     transform: scale(1.1);
     background-color: var(--accent);
     color: white;
-  }
-  
-  .page-title {
+}
+
+.page-title {
     text-align: center;
     margin: 2rem 0;
     font-size: 2.5rem;
@@ -164,9 +190,9 @@
     position: relative;
     display: inline-block;
     padding-bottom: 0.5rem;
-  }
-  
-  .page-title::after {
+}
+
+.page-title::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -175,24 +201,26 @@
     width: 80px;
     height: 2px;
     background-color: var(--accent);
-  }
-  
-  /* 卡片悬停动画 */
-  @keyframes float {
+}
+
+/* 卡片悬停动画 */
+@keyframes float {
     0% {
-      transform: translateY(0px);
+        transform: translateY(0px);
     }
+
     50% {
-      transform: translateY(-5px);
+        transform: translateY(-5px);
     }
+
     100% {
-      transform: translateY(0px);
+        transform: translateY(0px);
     }
-  }
-  
-  /* 响应式调整 */
-  @media screen and (max-width: 768px) {
+}
+
+/* 响应式调整 */
+@media screen and (max-width: 768px) {
     .container {
-      padding: 1rem;
+        padding: 1rem;
     }
-  }
+}
