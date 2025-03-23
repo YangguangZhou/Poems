@@ -89,7 +89,16 @@ export default function RecitePage({ poem }) {
       setHideLevel(difficulty);
     }
     
+    setShowTranslations(true); // 默认显示翻译（仅在普通模式）
     setMode('recite');
+    setStats({ ...stats, startTime: new Date() });
+  };
+
+  // 开始高难度模式
+  const startHardMode = () => {
+    setMode('recite');
+    setHideLevel(6); // 高难度模式
+    setShowTranslations(false); // 强制关闭翻译
     setStats({ ...stats, startTime: new Date() });
   };
 
@@ -97,6 +106,8 @@ export default function RecitePage({ poem }) {
   const startTest = () => {
     setMode('test');
     setHideLevel(5); // 测试模式，全部隐藏
+    setShowTranslations(false); // 强制关闭翻译
+    setStats({ ...stats, startTime: new Date() });
   };
   
   // 重置背诵记录
@@ -228,7 +239,7 @@ export default function RecitePage({ poem }) {
 
   // 获取难度级别的描述
   const getDifficultyLabel = (level) => {
-    const labels = ['通读模式', '入门难度', '中等难度', '高级难度', '专家难度', '测试模式'];
+    const labels = ['通读模式', '入门难度', '中等难度', '高级难度', '专家难度', '测试模式', '挑战模式'];
     return labels[level] || '未知难度';
   };
 
@@ -251,7 +262,7 @@ export default function RecitePage({ poem }) {
   };
 
   // 根据难度级别生成挖空内容
-  const generateHiddenContent = (line, level) => {
+  const generateHiddenContent = (line, level, index) => {
     if (showingOriginal || level === 0) return line;
     
     switch (level) {
@@ -259,22 +270,35 @@ export default function RecitePage({ poem }) {
         return line.split('').map((char, i) => 
           isPunctuation(char) || Math.random() > 0.25 ? char : '__'
         ).join('');
+        
       case 2: // 中等难度：隐藏约50%，随机
         return line.split('').map((char, i) => 
           isPunctuation(char) || Math.random() > 0.5 ? char : '__'
         ).join('');
+        
       case 3: // 高级难度：隐藏约75%，随机
         return line.split('').map((char, i) => 
           isPunctuation(char) || Math.random() > 0.75 ? char : '__'
         ).join('');
+        
       case 4: // 专家难度：隐藏约90%，随机保留几个关键字
         return line.split('').map((char, i) => 
           isPunctuation(char) || Math.random() > 0.9 ? char : '__'
         ).join('');
-      case 5: // 测试模式：隐藏全部（除标点）
+        
+      case 5: // 测试模式：隐藏全部（只保留标点）
         return line.split('').map(char => 
           isPunctuation(char) ? char : '__'
         ).join('');
+        
+      case 6: // 挑战模式：只显示每段第一个字，其余全部隐藏（除标点）
+        return line.split('').map((char, i) => {
+          if (isPunctuation(char)) return char;
+          // 只显示每段的第一个字
+          if (i === 0) return char;
+          return '__';
+        }).join('');
+        
       default:
         return line;
     }
@@ -312,6 +336,9 @@ export default function RecitePage({ poem }) {
       "url": "https://poems.jerryz.com.cn/"
     }
   };
+
+  // 检查当前模式是否允许切换翻译
+  const canToggleTranslation = hideLevel !== 5 && hideLevel !== 6;
 
   // 主要内容渲染
   return (
@@ -384,11 +411,26 @@ export default function RecitePage({ poem }) {
                 <button className={styles.secondaryButton} onClick={startTest}>
                   测试模式
                 </button>
+                <button className={styles.challengeButton} onClick={startHardMode}>
+                  挑战模式
+                </button>
                 {mastery.history && mastery.history.length > 0 && (
                   <button className={styles.dangerButton} onClick={resetRecitingRecord}>
                     清除记录
                   </button>
                 )}
+              </div>
+              
+              <div className={styles.modeDescription}>
+                <div className={styles.modeItem}>
+                  <span className={styles.modeName}>普通背诵:</span> 根据熟悉度自适应挖空，可查看翻译
+                </div>
+                <div className={styles.modeItem}>
+                  <span className={styles.modeName}>测试模式:</span> 除标点外全部隐藏，不显示翻译
+                </div>
+                <div className={styles.modeItem}>
+                  <span className={styles.modeName}>挑战模式:</span> 仅显示每句首字，强制禁用翻译
+                </div>
               </div>
               
               {mastery.history && mastery.history.length > 0 && (
@@ -412,20 +454,22 @@ export default function RecitePage({ poem }) {
             <div className={styles.reciteMode}>
               <div className={styles.reciteHeader}>
                 <div className={styles.difficultyInfo}>
-                  <span className={styles.difficultyLabel}>
+                  <span className={`${styles.difficultyLabel} ${styles['level' + hideLevel]}`}>
                     {getDifficultyLabel(hideLevel)}
                   </span>
                 </div>
                 
                 <div className={styles.controlButtons}>
-                  <button 
-                    className={`${styles.controlButton} ${styles.translationToggle}`} 
-                    onClick={() => setShowTranslations(!showTranslations)}
-                  >
-                    {showTranslations ? '隐藏翻译' : '显示翻译'}
-                  </button>
+                  {canToggleTranslation && (
+                    <button 
+                      className={`${styles.controlButton} ${styles.translationToggle}`} 
+                      onClick={() => setShowTranslations(!showTranslations)}
+                    >
+                      {showTranslations ? '隐藏翻译' : '显示翻译'}
+                    </button>
+                  )}
                   
-                  {hideLevel !== 0 && hideLevel !== 5 && (
+                  {hideLevel !== 0 && hideLevel < 5 && (
                     <>
                       <button 
                         className={`${styles.controlButton} ${styles.difficultyUp}`} 
@@ -444,7 +488,7 @@ export default function RecitePage({ poem }) {
                     </>
                   )}
                   
-                  {hideLevel > 0 && (
+                  {hideLevel > 0 && hideLevel < 5 && (
                     <button 
                       className={`${styles.controlButton} ${styles.showOriginal}`} 
                       onClick={toggleOriginal}
@@ -478,7 +522,7 @@ export default function RecitePage({ poem }) {
                     {poem.content.map((line, index) => (
                       <div key={index} className={styles.lineWithTranslation}>
                         <div className={styles.hiddenLine}>
-                          {generateHiddenContent(line, hideLevel)}
+                          {generateHiddenContent(line, hideLevel, index)}
                         </div>
                         {showTranslations && (
                           <div className={styles.translationLine}>{poem.translation[index]}</div>
@@ -558,6 +602,19 @@ export default function RecitePage({ poem }) {
           </svg>
         )}
       </div>
+      {/* 底部 Footer */}
+      <footer className={styles.footer}>
+        <a className={styles.clearCacheLink} onClick={handleClearCache}>
+          清除缓存
+        </a>
+        <div>
+          Copyright © {new Date().getFullYear()}
+          {' '}
+          <a href="https://jerryz.com.cn" target="_blank" rel="noopener">
+            Jerry Zhou
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

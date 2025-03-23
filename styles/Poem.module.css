@@ -203,20 +203,29 @@
     box-shadow: none;
     margin: 0;
     padding: 1cm;
+    background-color: white;
   }
-
-  .homeButton,
-  .translationToggle {
+  
+  .homeButton, .translationToggle, .printLink, .clearCacheLink {
     display: none !important;
   }
-
+  
   .translation {
     display: block !important;
     page-break-inside: avoid;
   }
-
-  .content,
-  .contentClassical {
+  
+  .content, .contentClassical {
     background: none;
+  }
+  
+  .printStamp {
+    display: block !important;
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+    font-size: 0.8rem;
+    color: #888;
   }
 }

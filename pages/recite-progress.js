@@ -267,6 +267,20 @@ export default function ReciteProgress() {
           </svg>
         )}
       </div>
+
+      {/* 底部 Footer */}
+      <footer className={styles.footer}>
+        <a className={styles.clearCacheLink} onClick={handleClearCache}>
+          清除缓存
+        </a>
+        <div>
+          Copyright © {new Date().getFullYear()}
+          {' '}
+          <a href="https://jerryz.com.cn" target="_blank" rel="noopener">
+            Jerry Zhou
+          </a>
+        </div>
+      </footer>
     </>
   );
 }

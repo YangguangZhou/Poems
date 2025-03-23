@@ -174,14 +174,18 @@ export default function PoemPage({ poem }) {
       </div>
 
       <footer className={styles.footer}>
-        <div id="printStamp" className={styles.printStamp}>Printed by poems.jerryz.com.cn</div>
+        {/* 打印按钮 */}
+        <a className={styles.printLink} onClick={handlePrint}>
+          打印
+        </a>
+        {/* 清除缓存按钮 */}
         <a className={styles.clearCacheLink} onClick={handleClearCache}>
           清除缓存
         </a>
-        <br></br>
-        <a className={`${styles.clearCacheLink} printLink`} onClick={handlePrint}>
-          打印为 PDF
-        </a>
+        {/* 打印时显示的水印 */}
+        <div className={styles.printStamp}>
+          Printed by Poems | poems.jerryz.com.cn
+        </div>
         <div>
           Copyright © {new Date().getFullYear()}
           {' '}

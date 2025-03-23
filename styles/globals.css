@@ -126,7 +126,11 @@ a:hover {
     }
 
     .printLink,
-    .clearCacheLink {
+    .clearCacheLink,
+    .theme-switch,
+    .backButton,
+    .navLink,
+    .navButton {
         display: none !important;
     }
 
@@ -137,19 +141,22 @@ a:hover {
         font-size: 0.8rem;
         color: #888;
     }
-}
 
-/* 添加纸张纹理背景 */
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw1AUhU9TpSIVBTuIOGSoThZERRy1CkWoEGqFVh1MXvoHTRqSFBdHwbXg4M9i1cHFWVcHV0EQ/AFxdXFSdJES70sKLWK88x6+e+65L3DYqDLN6pkAtN02U0k5mc+urMoB7yDEMMZExCxmFrOpZOopBc9xJgL+JQ/+3ON80FzFOp/Pjcpn3OcE0cmCRYfeJo4xjW2I58TTtu18nifsmCkx49NzxnXigcS8bHWNe4xVc7L55BzxlFFVyhexWiw1WOtSVjFV4jTiKSMqplQ+MM9YltXyLXnNUw6c85ihtJJESByLSEEDFdRQggWb8TQTbDTpeukWk8QnOvhjzF/KJb7NmGtJwAqPfgb/7OxZiom4lygCAs+OzPs4AII7QLNh29/Htt06AfzPwJXW9lcbwOwn6c22FjkC+reBi+u2Ju8BlzvA0JMhm7IjhWkh1wPvZ/RNCmD4Fuhfc3tr7+P0AchTV24qx+DgEBgpUva6x7vDnX3798za/f0AT8dyo9nyr9cAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnCw0FBSEKkBzxAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAFtJREFUaN7t0zERACAMBEGgDwkIwwEO8NCPBZJpEuxvZnb7PtNkzdrMI2KvGREREREREXmqqqpqzKy238fdLSIOb3+IiIiIiIiIiIiIiIiIiIiIiIiIiIh8dgETSYZ2fTlGFAAAAABJRU5ErkJggg==');
-    opacity: 0.03;
-    pointer-events: none;
+    /* 确保打印时内容清晰可见 */
+    .container {
+        max-width: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    /* 移除背景和阴影 */
+    .reciteContainer,
+    .poemContainer {
+        box-shadow: none;
+        background-color: white;
+        padding: 0;
+    }
 }
 
 .container {
