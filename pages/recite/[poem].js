@@ -135,15 +135,14 @@ export default function RecitePage({ poem }) {
                 setShowTranslations(false);
             }
 
-            setStats({ ...stats, hints: stats.hints - 1 });
+            setStats({ ...stats, hints });
         }
     };
 
-    // 减少挖空级别（更简单，算作使用提示）
     const decreaseHideLevel = () => {
         if (hideLevel > 1) {
             setHideLevel(hideLevel - 1);
-            setStats({ ...stats, hints: stats.hints + 1 }); // 增加提示次数
+            setStats({ ...stats, hints });
         }
     };
 
@@ -152,7 +151,7 @@ export default function RecitePage({ poem }) {
         if (!showingOriginal) {
             // 显示原文
             setShowingOriginal(true);
-            setStats({ ...stats, hints: stats.hints + 1 }); // 增加提示次数
+            setStats({ ...stats, hints});
             // 3秒后自动隐藏
             timerRef.current = setTimeout(() => {
                 setShowingOriginal(false);
@@ -207,9 +206,6 @@ export default function RecitePage({ poem }) {
 
     // 计算掌握等级 (0-5)
     const calculateLevel = (currentLevel, hints, duration) => {
-        // 基本逻辑: 根据提示使用次数和背诵速度计算掌握程度
-        // 如果很少使用提示且速度快，提高等级
-        // 如果频繁使用提示或速度慢，降低等级
 
         const avgTimePerLine = duration / poem.content.length;
         const avgHintsPerLine = hints / poem.content.length;
@@ -343,12 +339,12 @@ export default function RecitePage({ poem }) {
     return (
         <>
             <NextSeo
-                title={`背诵 ${poem.title} | 古诗文背诵练习`}
+                title={`背诵 ${poem.title} | Poems`}
                 description={`背诵《${poem.title}》- ${poem.author}的经典作品。提供分步提示、记忆辅助功能和艾宾浩斯复习计划。学习古诗文，提高记忆力。`}
                 canonical={`https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`}
                 openGraph={{
                     type: 'website',
-                    title: `背诵《${poem.title}》| 古诗文背诵练习`,
+                    title: `背诵《${poem.title}》| Poems`,
                     description: `背诵《${poem.title}》- ${poem.author}的经典作品。与原文、翻译、解析对照背诵，提高记忆效率。`,
                     url: `https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`,
                     images: [
@@ -433,8 +429,7 @@ export default function RecitePage({ poem }) {
                                         {mastery.history.slice(-5).map((entry, i) => (
                                             <li key={i}>
                                                 {formatDate(entry.date)} -
-                                                用时: {formatDuration(entry.duration)} -
-                                                提示: {entry.hints}次
+                                                用时: {formatDuration(entry.duration)}
                                             </li>
                                         ))}
                                     </ul>
@@ -553,7 +548,6 @@ export default function RecitePage({ poem }) {
                                 <p>用时: <span className={styles.highlight}>
                                     {formatDuration(Math.round((new Date() - stats.startTime) / 1000))}
                                 </span></p>
-                                <p>使用提示: <span className={styles.highlight}>{stats.hints}次</span></p>
                             </div>
 
                             <div className={styles.advice}>

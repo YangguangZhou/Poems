@@ -218,6 +218,15 @@
     color: var(--text-light);
 }
 
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
 .poemProgressItem[data-level="1"] .poemProgressBadge,
 .poemProgressItem[data-level="2"] .poemProgressBadge {
     background-color: rgba(234, 179, 8, 0.15);
