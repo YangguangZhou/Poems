@@ -5,6 +5,7 @@ import path from 'path';
 import styles from '../styles/Home.module.css';
 import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
+import { NextSeo } from 'next-seo';
 
 export default function Home({ poems }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -87,14 +88,15 @@ export default function Home({ poems }) {
 
   return (
     <>
+      <NextSeo
+        title="高中语文必背古诗文"
+        description="提供高中语文必背古诗文，包含诗经、唐诗、宋词、元曲等经典作品，支持查看原文、翻译和拼音标注。"
+        canonical="https://poems.jerryz.com.cn/"
+      />
       <Head>
-        <title>古诗文 | Jerry Zhou</title>
-        <link
-          rel="icon"
-          href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
-        />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
       <div className={styles.container}>
         <h1 className={styles.title}>古诗文</h1>
@@ -159,7 +161,7 @@ export default function Home({ poems }) {
         <div>
           Copyright © 2024
           {' '}
-          <a href="https://jerryz.com.cn" target="_blank">
+          <a href="https://jerryz.com.cn" target="_blank" rel="noopener">
             Jerry Zhou
           </a>
         </div>

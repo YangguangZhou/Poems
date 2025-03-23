@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 import Link from 'next/link';
 import { pinyin } from 'pinyin-pro';
+import { NextSeo } from 'next-seo';
 
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
@@ -60,16 +61,36 @@ export default function PoemPage({ poem }) {
     }
   };
 
+  // 提取前两行诗句作为描述，并限制长度为160字符
+  const poemDescription = `${poem.title}，${poem.author}。${poem.content.slice(0, 2).join('，')}...`;
+  const truncatedDesc = poemDescription.length > 160 ? 
+    poemDescription.substring(0, 157) + '...' : poemDescription;
+
+  // 提取适合的关键词
+  const keywords = `${poem.title},${poem.author},${poem.tags.join(',')},古诗文,诗词鉴赏`;
+
   return (
     <>
+      <NextSeo
+        title={poem.title}
+        description={truncatedDesc}
+        canonical={`https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`}
+        openGraph={{
+          title: `${poem.title} | 古诗文`,
+          description: truncatedDesc,
+          url: `https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`,
+        }}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: keywords
+          }
+        ]}
+      />
       <Head>
-        <title>{poem.title} | 古诗文</title>
-        <link
-          rel="icon"
-          href="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png"
-        />
         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
       <div className={styles.container}>
         <Link href="/" className={styles.homeButton}>
@@ -123,7 +144,7 @@ export default function PoemPage({ poem }) {
         <div>
           Copyright © 2024
           {' '}
-          <a href="https://jerryz.com.cn" target="_blank">
+          <a href="https://jerryz.com.cn" target="_blank" rel="noopener">
             Jerry Zhou
           </a>
         </div>
