@@ -210,6 +210,15 @@ a:hover {
     background-color: var(--accent);
 }
 
+.footer {
+    text-align: center;
+    padding: 2rem 0;
+    margin-top: 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
 /* 卡片悬停动画 */
 @keyframes float {
     0% {

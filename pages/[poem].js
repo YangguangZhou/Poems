@@ -170,7 +170,7 @@ export default function PoemPage({ poem }) {
       <footer className={styles.footer}>
         {/* 打印按钮 */}
         <a className={styles.printLink} onClick={handlePrint}>
-          打印
+          打印诗词
         </a>
         {/* 打印时显示的水印 */}
         <div className={styles.printStamp}>
