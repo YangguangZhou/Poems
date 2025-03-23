@@ -604,9 +604,6 @@ export default function RecitePage({ poem }) {
       </div>
       {/* 底部 Footer */}
       <footer className={styles.footer}>
-        <a className={styles.clearCacheLink} onClick={handleClearCache}>
-          清除缓存
-        </a>
         <div>
           Copyright © {new Date().getFullYear()}
           {' '}

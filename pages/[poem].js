@@ -63,12 +63,6 @@ export default function PoemPage({ poem }) {
     </>
   );
 
-  const handleClearCache = async () => {
-    await fetch('/api/clearCache', { method: 'POST' });
-    localStorage.clear();
-    alert('缓存已清除');
-  };
-
   const handlePrint = () => {
     if (typeof window !== 'undefined') {
       window.print();
@@ -177,10 +171,6 @@ export default function PoemPage({ poem }) {
         {/* 打印按钮 */}
         <a className={styles.printLink} onClick={handlePrint}>
           打印
-        </a>
-        {/* 清除缓存按钮 */}
-        <a className={styles.clearCacheLink} onClick={handleClearCache}>
-          清除缓存
         </a>
         {/* 打印时显示的水印 */}
         <div className={styles.printStamp}>

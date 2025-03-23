@@ -93,9 +93,7 @@ export default function Home({ poems, showAds }) {
     });
 
   const handleClearCache = async () => {
-    await fetch('/api/clearCache', { method: 'POST' });
-
-    // 保存无广告设置状态
+     // 保存无广告设置状态
     const noAdsStatus = localStorage.getItem('noAds');
 
     // 清除localStorage其他内容
