@@ -11,13 +11,27 @@ import { NextSeo } from 'next-seo';
 export default function PoemPage({ poem }) {
   const [showTranslations, setShowTranslations] = useState(false);
   const [showPinyin, setShowPinyin] = useState(false);
+  const [theme, setTheme] = useState('light');
   const isClassical = poem.tags.includes('文言文') || poem.tags.includes('词');
 
   useEffect(() => {
+    // 加载访问顺序
     const access = JSON.parse(localStorage.getItem('accessOrder')) || [];
     const updatedAccess = [poem.title, ...access.filter(title => title !== poem.title)];
     localStorage.setItem('accessOrder', JSON.stringify(updatedAccess));
+    
+    // 加载主题设置
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+    document.documentElement.setAttribute('data-theme', savedTheme);
   }, [poem.title]);
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   const toggleTranslation = (index) => {
     const translation = document.getElementById(`translation-${index}`);
@@ -92,44 +106,70 @@ export default function PoemPage({ poem }) {
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
-      <div className={styles.container}>
-        <Link href="/" className={styles.homeButton}>
-          ← 返回首页
-        </Link>
-        <h1 className={styles.title}>{poem.title}</h1>
-        <h2 className={styles.author}>{poem.author}</h2>
+      
+      <div className="container">
+        <div className={styles.container}>
+          <Link href="/" className={styles.homeButton}>
+            ← 返回首页
+          </Link>
+          <h1 className={styles.title}>{poem.title}</h1>
+          <h2 className={styles.author}>{poem.author}</h2>
 
-        <div className={styles.tags}>
-          {poem.tags.map((tag, i) => (
-            <span key={i} className={styles.tag}>{tag}</span>
-          ))}
-        </div>
+          <div className={styles.tags}>
+            {poem.tags.map((tag, i) => (
+              <span key={i} className={styles.tag}>{tag}</span>
+            ))}
+          </div>
 
-        <div className={styles.translationToggle} onClick={toggleAllTranslations}>
-          显示/隐藏翻译
-        </div>
-        <div className={styles.translationToggle} onClick={() => setShowPinyin(!showPinyin)}>
-          显示/隐藏拼音
-        </div>
-
-        <div className={isClassical ? styles.contentClassical : styles.content}>
-          {poem.content.map((line, idx) => (
-            <div
-              key={idx}
-              className={`${styles.poemLine} ${showPinyin ? styles.showPinyin : ''}`}
-              onClick={() => toggleTranslation(idx)}
-            >
-              {showPinyin ? renderLineWithPinyin(line) : line}
-              <div
-                id={`translation-${idx}`}
-                className={styles.translation}
-                style={{ display: 'none' }}
-              >
-                {poem.translation[idx]}
-              </div>
+          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+            <div className={styles.translationToggle} onClick={toggleAllTranslations}>
+              {showTranslations ? '隐藏翻译' : '显示翻译'}
             </div>
-          ))}
+            <div className={styles.translationToggle} onClick={() => setShowPinyin(!showPinyin)}>
+              {showPinyin ? '隐藏拼音' : '显示拼音'}
+            </div>
+          </div>
+
+          <div className={isClassical ? styles.contentClassical : styles.content}>
+            {poem.content.map((line, idx) => (
+              <div
+                key={idx}
+                className={`${styles.poemLine} ${showPinyin ? styles.showPinyin : ''}`}
+                onClick={() => toggleTranslation(idx)}
+              >
+                {showPinyin ? renderLineWithPinyin(line) : line}
+                <div
+                  id={`translation-${idx}`}
+                  className={styles.translation}
+                  style={{ display: 'none' }}
+                >
+                  {poem.translation[idx]}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
+      
+      {/* 主题切换按钮 */}
+      <div className="theme-switch" onClick={toggleTheme}>
+        {theme === 'light' ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        )}
       </div>
 
       <footer className={styles.footer}>

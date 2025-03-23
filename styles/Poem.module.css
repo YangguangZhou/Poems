@@ -1,212 +1,200 @@
 .container {
-  max-width: 700px;
-  margin: 40px auto;
-  background: rgba(255, 252, 249, 0.95);
-  padding: 50px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  background: linear-gradient(to bottom, rgba(255, 252, 249, 0.97), rgba(255, 252, 249, 0.93));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(139, 69, 19, 0.1);
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px var(--shadow);
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
 }
 
-.tags {
-  margin-bottom: 20px;
+.container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 3px;
+  background-color: var(--accent);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
 }
 
-.tag {
+.homeButton {
   display: inline-block;
-  background-color: #ffcd9b;
-  color: #654321;
-  padding: 5px 10px;
-  border-radius: 12px;
-  margin-right: 5px;
-  font-size: 14px;
+  margin-bottom: 2rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  background-color: var(--background);
+  color: var(--primary);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.homeButton:hover {
+  background-color: var(--primary);
+  color: var(--card-bg);
+  transform: translateX(-5px);
 }
 
 .title {
+  font-size: 2rem;
   text-align: center;
-  font-size: 36px;
-  font-weight: 600;
-  color: #4a3626;
-  margin-bottom: 10px;
-  border-bottom: 2px solid #8b4513;
-  padding-bottom: 15px;
-  font-family: "Ma Shan Zheng", "楷体", serif;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
 
 .author {
-  text-align: right;
-  font-size: 18px;
-  color: #6b4423;
-  margin-bottom: 20px;
-  font-family: 'Noto Serif SC', serif;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+.tags {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.tag {
+  background-color: rgba(212, 185, 149, 0.2);
+  color: var(--accent);
+  font-size: 0.8rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 20px;
+}
+
+.content, .contentClassical {
+  margin: 2rem 0;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+  line-height: 1.8;
+  text-align: center;
+  position: relative;
+  padding: 1rem;
+  background-color: var(--background);
+  border-radius: var(--radius);
 }
 
 .contentClassical {
   text-align: left;
-  text-indent: 2em;
-  line-height: 1.8;
-}
-
-.content {
-  text-align: center;
+  padding: 1.5rem;
 }
 
 .poemLine {
+  margin: 1rem 0;
   position: relative;
-  color: #3a2b1f;
-  /* transition: color 0.3s ease; */
   cursor: pointer;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 18px;
-  padding: 10px 0;
-  /* transition: all 0.3s ease; */
+  transition: var(--transition);
 }
 
-/* .poemLine:hover {
-    color: #8b4513;
-    transform: translateY(-1px);
-} */
+.poemLine:hover {
+  color: var(--accent);
+}
+
+.showPinyin {
+  line-height: 2.5;
+}
+
+.showPinyin ruby {
+  margin: 0 0.1rem;
+}
+
+.showPinyin rt {
+  font-size: 0.65em;
+  color: var(--accent);
+}
 
 .translation {
-  font-family: 'Noto Serif SC', serif;
-  font-size: 16px;
-  color: #6b4423;
-  margin-top: 10px;
-  padding: 15px;
-  background: #f9f0e6;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(139, 69, 19, 0.08);
-  /* transform: translateY(5px);
-    transition: all 0.3s ease; */
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-light);
+  font-style: italic;
+  background-color: rgba(212, 185, 149, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
 }
 
 .translationToggle {
-  text-align: center;
-  color: #8b4513;
+  display: inline-block;
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  color: white;
+  border-radius: var(--radius);
   cursor: pointer;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 16px;
-  margin-bottom: 30px;
-  transition: color 0.3s ease;
+  font-size: 0.9rem;
+  transition: var(--transition);
 }
 
 .translationToggle:hover {
-  color: #654321;
-  text-decoration: underline;
-}
-
-.homeButton {
-  display: block;
-  color: #8b4513;
-  text-decoration: none;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 16px;
-  margin-bottom: 20px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
-.homeButton:hover {
-  color: #654321;
-  text-decoration: underline;
-}
-
-/* 移动设备适配 */
-@media screen and (max-width: 768px) {
-  .container {
-    margin: 20px;
-    padding: 30px;
-  }
-
-  .title {
-    font-size: 28px;
-  }
-
-  .author {
-    font-size: 16px;
-  }
-
-  .poemLine {
-    font-size: 16px;
-  }
-
-  .translation {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  .homeButton,
-  .translationToggle {
-    font-size: 14px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .container {
-    margin: 10px;
-    padding: 20px;
-  }
-
-  .title {
-    font-size: 24px;
-  }
+  background-color: var(--primary);
+  transform: translateY(-2px);
 }
 
 .footer {
   text-align: center;
-  margin-top: 40px;
-  color: #888;
-  font-family: 'Noto Serif SC', serif;
-  font-size: 14px;
-}
-
-.footer div a {
-  text-decoration: none;
-  color: #888;
-  font-weight: bold;
+  padding: 2rem 0;
+  color: var(--text-light);
+  font-size: 0.9rem;
 }
 
 .clearCacheLink {
-  display: inline-block;
-  margin-bottom: 10px;
-  font-weight: bold;
   cursor: pointer;
-  color: #888;
-  text-decoration: none;
+  color: var(--primary);
+  text-decoration: underline;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  transition: var(--transition);
 }
 
-/* .showPinyin {
-  letter-spacing: 3px;
-} */
-
-.showPinyin ruby {
-  margin: 0 2px;
-}
-
-.showPinyin ruby rt {
-  font-size: 14px;
+.clearCacheLink:hover {
+  color: var(--accent);
 }
 
 .printStamp {
-  display: none !important;
+  display: none;
 }
 
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .title {
+    font-size: 1.8rem;
+  }
+  
+  .contentClassical, .content {
+    padding: 1rem;
+  }
+}
+
+/* 打印样式 */
 @media print {
-  .homeButton,
-  .translationToggle,
-  .clearCacheLink,
-  .tags,
-  .printLink {
+  .container {
+    box-shadow: none;
+    margin: 0;
+    padding: 1cm;
+  }
+  
+  .homeButton, .translationToggle {
     display: none !important;
   }
-  .printStamp {
-    display: block;
-    margin-bottom: 10px;
-    color: #333;
-    font-family: 'Noto Serif SC', serif;
-    font-size: 12px;
+  
+  .translation {
+    display: block !important;
+    page-break-inside: avoid;
+  }
+  
+  .content, .contentClassical {
+    background: none;
   }
 }

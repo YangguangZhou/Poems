@@ -1,6 +1,6 @@
 export default {
     titleTemplate: '%s | Poems',
-    defaultTitle: '高中语文必背古诗文 | 诗词鉴赏学习网站',
+    defaultTitle: 'Poems - 古诗文',
     description: '提供高中语文必背古诗文，支持查看原文、翻译和拼音标注。',
     canonical: 'https://poems.jerryz.com.cn/',
     openGraph: {
@@ -8,7 +8,7 @@ export default {
       locale: 'zh_CN',
       url: 'https://poems.jerryz.com.cn/',
       siteName: 'Poems',
-      title: '高中语文必背古诗文 | 诗词鉴赏学习网站',
+      title: 'Poems - 古诗文',
       description: '提供高中语文必背古诗文，支持查看原文、翻译和拼音标注。',
       images: [
         {

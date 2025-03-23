@@ -1,15 +1,172 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap');
-
-body {
-    min-height: 100vh;
+:root {
+    --primary: #3a4a5a;
+    --accent: #d4b995;
+    --background: #f7f7f7;
+    --card-bg: #ffffff;
+    --text: #333333;
+    --text-light: #666666;
+    --border: #e0e0e0;
+    --shadow: rgba(0, 0, 0, 0.1);
+    
+    --transition: all 0.3s ease;
+    --radius: 8px;
+  }
+  
+  [data-theme='dark'] {
+    --primary: #8f9ba8;
+    --accent: #c8ab7b;
+    --background: #1f2937;
+    --card-bg: #293548;
+    --text: #e0e0e0;
+    --text-light: #9ca3af;
+    --border: #374151;
+    --shadow: rgba(0, 0, 0, 0.25);
+  }
+  
+  * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Noto Serif SC', serif;
-}
-
-@media (prefers-color-scheme: dark) {
+  }
+  
+  html,
+  body {
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background-color: var(--background);
+    color: var(--text);
+    line-height: 1.6;
+    transition: var(--transition);
+    scroll-behavior: smooth;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    color: var(--primary);
+    margin-bottom: 0.8em;
+  }
+  
+  a {
+    color: var(--primary);
+    text-decoration: none;
+    transition: var(--transition);
+  }
+  
+  a:hover {
+    color: var(--accent);
+  }
+  
+  /* 自定义滚动条 */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--text-light);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary);
+  }
+  
+  /* 打印样式 */
+  @media print {
     body {
-        background-color: #1a1a1a;
+      background-color: white;
+      color: black;
     }
-}
+    
+    .printLink, .clearCacheLink {
+      display: none !important;
+    }
+    
+    .printStamp {
+      display: block !important;
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: #888;
+    }
+  }
+  
+  /* 添加纸张纹理背景 */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAABhGlDQ1BJQ0MgcHJvZmlsZQAAKJF9kT1Iw1AUhU9TpSIVBTuIOGSoThZERRy1CkWoEGqFVh1MXvoHTRqSFBdHwbXg4M9i1cHFWVcHV0EQ/AFxdXFSdJES70sKLWK88x6+e+65L3DYqDLN6pkAtN02U0k5mc+urMoB7yDEMMZExCxmFrOpZOopBc9xJgL+JQ/+3ON80FzFOp/Pjcpn3OcE0cmCRYfeJo4xjW2I58TTtu18nifsmCkx49NzxnXigcS8bHWNe4xVc7L55BzxlFFVyhexWiw1WOtSVjFV4jTiKSMqplQ+MM9YltXyLXnNUw6c85ihtJJESByLSEEDFdRQggWb8TQTbDTpeukWk8QnOvhjzF/KJb7NmGtJwAqPfgb/7OxZiom4lygCAs+OzPs4AII7QLNh29/Htt06AfzPwJXW9lcbwOwn6c22FjkC+reBi+u2Ju8BlzvA0JMhm7IjhWkh1wPvZ/RNCmD4Fuhfc3tr7+P0AchTV24qx+DgEBgpUva6x7vDnX3798za/f0AT8dyo9nyr9cAAAAGYktHRAD/AP8A/6C9p5MAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfnCw0FBSEKkBzxAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAAFtJREFUaN7t0zERACAMBEGgDwkIwwEO8NCPBZJpEuxvZnb7PtNkzdrMI2KvGREREREREXmqqqpqzKy238fdLSIOb3+IiIiIiIiIiIiIiIiIiIiIiIiIiIh8dgETSYZ2fTlGFAAAAABJRU5ErkJggg==');
+    opacity: 0.03;
+    pointer-events: none;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+  
+  .theme-switch {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 10px var(--shadow);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: var(--transition);
+  }
+  
+  .theme-switch:hover {
+    transform: scale(1.1);
+  }
+  
+  .page-title {
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 2.5rem;
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+    padding-bottom: 0.5rem;
+  }
+  
+  .page-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 2px;
+    background-color: var(--accent);
+  }
+  
+  /* 卡片悬停动画 */
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }

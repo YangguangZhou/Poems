@@ -2,7 +2,7 @@
     "name": "gu-shi-wen",
     "version": "1.0.0",
     "scripts": {
-        "dev": "next dev",
+        "dev": "npm run generate-sitemap && next dev",
         "generate-sitemap": "node scripts/generate-sitemap.js",
         "build": "next build && npm run generate-sitemap",
         "start": "next start"
