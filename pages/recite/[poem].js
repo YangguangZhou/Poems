@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
-import fs from 'fs';
-import path from 'path';
 import styles from '../../styles/Recite.module.css';
 import { parsePoems } from '../../lib/parsePoems';
 import { NextSeo } from 'next-seo';
