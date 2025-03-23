@@ -13,7 +13,7 @@ export default function RecitePage({ poem }) {
     const [mode, setMode] = useState('prepare'); // prepare, recite, test, complete
     const [hideLevel, setHideLevel] = useState(0);
     const [mastery, setMastery] = useState({});
-    const [stats, setStats] = useState({ startTime: null, attempts: 0, hints: 0 });
+    const [stats, setStats] = useState({ startTime: null, attempts: 0 });
     const [theme, setTheme] = useState('light');
     const [nextReviewDate, setNextReviewDate] = useState(null);
     const [showingOriginal, setShowingOriginal] = useState(false);
@@ -60,7 +60,7 @@ export default function RecitePage({ poem }) {
     }, [poem]);
 
     useEffect(() => {
-        if (hideLevel === 6) {
+        if (hideLevel === 5) {
             setShowTranslations(false);
         }
     }, [hideLevel]);
@@ -104,7 +104,7 @@ export default function RecitePage({ poem }) {
     // 开始测试
     const startTest = () => {
         setMode('test');
-        setHideLevel(7); // 测试模式，全部隐藏
+        setHideLevel(6); // 测试模式，全部隐藏
         setShowTranslations(false); // 强制关闭翻译
         setStats({ ...stats, startTime: new Date() });
     };
@@ -142,14 +142,14 @@ export default function RecitePage({ poem }) {
                 setShowTranslations(false);
             }
 
-            setStats({ ...stats, hints });
+            setStats({ ...stats });
         }
     };
 
     const decreaseHideLevel = () => {
         if (hideLevel > 1) {
             setHideLevel(hideLevel - 1);
-            setStats({ ...stats, hints });
+            setStats({ ...stats });
         }
     };
 
@@ -158,7 +158,7 @@ export default function RecitePage({ poem }) {
         if (!showingOriginal) {
             // 显示原文
             setShowingOriginal(true);
-            setStats({ ...stats, hints });
+            setStats({ ...stats });
             // 3秒后自动隐藏
             timerRef.current = setTimeout(() => {
                 setShowingOriginal(false);
@@ -182,11 +182,10 @@ export default function RecitePage({ poem }) {
             ...mastery,
             lastReview: endTime.toISOString(),
             reviewCount: (mastery.reviewCount || 0) + 1,
-            level: calculateLevel(mastery.level || 0, stats.hints, duration),
+            level: calculateLevel(mastery.level || 0, duration),
             history: [...(mastery.history || []), {
                 date: endTime.toISOString(),
-                duration,
-                hints: stats.hints
+                duration
             }]
         };
 
@@ -212,15 +211,12 @@ export default function RecitePage({ poem }) {
     };
 
     // 计算掌握等级 (0-5)
-    const calculateLevel = (currentLevel, hints, duration) => {
+    const calculateLevel = (currentLevel,  duration) => {
 
         const avgTimePerLine = duration / poem.content.length;
-        const avgHintsPerLine = hints / poem.content.length;
 
-        if (avgHintsPerLine < 0.2 && avgTimePerLine < 5) {
+        if ( avgTimePerLine < 5) {
             return Math.min(currentLevel + 1, 5);
-        } else if (avgHintsPerLine > 1) {
-            return Math.max(currentLevel - 1, 0);
         }
         return currentLevel;
     };
@@ -287,13 +283,8 @@ export default function RecitePage({ poem }) {
                 return line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.9 ? char : '__'
                 ).join('');
-
-            case 5: // 高级专家难度：隐藏95%，几乎只保留标点
-                return line.split('').map((char, i) =>
-                    isPunctuation(char) || Math.random() > 0.95 ? char : '__'
-                ).join('');
-
-            case 6: // 挑战模式：只显示每段第一个字，其余全部隐藏（除标点）
+            
+            case 5: // 挑战模式：只显示每段第一个字，其余全部隐藏（除标点）
                 return line.split('').map((char, i) => {
                     if (isPunctuation(char)) return char;
                     // 只显示每段的第一个字
@@ -301,7 +292,7 @@ export default function RecitePage({ poem }) {
                     return '__';
                 }).join('');
 
-            case 7: // 测试模式：隐藏全部（只保留标点）
+            case 6: // 测试模式：隐藏全部（只保留标点）
                 return line.split('').map(char =>
                     isPunctuation(char) ? char : '__'
                 ).join('');
@@ -348,7 +339,7 @@ export default function RecitePage({ poem }) {
     };
 
     // 检查当前模式是否允许切换翻译
-    const canToggleTranslation = hideLevel !== 6 && hideLevel !== 7;
+    const canToggleTranslation = hideLevel !== 5 && hideLevel !== 6;
 
     // 主要内容渲染
     return (
