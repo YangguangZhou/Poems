@@ -46,6 +46,7 @@
   .searchInput:focus {
     outline: none;
     box-shadow: 0 4px 15px var(--shadow);
+    border-left: 3px solid var(--accent);
   }
   
   .searchHistoryDropdown {
@@ -131,11 +132,12 @@
   }
   
   .tag {
-    background-color: rgba(212, 185, 149, 0.2);
+    background-color: rgba(179, 109, 97, 0.1); /* 绾红透明背景 */
     color: var(--accent);
     font-size: 0.8rem;
     padding: 0.25rem 0.6rem;
     border-radius: 20px;
+    transition: var(--transition);
   }
   
   .poemPreview {
@@ -154,7 +156,7 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 1; /* 每段最多显示1行 */
-    line-clamp: 1; /* 标准属性，提高兼容性 */
+    line-clamp: 1;
     -webkit-box-orient: vertical;
   }
   
@@ -187,7 +189,7 @@
   }
   
   [data-theme='dark'] .poemPreview.classical::before {
-    background: linear-gradient(to right, rgba(41, 53, 72, 0), var(--card-bg) 80%);
+    background: linear-gradient(to right, rgba(46, 56, 70, 0), var(--card-bg) 80%);
   }
   
   .footer {
@@ -213,6 +215,10 @@
   }
   
   @media screen and (max-width: 768px) {
+    .container {
+      padding: 1rem;
+    }
+    
     .title {
       font-size: 2.2rem;
     }

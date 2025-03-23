@@ -19,11 +19,11 @@ export default function Home({ poems }) {
     const history = JSON.parse(localStorage.getItem('searchHistory')) || [];
     const access = JSON.parse(localStorage.getItem('accessOrder')) || [];
     const savedTheme = localStorage.getItem('theme') || 'light';
-    
+
     setSearchHistory(history);
     setAccessOrder(access);
     setTheme(savedTheme);
-    
+
     // 应用主题
     document.documentElement.setAttribute('data-theme', savedTheme);
   }, []);
@@ -43,7 +43,7 @@ export default function Home({ poems }) {
     const updatedAccess = [poem.title, ...accessOrder.filter(title => title !== poem.title)];
     setAccessOrder(updatedAccess);
     localStorage.setItem('accessOrder', JSON.stringify(updatedAccess));
-    
+
     // 只有当搜索词不为空时才添加到历史记录
     if (searchTerm.trim()) {
       const newHistory = [searchTerm, ...searchHistory.filter(term => term !== searchTerm)].slice(0, 10); // 限制历史记录数量
@@ -57,10 +57,10 @@ export default function Home({ poems }) {
     const isClassical = poem.tags.includes('文言文');
     // 只获取内容的前两行
     const lines = poem.content.slice(0, 2);
-    
+
     // 根据是否是文言文使用不同的样式
     const previewClass = isClassical ? `${styles.poemPreview} ${styles.classical}` : styles.poemPreview;
-    
+
     return (
       <div className={previewClass}>
         {lines.map((line, i) => (
@@ -73,7 +73,7 @@ export default function Home({ poems }) {
   const filteredPoems = poems
     .filter((poem) => {
       if (!searchTerm.trim()) return true; // 如果没有搜索词，显示所有诗词
-      
+
       const searchContent = (
         poem.title +
         poem.author +
@@ -112,7 +112,7 @@ export default function Home({ poems }) {
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
-      
+
       <div className={styles.container}>
         <h1 className={styles.title}>古诗文</h1>
 
@@ -168,11 +168,11 @@ export default function Home({ poems }) {
         ) : (
           <div className={styles.emptyState}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <path d="M19.71,6.29a1,1,0,0,0-1.42,0L16,8.59V7a3,3,0,0,0-3-3H5A3,3,0,0,0,2,7V17a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V15.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-4-4a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.42L16,15.41V17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V7A1,1,0,0,1,5,6h8a1,1,0,0,1,1,1V8.59l-2.29-2.3a1,1,0,0,0-1.42,1.42l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L14,8.59V7a1,1,0,0,1,1-1h1V7a1,1,0,0,0,.38.78l4,3a1,1,0,0,0,1.24,0,1,1,0,0,0,0-1.56Z"/>
+              <path d="M19.71,6.29a1,1,0,0,0-1.42,0L16,8.59V7a3,3,0,0,0-3-3H5A3,3,0,0,0,2,7V17a3,3,0,0,0,3,3h8a3,3,0,0,0,3-3V15.41l2.29,2.3a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42l-4-4a1,1,0,0,0-1.42,0,1,1,0,0,0,0,1.42L16,15.41V17a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V7A1,1,0,0,1,5,6h8a1,1,0,0,1,1,1V8.59l-2.29-2.3a1,1,0,0,0-1.42,1.42l4,4a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L14,8.59V7a1,1,0,0,1,1-1h1V7a1,1,0,0,0,.38.78l4,3a1,1,0,0,0,1.24,0,1,1,0,0,0,0-1.56Z" />
             </svg>
             <p>没有找到符合条件的诗词</p>
-            <button 
-              onClick={() => setSearchTerm('')} 
+            <button
+              onClick={() => setSearchTerm('')}
               style={{
                 background: 'var(--accent)',
                 border: 'none',
@@ -187,7 +187,7 @@ export default function Home({ poems }) {
           </div>
         )}
       </div>
-      
+
       {/* 主题切换按钮 */}
       <div className="theme-switch" onClick={toggleTheme}>
         {theme === 'light' ? (
@@ -208,7 +208,7 @@ export default function Home({ poems }) {
           </svg>
         )}
       </div>
-      
+
       {/* 底部 Footer */}
       <footer className={styles.footer}>
         <a className={styles.clearCacheLink} onClick={handleClearCache}>

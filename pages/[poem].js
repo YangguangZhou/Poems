@@ -19,7 +19,7 @@ export default function PoemPage({ poem }) {
     const access = JSON.parse(localStorage.getItem('accessOrder')) || [];
     const updatedAccess = [poem.title, ...access.filter(title => title !== poem.title)];
     localStorage.setItem('accessOrder', JSON.stringify(updatedAccess));
-    
+
     // 加载主题设置
     const savedTheme = localStorage.getItem('theme') || 'light';
     setTheme(savedTheme);
@@ -34,7 +34,7 @@ export default function PoemPage({ poem }) {
   };
 
   const toggleTranslation = (index) => {
-    const translation = document.getElementById(`translation-${index}`);
+    const translation = document.getElementById(`translation-${idx}`);
     if (translation) {
       translation.style.display =
         translation.style.display === 'block' ? 'none' : 'block';
@@ -77,7 +77,7 @@ export default function PoemPage({ poem }) {
 
   // 提取前两行诗句作为描述，并限制长度为160字符
   const poemDescription = `${poem.title}，${poem.author}。${poem.content.slice(0, 2).join('，')}...`;
-  const truncatedDesc = poemDescription.length > 160 ? 
+  const truncatedDesc = poemDescription.length > 160 ?
     poemDescription.substring(0, 157) + '...' : poemDescription;
 
   // 提取适合的关键词
@@ -106,7 +106,7 @@ export default function PoemPage({ poem }) {
         <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
-      
+
       <div className="container">
         <div className={styles.container}>
           <Link href="/" className={styles.homeButton}>
@@ -150,7 +150,7 @@ export default function PoemPage({ poem }) {
           </div>
         </div>
       </div>
-      
+
       {/* 主题切换按钮 */}
       <div className="theme-switch" onClick={toggleTheme}>
         {theme === 'light' ? (
@@ -182,7 +182,7 @@ export default function PoemPage({ poem }) {
           打印为 PDF
         </a>
         <div>
-          Copyright © 2024
+          Copyright © {new Date().getFullYear()}
           {' '}
           <a href="https://jerryz.com.cn" target="_blank" rel="noopener">
             Jerry Zhou

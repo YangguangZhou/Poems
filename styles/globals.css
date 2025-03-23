@@ -1,26 +1,37 @@
 :root {
-    --primary: #3a4a5a;
-    --accent: #d4b995;
-    --background: #f7f7f7;
-    --card-bg: #ffffff;
-    --text: #333333;
-    --text-light: #666666;
-    --border: #e0e0e0;
-    --shadow: rgba(0, 0, 0, 0.1);
+    /* 中国传统色配色方案 */
+    --primary: #4a5667; /* 青黛 */
+    --accent: #b36d61; /* 绾红 */
+    --background: #f4f4f9; /* 霜色 */
+    --card-bg: #ffffff; /* 素白 */
+    --text: #2b2b2b; /* 墨黑 */
+    --text-light: #7a7374; /* 鸠羽灰 */
+    --border: #e0d9d3; /* 珍珠灰 */
+    --shadow: rgba(0, 0, 0, 0.08);
+    
+    /* 特殊元素颜色 */
+    --pinyin: #ca6924; /* 琥珀 - 拼音色 */
+    --highlight: #86624e; /* 赭石 - 突出色 */
+    --link-hover: #8c4b31; /* 赫赤 - 链接悬停色 */
     
     --transition: all 0.3s ease;
     --radius: 8px;
   }
   
   [data-theme='dark'] {
-    --primary: #8f9ba8;
-    --accent: #c8ab7b;
-    --background: #1f2937;
-    --card-bg: #293548;
-    --text: #e0e0e0;
-    --text-light: #9ca3af;
-    --border: #374151;
+    --primary: #8da9c4; /* 秋水蓝 */
+    --accent: #d19c86; /* 檀唇 */
+    --background: #222830; /* 玄青 */
+    --card-bg: #2e3846; /* 青钢 */
+    --text: #e0e0e0; /* 月白 */
+    --text-light: #a9bbc6; /* 云峰白 */
+    --border: #3f4e5e; /* 黯色 */
     --shadow: rgba(0, 0, 0, 0.25);
+    
+    /* 特殊元素颜色 */
+    --pinyin: #e6b422; /* 栀子黄 - 拼音色 */
+    --highlight: #c27c48; /* 琥珀棕 - 突出色 */
+    --link-hover: #f0a1a8; /* 水红 - 链接悬停色 */
   }
   
   * {
@@ -55,6 +66,12 @@
   
   a:hover {
     color: var(--accent);
+  }
+  
+  /* 文本选择样式 */
+  ::selection {
+    background-color: var(--accent);
+    color: white;
   }
   
   /* 自定义滚动条 */
@@ -135,6 +152,8 @@
   
   .theme-switch:hover {
     transform: scale(1.1);
+    background-color: var(--accent);
+    color: white;
   }
   
   .page-title {
@@ -168,5 +187,12 @@
     }
     100% {
       transform: translateY(0px);
+    }
+  }
+  
+  /* 响应式调整 */
+  @media screen and (max-width: 768px) {
+    .container {
+      padding: 1rem;
     }
   }
