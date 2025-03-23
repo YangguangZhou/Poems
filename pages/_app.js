@@ -2,6 +2,7 @@ import { DefaultSeo } from 'next-seo';
 import SEO from '../next-seo.config';
 import { useState, useEffect } from 'react';
 import '../styles/globals.css';
+import AdvertisementScripts from './AdvertisementScripts';
 
 function MyApp({ Component, pageProps }) {
   const [showAds, setShowAds] = useState(true);
@@ -44,12 +45,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <DefaultSeo {...SEO} />
-      {showAds && (
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
-      )}
-      {showAds && (
-        <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
-      )}
+      {showAds && <AdvertisementScripts />}
       <Component {...pageProps} showAds={showAds} />
     </>
   );
