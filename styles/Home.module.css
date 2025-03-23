@@ -279,3 +279,10 @@
     font-size: 1rem;
     margin-bottom: 1rem;
 }
+
+.noAdsIndicator {
+    color: #698e6a;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    display: inline-block;
+  }

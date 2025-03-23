@@ -410,3 +410,95 @@
         font-size: 1.1rem;
     }
 }
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 1.2rem;
+    color: var(--text-light);
+}
+
+.loading p {
+    padding: 1rem 2rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+}
+
+.activeLineContainer {
+    margin: 1.5rem 0;
+}
+
+.activeLine {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 0.5rem 0;
+    text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.readthroughMode {
+    padding: 1rem;
+    background-color: var(--background);
+    border-radius: var(--radius);
+    margin-bottom: 1.5rem;
+}
+
+.lineWithTranslation {
+    margin: 1.5rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--border);
+}
+
+.originalLine {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin-bottom: 0.75rem;
+    text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+.translationLine {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-style: italic;
+    padding: 0.5rem 1rem;
+    background-color: rgba(179, 109, 97, 0.08);
+    border-radius: var(--radius);
+}
+
+.startButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.75rem 2rem;
+    font-size: 1.1rem;
+    border-radius: var(--radius);
+    margin: 0 auto;
+    display: block;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.startButton:hover {
+    background-color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dangerButton {
+    background-color: #e53e3e;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.dangerButton:hover {
+    background-color: #c53030;
+    transform: translateY(-2px);
+}

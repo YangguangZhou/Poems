@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { parsePoems } from '../lib/parsePoems';
 import { NextSeo } from 'next-seo';
 
-export default function Home({ poems }) {
+export default function Home({ poems, showAds }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchHistory, setSearchHistory] = useState([]);
   const [accessOrder, setAccessOrder] = useState([]);
@@ -94,7 +94,18 @@ export default function Home({ poems }) {
 
   const handleClearCache = async () => {
     await fetch('/api/clearCache', { method: 'POST' });
+
+    // 保存无广告设置状态
+    const noAdsStatus = localStorage.getItem('noAds');
+
+    // 清除localStorage其他内容
     localStorage.clear();
+
+    // 如果之前设置了无广告，则恢复该设置
+    if (noAdsStatus === 'true') {
+      localStorage.setItem('noAds', 'true');
+    }
+
     setSearchHistory([]);
     setAccessOrder([]);
     alert('缓存已清除');
@@ -108,8 +119,6 @@ export default function Home({ poems }) {
         canonical="https://poems.jerryz.com.cn/"
       />
       <Head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2597042766299857" crossorigin="anonymous"></script>
-        <script defer src="https://umami.jerryz.com.cn/script.js" data-website-id="2146d192-8185-4e7d-a402-e005dd097571"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
 
@@ -224,6 +233,12 @@ export default function Home({ poems }) {
         <a className={styles.clearCacheLink} onClick={handleClearCache}>
           清除缓存
         </a>
+        <br/>
+        {!showAds && (
+          <div className={styles.noAdsIndicator}>
+            No Ads
+          </div>
+        )}
         <div>
           Copyright © {new Date().getFullYear()}
           {' '}
