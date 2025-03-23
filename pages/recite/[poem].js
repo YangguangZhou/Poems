@@ -59,6 +59,12 @@ export default function RecitePage({ poem }) {
         };
     }, [poem]);
 
+    useEffect(() => {
+        if (hideLevel === 6) {
+            setShowTranslations(false);
+        }
+    }, [hideLevel]);
+
     // 根据掌握程度决定初始挖空难度
     const getDifficultyByMastery = (masteryLevel) => {
         // 基于掌握程度自动设置难度
@@ -131,7 +137,7 @@ export default function RecitePage({ poem }) {
             setHideLevel(newLevel);
 
             // 如果进入挑战模式，关闭翻译
-            if (newLevel === 6) {
+            if (newLevel === 6 || hideLevel === 6) {
                 setShowTranslations(false);
             }
 
@@ -448,7 +454,7 @@ export default function RecitePage({ poem }) {
                                 </div>
 
                                 <div className={styles.controlButtons}>
-                                    {canToggleTranslation && (
+                                    {canToggleTranslation && hideLevel > 0 && hideLevel < 5 && (
                                         <button
                                             className={`${styles.controlButton} ${styles.translationToggle}`}
                                             onClick={() => setShowTranslations(!showTranslations)}
