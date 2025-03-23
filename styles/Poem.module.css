@@ -90,7 +90,7 @@
 }
 
 /* 文言文和词的首行缩进 */
-.contentClassical .poemLine:first-child {
+.contentClassical .poemLine {
   text-indent: 2em;
 }
 

@@ -13,9 +13,6 @@ async function generateSitemap() {
   // 读取诗词数据
   const filePath = path.join(process.cwd(), 'public', 'poems.txt');
   const fileContents = fs.readFileSync(filePath, 'utf8');
-  
-  // 需要确保parsePoems在Node环境中能正常工作
-  // 如果有问题，可能需要调整parsePoems函数或将其逻辑复制到这个脚本中
   const poems = parsePoems(fileContents);
   
   const baseUrl = 'https://poems.jerryz.com.cn';
@@ -32,15 +29,32 @@ async function generateSitemap() {
   sitemap += `    <priority>1.0</priority>\n`;
   sitemap += `  </url>\n`;
   
-  // 添加每个诗词页面
+  // 添加背诵进度页面
+  sitemap += `  <url>\n`;
+  sitemap += `    <loc>${baseUrl}/recite-progress</loc>\n`;
+  sitemap += `    <lastmod>${today}</lastmod>\n`;
+  sitemap += `    <changefreq>weekly</changefreq>\n`;
+  sitemap += `    <priority>0.8</priority>\n`;
+  sitemap += `  </url>\n`;
+  
+  // 添加每个诗词页面和对应的背诵页面
   poems.forEach(poem => {
     const encodedTitle = encodeURIComponent(poem.title);
     
+    // 原诗词页面
     sitemap += `  <url>\n`;
     sitemap += `    <loc>${baseUrl}/${encodedTitle}</loc>\n`;
     sitemap += `    <lastmod>${today}</lastmod>\n`;
     sitemap += `    <changefreq>monthly</changefreq>\n`;
     sitemap += `    <priority>0.8</priority>\n`;
+    sitemap += `  </url>\n`;
+    
+    // 背诵页面
+    sitemap += `  <url>\n`;
+    sitemap += `    <loc>${baseUrl}/recite/${encodedTitle}</loc>\n`;
+    sitemap += `    <lastmod>${today}</lastmod>\n`;
+    sitemap += `    <changefreq>monthly</changefreq>\n`;
+    sitemap += `    <priority>0.7</priority>\n`;
     sitemap += `  </url>\n`;
   });
   

@@ -122,13 +122,50 @@ export default function ReciteProgress() {
     return labels[level] || '未学';
   };
 
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "古诗文背诵进度",
+    "description": "查看您的古诗文背诵学习进度、统计数据和复习计划。",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "古诗文网",
+      "url": "https://poems.jerryz.com.cn/"
+    }
+  };
+  
   return (
     <>
       <NextSeo
-        title="背诵进度"
-        description="查看古诗文背诵进度和学习统计"
+        title="背诵进度 | Poems"
+        description="查看您的古诗文背诵进度、学习统计数据和智能复习计划。跟踪记忆效果，科学安排学习计划。"
+        canonical="https://poems.jerryz.com.cn/recite-progress"
+        openGraph={{
+          type: 'website',
+          title: '古诗文背诵进度 | Poems',
+          description: '查看您的古诗文背诵进度、学习统计数据和智能复习计划。基于艾宾浩斯遗忘曲线科学安排学习。',
+          url: 'https://poems.jerryz.com.cn/recite-progress',
+          images: [
+            {
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png',
+              width: 512,
+              height: 512,
+              alt: '古诗文网',
+            }
+          ],
+        }}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: '背诵进度,学习统计,古诗文,记忆,艾宾浩斯遗忘曲线,复习计划,背诵统计'
+          }
+        ]}
       />
       <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
       

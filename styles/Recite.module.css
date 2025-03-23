@@ -353,6 +353,18 @@
     margin-bottom: 1rem;
 }
 
+.activeLineContainer {
+    margin: 1.5rem 0;
+}
+
+.activeLine {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    margin: 0.5rem 0;
+    text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;

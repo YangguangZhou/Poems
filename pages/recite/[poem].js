@@ -12,7 +12,7 @@ import { pinyin } from 'pinyin-pro';
 export default function RecitePage({ poem }) {
   const router = useRouter();
   const [mode, setMode] = useState('prepare'); // prepare, recite, test
-  const [revealLevel, setRevealLevel] = useState(0); // 0: 隐藏所有, 1: 首字, 2: 隐藏部分, 3: 全部显示
+  const [hideLevel, setHideLevel] = useState(1); // 1: 隐藏少量, 2: 隐藏一半, 3: 隐藏大部分, 4: 全部隐藏(测试模式)
   const [recitingIndex, setRecitingIndex] = useState(0);
   const [mastery, setMastery] = useState({});
   const [stats, setStats] = useState({ startTime: null, attempts: 0, hints: 0 });
@@ -46,6 +46,7 @@ export default function RecitePage({ poem }) {
   // 开始背诵
   const startReciting = () => {
     setMode('recite');
+    setHideLevel(1); // 开始时隐藏少量字
     setStats({ ...stats, startTime: new Date() });
   };
 
@@ -53,13 +54,13 @@ export default function RecitePage({ poem }) {
   const startTest = () => {
     setMode('test');
     setRecitingIndex(0);
-    setRevealLevel(0);
+    setHideLevel(4); // 测试模式，全部隐藏
   };
 
-  // 显示更多提示
+  // 显示更多提示(减少隐藏)
   const showMoreHint = () => {
-    if (revealLevel < 3) {
-      setRevealLevel(revealLevel + 1);
+    if (hideLevel > 1) {
+      setHideLevel(hideLevel - 1);
       setStats({ ...stats, hints: stats.hints + 1 });
     }
   };
@@ -68,7 +69,8 @@ export default function RecitePage({ poem }) {
   const nextLine = () => {
     if (recitingIndex < poem.content.length - 1) {
       setRecitingIndex(recitingIndex + 1);
-      setRevealLevel(0);
+      // 背诵模式时重置为隐藏少量，测试模式时保持全隐藏
+      setHideLevel(mode === 'test' ? 4 : 1);
     } else {
       // 完成背诵
       finishReciting();
@@ -78,7 +80,7 @@ export default function RecitePage({ poem }) {
   // 完成背诵
   const finishReciting = () => {
     const endTime = new Date();
-    const duration = (endTime - stats.startTime) / 1000; // 秒
+    const duration = Math.round((endTime - stats.startTime) / 1000); // 秒，使用整数
     
     // 更新掌握度
     const updatedMastery = {
@@ -100,7 +102,14 @@ export default function RecitePage({ poem }) {
     allMastery[poem.title] = updatedMastery;
     localStorage.setItem('poemMastery', JSON.stringify(allMastery));
     
-    // 回到准备状态
+    // 计算下次复习时间
+    const reviewIntervals = [1, 2, 4, 7, 15, 30, 60, 90]; // 复习间隔天数
+    const level = Math.min(updatedMastery.level || 0, reviewIntervals.length - 1);
+    const nextReview = new Date();
+    nextReview.setDate(nextReview.getDate() + reviewIntervals[level]);
+    setNextReviewDate(nextReview);
+    
+    // 回到完成状态
     setMode('complete');
   };
 
@@ -135,57 +144,117 @@ export default function RecitePage({ poem }) {
     return labels[level] || '未学';
   };
 
+  // 格式化时间显示
+  const formatDuration = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}分${remainingSeconds}秒`;
+  };
+
+  // 格式化日期显示
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+  };
+
   // 渲染带遮盖和提示的内容
   const renderReciteLine = (line, index) => {
     if (index !== recitingIndex) {
       return <div className={styles.inactiveLine}>{line}</div>;
     }
     
-    if (revealLevel === 3) {
-      // 全部显示
-      return <div className={styles.fullReveal}>{line}</div>;
-    } else if (revealLevel === 2) {
-      // 显示关键字
-      return (
-        <div className={styles.partialReveal}>
-          {line.split('').map((char, i) => (
-            <span key={i} className={i % 3 === 0 ? styles.revealed : styles.hidden}>
-              {char}
-            </span>
-          ))}
-        </div>
-      );
-    } else if (revealLevel === 1) {
-      // 只显示首字
-      return (
-        <div className={styles.firstCharReveal}>
-          {line.split('').map((char, i) => (
-            <span key={i} className={i === 0 ? styles.revealed : styles.hidden}>
-              {char}
-            </span>
-          ))}
-        </div>
-      );
+    // 根据不同级别的隐藏程度处理
+    let processedLine;
+    
+    if (mode === 'test' || hideLevel === 4) {
+      // 测试模式或最高隐藏级别：全部隐藏
+      processedLine = line.split('').map(char => 
+        char === ' ' || char === '\n' ? char : '__'
+      ).join('');
+    } else if (hideLevel === 3) {
+      // 隐藏大部分（约75%）
+      processedLine = line.split('').map((char, i) => 
+        char === ' ' || char === '\n' || i % 4 === 0 ? char : '__'
+      ).join('');
+    } else if (hideLevel === 2) {
+      // 隐藏一半
+      processedLine = line.split('').map((char, i) => 
+        char === ' ' || char === '\n' || i % 2 === 0 ? char : '__'
+      ).join('');
     } else {
-      // 全部隐藏，只显示占位符
-      return (
-        <div className={styles.noReveal}>
-          {line.split('').map((_, i) => (
-            <span key={i} className={styles.placeholder}>□</span>
-          ))}
-        </div>
-      );
+      // 隐藏少量（约25%）
+      processedLine = line.split('').map((char, i) => 
+        char === ' ' || char === '\n' || i % 4 !== 0 ? char : '__'
+      ).join('');
+    }
+    
+    // 处理换行，确保正确显示
+    const parts = processedLine.split('\n');
+    
+    return (
+      <div className={styles.activeLineContainer}>
+        {parts.map((part, i) => (
+          <div key={i} className={styles.activeLine}>{part}</div>
+        ))}
+      </div>
+    );
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": `背诵《${poem.title}》`,
+    "description": `练习背诵《${poem.title}》- ${poem.author}的经典作品，提供智能提示和记忆辅助。`,
+    "author": {
+      "@type": "Person",
+      "name": poem.author
+    },
+    "educationalLevel": "高中",
+    "learningResourceType": "背诵练习",
+    "inLanguage": "zh-CN",
+    "isPartOf": {
+      "@type": "WebSite",
+      "name": "古诗文网",
+      "url": "https://poems.jerryz.com.cn/"
     }
   };
 
-  // 主要内容渲染
   return (
     <>
       <NextSeo
-        title={`背诵 ${poem.title}`}
-        description={`背诵《${poem.title}》- ${poem.author} 的经典作品。提供分步提示和记忆辅助功能。`}
+        title={`背诵 ${poem.title} | Poems`}
+        description={`背诵《${poem.title}》- ${poem.author}的经典作品。提供分步提示、记忆辅助功能和艾宾浩斯复习计划。学习古诗文，提高记忆力。`}
+        canonical={`https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`}
+        openGraph={{
+          type: 'website',
+          title: `背诵《${poem.title}》| Poems`,
+          description: `背诵《${poem.title}》- ${poem.author}的经典作品。与原文、翻译、解析对照背诵，提高记忆效率。`,
+          url: `https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`,
+          images: [
+            {
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png',
+              width: 512,
+              height: 512,
+              alt: '古诗文网',
+            }
+          ],
+        }}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: `${poem.title},${poem.author},${poem.tags.join(',')},背诵,记忆,古诗文,诗词背诵,艾宾浩斯记忆法`
+          },
+          {
+            name: 'application-name',
+            content: '古诗文背诵'
+          }
+        ]}
       />
       <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
       </Head>
       
@@ -206,13 +275,13 @@ export default function RecitePage({ poem }) {
                 </div>
                 {nextReviewDate && (
                   <div className={styles.reviewDate}>
-                    建议复习日期: {nextReviewDate.toLocaleDateString()}
+                    建议复习日期: {formatDate(nextReviewDate)}
                   </div>
                 )}
               </div>
               
               <p className={styles.instructions}>
-                背诵模式将帮助你逐步记忆这首诗。系统会先隐藏内容，你可以根据需要获取提示。
+                背诵模式将帮助你逐步记忆这首诗。系统会根据学习进度隐藏部分内容，你可以根据需要获取提示。
               </p>
               
               <div className={styles.buttonGroup}>
@@ -230,8 +299,8 @@ export default function RecitePage({ poem }) {
                   <ul>
                     {mastery.history.slice(-5).map((entry, i) => (
                       <li key={i}>
-                        {new Date(entry.date).toLocaleDateString()} - 
-                        用时: {Math.floor(entry.duration / 60)}:{(entry.duration % 60).toString().padStart(2, '0')} - 
+                        {formatDate(entry.date)} - 
+                        用时: {formatDuration(entry.duration)} - 
                         提示: {entry.hints}次
                       </li>
                     ))}
@@ -267,8 +336,12 @@ export default function RecitePage({ poem }) {
               </div>
               
               <div className={styles.reciteControls}>
-                <button className={styles.hintButton} onClick={showMoreHint} disabled={revealLevel === 3}>
-                  显示提示
+                <button 
+                  className={styles.hintButton} 
+                  onClick={showMoreHint} 
+                  disabled={hideLevel === 1 || mode === 'test'}
+                >
+                  {mode === 'test' ? '测试模式不可提示' : '显示提示'}
                 </button>
                 <button className={styles.nextButton} onClick={nextLine}>
                   {recitingIndex < poem.content.length - 1 ? '下一句' : '完成背诵'}
@@ -289,15 +362,14 @@ export default function RecitePage({ poem }) {
               <div className={styles.stats}>
                 <p>掌握度: <span className={styles.highlight}>{getMasteryLabel(mastery.level || 0)}</span></p>
                 <p>用时: <span className={styles.highlight}>
-                  {Math.floor(((new Date()) - stats.startTime) / 60000)}分
-                  {Math.floor(((new Date()) - stats.startTime) / 1000) % 60}秒
+                  {formatDuration(Math.round((new Date() - stats.startTime) / 1000))}
                 </span></p>
                 <p>使用提示: <span className={styles.highlight}>{stats.hints}次</span></p>
               </div>
               
               <div className={styles.advice}>
                 <h3>记忆建议</h3>
-                <p>下次复习建议时间: <strong>{new Date(nextReviewDate).toLocaleDateString()}</strong></p>
+                <p>下次复习建议时间: <strong>{formatDate(nextReviewDate)}</strong></p>
                 <p>记忆小技巧: 尝试在脑海中形象化诗词内容，创建与意境相关的联想。</p>
               </div>
               
@@ -336,26 +408,4 @@ export default function RecitePage({ poem }) {
       </div>
     </>
   );
-}
-
-export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), 'public', 'poems.txt');
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  const poems = parsePoems(fileContents);
-  const paths = poems.map(poem => ({
-    params: { poem: encodeURIComponent(poem.title) },
-  }));
-  return { paths, fallback: false };
-}
-
-export async function getStaticProps({ params }) {
-  const filePath = path.join(process.cwd(), 'public', 'poems.txt');
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  const poems = parsePoems(fileContents);
-  const poem = poems.find(p => p.title === decodeURIComponent(params.poem));
-  return {
-    props: {
-      poem,
-    },
-  };
 }
