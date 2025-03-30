@@ -37,6 +37,13 @@
 - **移动友好**：完美适配手机、平板等各种设备
 - **支持打印**：可以将诗文打印出来或保存为PDF，方便学习和背诵
 
+## 🖼️ 页面截图
+
+<img src="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/Qexo/ScreenShot-1.jpg" width="1024px" alt="Poems网站截图1" />
+<img src="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/Qexo/ScreenShot-2.jpg" width="1024px" alt="Poems网站截图2" />
+<img src="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/Qexo/ScreenShot-3.jpg" width="1024px" alt="Poems网站截图3" />
+<img src="https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/Qexo/ScreenShot-4.jpg" width="1024px" alt="Poems网站截图4" />
+
 ## 🛠 技术栈
 
 - **前端框架**: Next.js
