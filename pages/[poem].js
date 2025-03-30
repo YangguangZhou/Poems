@@ -71,11 +71,11 @@ export default function PoemPage({ poem }) {
 
   // 提取前两行诗句作为描述，并限制长度为160字符
   const poemDescription = `${poem.title}，${poem.author}。${poem.content.slice(0, 2).join('，')}...`;
-  const truncatedDesc = poemDescription.length > 160 ?
+  const truncatedDesc = "高中必背古诗文 " + poemDescription.length > 160 ?
     poemDescription.substring(0, 157) + '...' : poemDescription;
 
   // 提取适合的关键词
-  const keywords = `${poem.title},${poem.author},${poem.tags.join(',')},古诗文,诗词鉴赏`;
+  const keywords = `${poem.title},${poem.author},${poem.tags.join(',')},古诗文,诗词鉴赏,高中语文`;
 
   return (
     <>
