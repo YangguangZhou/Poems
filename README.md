@@ -11,7 +11,9 @@
 ![GitHub last commit](https://img.shields.io/github/last-commit/YangguangZhou/Poems?style=flat-square)
 ![GitHub repo size](https://img.shields.io/github/repo-size/YangguangZhou/Poems?style=flat-square)
 
-<a href="https://poems.jerryz.com.cn"><img src="https://img.shields.io/badge/在线预览-poems.jerryz.com.cn-brightgreen?style=for-the-badge" alt="在线预览" /></a>
+<a href="https://poems.jerryz.com.cn"><img width="64px" src="https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png" alt="Logo" /></a>
+
+<a href="https://poems.jerryz.com.cn"><img src="https://img.shields.io/badge/在线使用-poems.jerryz.com.cn-brightgreen?style=for-the-badge" alt="在线使用" /></a>
 
 </div>
 
