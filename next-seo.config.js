@@ -12,7 +12,7 @@ export default {
       description: '提供高中语文必背古诗文，支持查看原文、翻译和拼音标注。',
       images: [
         {
-          url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png',
+          url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png',
           width: 512,
           height: 512,
           alt: 'Poems',
@@ -41,7 +41,7 @@ export default {
     additionalLinkTags: [
       {
         rel: 'icon',
-        href: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png'
+        href: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png'
       }
     ]
   };

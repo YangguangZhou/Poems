@@ -147,7 +147,7 @@ export default function ReciteProgress() {
           url: 'https://poems.jerryz.com.cn/recite-progress',
           images: [
             {
-              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/picx-images-hosting@master/favicon.png',
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png',
               width: 512,
               height: 512,
               alt: '古诗文网',
