@@ -20,6 +20,7 @@ export default function RecitePage({ poem }) {
     const [showTranslations, setShowTranslations] = useState(true);
     const [isFirstRecitation, setIsFirstRecitation] = useState(true);
     const timerRef = useRef(null);
+    const [hiddenContentMap, setHiddenContentMap] = useState({}); // 新增状态：保存每行的挖空模式
 
     // 定义标点符号集合
     const punctuations = "，。、；：？！「」『』《》（）【】—…,.;:?!\"'`()<>{}[]“”‘’……";
@@ -99,6 +100,9 @@ export default function RecitePage({ poem }) {
         setShowTranslations(true); // 默认显示翻译
         setMode('recite');
         setStats({ ...stats, startTime: new Date() });
+
+        // 重置挖空内容映射
+        setHiddenContentMap({});
     };
 
     // 开始测试
@@ -107,6 +111,9 @@ export default function RecitePage({ poem }) {
         setHideLevel(6); // 测试模式，全部隐藏
         setShowTranslations(false); // 强制关闭翻译
         setStats({ ...stats, startTime: new Date() });
+
+        // 重置挖空内容映射
+        setHiddenContentMap({});
     };
 
     // 重置背诵记录
@@ -129,6 +136,8 @@ export default function RecitePage({ poem }) {
     // 从通读模式进入背诵模式
     const startHiding = () => {
         setHideLevel(1); // 开始少量挖空
+        // 重置挖空内容映射
+        setHiddenContentMap({});
     };
 
     // 增加挖空级别（更难）
@@ -143,6 +152,9 @@ export default function RecitePage({ poem }) {
             }
 
             setStats({ ...stats });
+
+            // 重置挖空内容映射
+            setHiddenContentMap({});
         }
     };
 
@@ -150,6 +162,9 @@ export default function RecitePage({ poem }) {
         if (hideLevel > 1) {
             setHideLevel(hideLevel - 1);
             setStats({ ...stats });
+
+            // 重置挖空内容映射
+            setHiddenContentMap({});
         }
     };
 
@@ -211,11 +226,10 @@ export default function RecitePage({ poem }) {
     };
 
     // 计算掌握等级 (0-5)
-    const calculateLevel = (currentLevel,  duration) => {
-
+    const calculateLevel = (currentLevel, duration) => {
         const avgTimePerLine = duration / poem.content.length;
 
-        if ( avgTimePerLine < 5) {
+        if (avgTimePerLine < 5) {
             return Math.min(currentLevel + 1, 5);
         }
         return currentLevel;
@@ -261,48 +275,71 @@ export default function RecitePage({ poem }) {
 
     // 根据难度级别生成挖空内容
     const generateHiddenContent = (line, level, index) => {
+        // 如果显示原文，直接返回原文
         if (showingOriginal || level === 0) return line;
-        console.log('level', level);
+
+        // 如果已经有缓存的挖空内容，直接返回
+        if (hiddenContentMap[`${index}-${level}`]) {
+            return hiddenContentMap[`${index}-${level}`];
+        }
+
+        let hiddenContent = line;
+
+        // 根据不同难度级别生成挖空内容
         switch (level) {
             case 1: // 入门难度：隐藏约25%，随机
-                return line.split('').map((char, i) =>
+                hiddenContent = line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.25 ? char : '__'
                 ).join('');
+                break;
 
             case 2: // 中等难度：隐藏约50%，随机
-                return line.split('').map((char, i) =>
+                hiddenContent = line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.5 ? char : '__'
                 ).join('');
+                break;
 
             case 3: // 高级难度：隐藏约75%，随机
-                return line.split('').map((char, i) =>
+                hiddenContent = line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.75 ? char : '__'
                 ).join('');
+                break;
 
             case 4: // 专家难度：隐藏约90%，随机保留几个关键字
-                return line.split('').map((char, i) =>
+                hiddenContent = line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.9 ? char : '__'
                 ).join('');
-            
+                break;
+
             case 5: // 挑战模式：只显示每段第一个字，其余全部隐藏（除标点）
-                return line.split('').map((char, i) => {
+                hiddenContent = line.split('').map((char, i) => {
                     if (isPunctuation(char)) return char;
                     // 只显示每段的第一个字
                     if (i === 0) return char;
                     return '__';
                 }).join('');
+                break;
 
             case 6: // 测试模式：隐藏全部（只保留标点）
-                return line.split('').map(char =>
+                hiddenContent = line.split('').map(char =>
                     isPunctuation(char) ? char : '__'
                 ).join('');
+                break;
 
             default:
                 // 默认情况下，应该返回有一定隐藏度的内容，而不是全部显示
-                return line.split('').map((char, i) =>
+                hiddenContent = line.split('').map((char, i) =>
                     isPunctuation(char) || Math.random() > 0.5 ? char : '__'
                 ).join('');
         }
+
+        // 保存生成的挖空内容
+        setHiddenContentMap(prev => ({
+            ...prev,
+            [`${index}-${level}`]: hiddenContent
+        }));
+
+        return hiddenContent;
     };
 
     // 检查页面是否在加载中
@@ -511,7 +548,7 @@ export default function RecitePage({ poem }) {
                                         </button>
                                     </div>
                                 ) : (
-                                    // 背诵或测试模式：一次性显示全部内容，但应用不同级别的挖空
+                                    // 背诵或测试模式：显示全部内容，但应用挖空效果
                                     <div className={styles.reciteAllContent}>
                                         {poem.content.map((line, index) => (
                                             <div key={index} className={styles.lineWithTranslation}>

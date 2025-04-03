@@ -14,38 +14,31 @@
 
 /* 通读模式样式 */
 .readthroughMode {
-    padding: 1.2rem;
+    padding: 1rem;
     background-color: var(--background);
     border-radius: var(--radius);
     margin-bottom: 1.5rem;
-    max-height: 500px;
-    overflow-y: auto;
+    /* 移除最大高度限制 */
 }
 
 .lineWithTranslation {
-    margin: 0.7rem 0;
-    /* 减少上下边距 */
-    padding-bottom: 0.5rem;
-    /* 减少底部填充 */
+    margin: 0.5rem 0; /* 减少上下边距 */
+    padding-bottom: 0.3rem; /* 减少底部填充 */
     border-bottom: 1px dashed var(--border);
 }
 
 .originalLine {
     font-size: 1.05rem;
-    line-height: 1.5;
-    /* 减小行高 */
-    margin-bottom: 0.4rem;
-    /* 减少底部边距 */
+    line-height: 1.4; /* 减小行高 */
+    margin-bottom: 0.3rem; /* 减少底部边距 */
     text-align: center;
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
 
 .hiddenLine {
     font-size: 1.05rem;
-    line-height: 1.5;
-    /* 减小行高 */
-    margin-bottom: 0.4rem;
-    /* 减少底部边距 */
+    line-height: 1.4; /* 减小行高 */
+    margin-bottom: 0.3rem; /* 减少底部边距 */
     text-align: center;
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
@@ -54,8 +47,7 @@
     font-size: 0.85rem;
     color: var(--text-light);
     font-style: italic;
-    padding: 0.3rem 0.6rem;
-    /* 减少内边距 */
+    padding: 0.2rem 0.5rem; /* 减少内边距 */
     background-color: rgba(179, 109, 97, 0.08);
     border-radius: var(--radius);
 }
@@ -64,11 +56,11 @@
 .reciteHeader {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem; /* 减少底部边距 */
 }
 
 .difficultyInfo {
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.6rem; /* 减少底部边距 */
     text-align: center;
 }
 
@@ -85,15 +77,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.4rem;
-    /* 减小间距 */
-    margin-bottom: 0.8rem;
-    /* 减小底部边距 */
+    gap: 0.4rem; /* 减小间距 */
+    margin-bottom: 0.8rem; /* 减小底部边距 */
 }
 
 .controlButton {
-    padding: 0.35rem 0.7rem;
-    /* 减小按钮内边距 */
+    padding: 0.35rem 0.7rem; /* 减小按钮内边距 */
     font-size: 0.85rem;
     border: none;
     border-radius: var(--radius);
@@ -200,14 +189,18 @@
 .reciteAllContent {
     background-color: var(--background);
     border-radius: var(--radius);
-    padding: 1.2rem;
-    /* 减少内边距 */
+    padding: 1.2rem; /* 减少内边距 */
     max-height: 500px;
     overflow-y: auto;
 }
 
+/* 新增：诗句展示区域，不限制在框内 */
+.poemLines {
+    padding: 0.5rem 0;
+}
+
 .finishButtonContainer {
-    margin-top: 1.5rem;
+    margin-top: 1.2rem;
     text-align: center;
 }
 
@@ -249,7 +242,7 @@
 .title {
     font-size: 2rem;
     text-align: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem; /* 减少底部边距 */
     color: var(--primary);
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
@@ -258,7 +251,7 @@
     text-align: center;
     color: var(--text-light);
     font-size: 1rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.2rem; /* 减少底部边距 */
     font-style: italic;
 }
 
@@ -426,14 +419,14 @@
 }
 
 .reciteContent {
-    margin: 2rem 0;
+    margin: 1.5rem 0; /* 减少上下边距 */
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
 
 .lineContainer {
-    margin: 1.5rem 0;
+    margin: 1.2rem 0; /* 减少上下边距 */
     position: relative;
-    padding: 1rem;
+    padding: 0.8rem; /* 减少内边距 */
     border-radius: var(--radius);
 }
 
@@ -451,8 +444,8 @@
 .firstCharReveal,
 .noReveal {
     font-size: 1.2rem;
-    line-height: 1.8;
-    margin-bottom: 0.5rem;
+    line-height: 1.6; /* 减少行高 */
+    margin-bottom: 0.4rem; /* 减少底部边距 */
     text-align: center;
 }
 
@@ -631,50 +624,15 @@
 }
 
 .activeLineContainer {
-    margin: 1.5rem 0;
+    margin: 1.2rem 0; /* 减少上下边距 */
 }
 
 .activeLine {
     font-size: 1.2rem;
-    line-height: 1.8;
-    margin: 0.5rem 0;
+    line-height: 1.6; /* 减少行高 */
+    margin: 0.4rem 0; /* 减少上下边距 */
     text-align: center;
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
-}
-
-.startButton {
-    background-color: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    font-size: 1.1rem;
-    border-radius: var(--radius);
-    margin: 0 auto;
-    display: block;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.startButton:hover {
-    background-color: var(--primary);
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.dangerButton {
-    background-color: #e53e3e;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--radius);
-    cursor: pointer;
-    font-size: 1rem;
-    transition: var(--transition);
-}
-
-.dangerButton:hover {
-    background-color: #c53030;
-    transform: translateY(-2px);
 }
 
 /* 响应式调整 */
