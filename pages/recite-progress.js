@@ -125,8 +125,8 @@ export default function ReciteProgress() {
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "name": "古诗文背诵进度",
-    "description": "查看您的古诗文背诵学习进度、统计数据和复习计划。",
+    "name": "我的古诗文背诵进度",
+    "description": "查看您的古诗文背诵学习进度、统计数据和基于艾宾浩斯遗忘曲线的个性化复习计划。",
     "isPartOf": {
       "@type": "WebSite",
       "name": "古诗文网",
@@ -137,27 +137,35 @@ export default function ReciteProgress() {
   return (
     <>
       <NextSeo
-        title="背诵进度 | Poems"
-        description="查看您的古诗文背诵进度、学习统计数据和智能复习计划。跟踪记忆效果，科学安排学习计划。"
+        title="我的背诵进度 | 古诗文学习与复习 | Poems"
+        description="查看您的古诗文背诵学习进度、已掌握诗词统计和个性化复习计划。基于艾宾浩斯记忆曲线，科学提升记忆效率。"
         canonical="https://poems.jerryz.com.cn/recite-progress"
         openGraph={{
           type: 'website',
-          title: '古诗文背诵进度 | Poems',
-          description: '查看您的古诗文背诵进度、学习统计数据和智能复习计划。基于艾宾浩斯遗忘曲线科学安排学习。',
+          title: '古诗文背诵进度与复习计划 | Poems',
+          description: '跟踪您的古诗文背诵进度，查看学习统计。获取基于艾宾浩斯记忆曲线的智能复习提醒，高效学习。',
           url: 'https://poems.jerryz.com.cn/recite-progress',
           images: [
             {
-              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png',
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
               width: 512,
               height: 512,
-              alt: '古诗文网',
+              alt: '古诗文背诵进度',
             }
           ],
+          site_name: 'Poems | 古诗文网',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          handle: '@YangguangZhou',
+          title: '古诗文背诵进度与复习计划 | Poems',
+          description: '跟踪您的古诗文背诵进度，查看学习统计。获取基于艾宾浩斯记忆曲线的智能复习提醒，高效学习。',
+          image: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
         }}
         additionalMetaTags={[
           {
             name: 'keywords',
-            content: '背诵进度,学习统计,古诗文,记忆,艾宾浩斯遗忘曲线,复习计划,背诵统计'
+            content: '背诵进度,学习统计,古诗文,记忆,艾宾浩斯遗忘曲线,复习计划,学习报告,诗词掌握度,学习效率'
           }
         ]}
       />

@@ -69,24 +69,45 @@ export default function PoemPage({ poem }) {
     }
   };
 
-  // 提取前两行诗句作为描述，并限制长度为160字符
-  const poemDescription = `${poem.title}，${poem.author}。${poem.content.slice(0, 2).join('，')}...`;
-  const truncatedDesc = "高中必背古诗文 " + poemDescription.length > 160 ?
-    poemDescription.substring(0, 157) + '...' : poemDescription;
+  // 提取前两行诗句作为描述，并限制长度
+  const poemIntro = poem.content.slice(0, 2).join('，');
+  const baseDesc = `学习《${poem.title}》（${poem.author}）。${poemIntro}... 提供原文、翻译、注音，并支持在线背诵练习。`;
+  const finalDesc = baseDesc.length > 160 ? baseDesc.substring(0, 157) + '...' : baseDesc;
 
   // 提取适合的关键词
-  const keywords = `${poem.title},${poem.author},${poem.tags.join(',')},古诗文,诗词鉴赏,高中语文`;
+  const keywords = `${poem.title},${poem.author},${poem.tags.join(',')},原文,翻译,注音,背诵,古诗文,诗词鉴赏,${isClassical ? '文言文,' : ''}高中语文,中华文化`;
 
   return (
     <>
       <NextSeo
-        title={poem.title}
-        description={truncatedDesc}
+        title={`《${poem.title}》- ${poem.author} | 原文、翻译、注音及背诵 | Poems`}
+        description={finalDesc}
         canonical={`https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`}
         openGraph={{
-          title: `${poem.title} | Poems`,
-          description: truncatedDesc,
+          type: 'article',
+          article: {
+            authors: [poem.author],
+            tags: poem.tags,
+          },
+          title: `《${poem.title}》- ${poem.author} | 原文、翻译、注音、背诵`,
+          description: `在线阅读《${poem.title}》（${poem.author}）的原文，查看逐句翻译和字词注音。提供便捷的在线背诵功能。`,
           url: `https://poems.jerryz.com.cn/${encodeURIComponent(poem.title)}`,
+          images: [
+            {
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
+              width: 512,
+              height: 512,
+              alt: `《${poem.title}》`,
+            }
+          ],
+          site_name: 'Poems | 古诗文网',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          handle: '@YangguangZhou',
+          title: `《${poem.title}》- ${poem.author} | 原文、翻译、注音、背诵`,
+          description: `在线阅读《${poem.title}》（${poem.author}）的原文，查看逐句翻译和字词注音。提供便捷的在线背诵功能。`,
+          image: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
         }}
         additionalMetaTags={[
           {

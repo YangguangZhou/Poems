@@ -24,6 +24,11 @@ export default function RecitePage({ poem }) {
 
     // 定义标点符号集合
     const punctuations = "，。、；：？！「」『』《》（）【】—…,.;:?!\"'`()<>{}[]“”‘’……";
+    
+    // 检查诗是否为词或文言文类型
+    const isSpecialFormat = poem?.tags?.some(tag => 
+        tag === "词" || tag === "文言文"
+    );
 
     // 初始化数据
     useEffect(() => {
@@ -360,7 +365,7 @@ export default function RecitePage({ poem }) {
         "@context": "https://schema.org",
         "@type": "LearningResource",
         "name": `背诵《${poem.title}》`,
-        "description": `练习背诵《${poem.title}》- ${poem.author}的经典作品，提供智能提示和记忆辅助。`,
+        "description": `练习背诵《${poem.title}》- ${poem.author}的经典作品，提供智能提示、分步挖空和艾宾浩斯复习计划。`,
         "author": {
             "@type": "Person",
             "name": poem.author
@@ -382,27 +387,35 @@ export default function RecitePage({ poem }) {
     return (
         <>
             <NextSeo
-                title={`背诵 ${poem.title} | Poems`}
-                description={`背诵《${poem.title}》- ${poem.author}的经典作品。提供分步提示、记忆辅助功能和艾宾浩斯复习计划。学习古诗文，提高记忆力。`}
+                title={`开始背诵《${poem.title}》- ${poem.author} | 智能记忆辅助 | Poems`}
+                description={`通过智能挖空、分步提示和艾宾浩斯复习计划，高效背诵《${poem.title}》。${poem.author}作品。学习古诗文，提升记忆力。`}
                 canonical={`https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`}
                 openGraph={{
                     type: 'website',
-                    title: `背诵《${poem.title}》| Poems`,
-                    description: `背诵《${poem.title}》- ${poem.author}的经典作品。与原文、翻译、解析对照背诵，提高记忆效率。`,
+                    title: `开始背诵《${poem.title}》- ${poem.author} | 智能记忆辅助`,
+                    description: `高效背诵《${poem.title}》。提供智能挖空、分步提示、记忆辅助功能和艾宾浩斯复习计划。`,
                     url: `https://poems.jerryz.com.cn/recite/${encodeURIComponent(poem.title)}`,
                     images: [
                         {
-                            url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png',
+                            url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
                             width: 512,
                             height: 512,
-                            alt: 'Poems',
+                            alt: `背诵《${poem.title}》`,
                         }
                     ],
+                    site_name: 'Poems | 古诗文网',
+                }}
+                twitter={{
+                    cardType: 'summary_large_image',
+                    handle: '@YangguangZhou',
+                    title: `开始背诵《${poem.title}》- ${poem.author} | 智能记忆辅助`,
+                    description: `高效背诵《${poem.title}》。提供智能挖空、分步提示、记忆辅助功能和艾宾浩斯复习计划。`,
+                    image: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为更具代表性的分享图
                 }}
                 additionalMetaTags={[
                     {
                         name: 'keywords',
-                        content: `${poem.title},${poem.author},${poem.tags.join(',')},背诵,记忆,古诗文,诗词背诵,艾宾浩斯记忆法`
+                        content: `${poem.title},${poem.author},${poem.tags.join(',')},背诵,记忆,古诗文,诗词背诵,艾宾浩斯记忆法,智能挖空,记忆辅助,学习方法`
                     }
                 ]}
             />
@@ -535,8 +548,8 @@ export default function RecitePage({ poem }) {
                                     // 通读模式：显示全部内容
                                     <div className={styles.readthroughMode}>
                                         {poem.content.map((line, index) => (
-                                            <div key={index} className={styles.lineWithTranslation}>
-                                                <div className={styles.originalLine}>{line}</div>
+                                            <div key={index} className={`${styles.lineWithTranslation} ${isSpecialFormat ? styles.specialFormatLine : ''}`}>
+                                                <div className={`${isSpecialFormat ? styles.specialFormatText : styles.originalLine}`}>{line}</div>
                                                 {showTranslations && (
                                                     <div className={styles.translationLine}>{poem.translation[index]}</div>
                                                 )}
@@ -551,8 +564,8 @@ export default function RecitePage({ poem }) {
                                     // 背诵或测试模式：显示全部内容，但应用挖空效果
                                     <div className={styles.reciteAllContent}>
                                         {poem.content.map((line, index) => (
-                                            <div key={index} className={styles.lineWithTranslation}>
-                                                <div className={styles.hiddenLine}>
+                                            <div key={index} className={`${styles.lineWithTranslation} ${isSpecialFormat ? styles.specialFormatLine : ''}`}>
+                                                <div className={`${isSpecialFormat ? styles.specialFormatText : styles.hiddenLine}`}>
                                                     {generateHiddenContent(line, hideLevel, index)}
                                                 </div>
                                                 {showTranslations && (

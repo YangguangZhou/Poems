@@ -93,13 +93,10 @@ export default function Home({ poems, showAds }) {
     });
 
   const handleClearCache = async () => {
-     // 保存无广告设置状态
     const noAdsStatus = localStorage.getItem('noAds');
 
     // 清除localStorage其他内容
     localStorage.clear();
-
-    // 如果之前设置了无广告，则恢复该设置
     if (noAdsStatus === 'true') {
       localStorage.setItem('noAds', 'true');
     }
@@ -112,9 +109,38 @@ export default function Home({ poems, showAds }) {
   return (
     <>
       <NextSeo
-        title="Poems - 古诗文"
-        description="提供高中语文必背古诗文，支持查看原文、翻译和拼音标注。"
+        title="古诗文网 | 高中必背古诗词原文、翻译、注音及智能背诵"
+        description="古诗文网提供全面的高中必背古诗文学习资源，包括原文、白话翻译、字词注音。更有智能背诵功能，助您高效记忆。"
         canonical="https://poems.jerryz.com.cn/"
+        openGraph={{
+          type: 'website',
+          title: '古诗文网 | 高中必背古诗词学习与智能背诵',
+          description: '探索高中必背古诗文。提供原文、翻译、注音，以及基于艾宾浩斯记忆曲线的智能背诵系统。',
+          url: 'https://poems.jerryz.com.cn/',
+          images: [
+            {
+              url: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为网站Logo或首页代表图
+              width: 512,
+              height: 512,
+              alt: '古诗文网',
+            }
+          ],
+          site_name: 'Poems | 古诗文网',
+        }}
+        twitter={{
+          cardType: 'summary_large_image',
+          // site: '@YourTwitterHandle',
+          handle: '@YourTwitterHandle',
+          title: '古诗文网 | 高中必背古诗词学习与智能背诵',
+          description: '探索高中必背古诗文。提供原文、翻译、注音，以及基于艾宾浩斯记忆曲线的智能背诵系统。',
+          image: 'https://cdn.jerryz.com.cn/gh/YangguangZhou/Poems@main/public/favicon.png', // 建议替换为网站Logo或首页代表图
+        }}
+        additionalMetaTags={[
+          {
+            name: 'keywords',
+            content: '古诗文,诗词,高中语文,必背古诗文,原文,翻译,注音,背诵,记忆,学习,中华文化,艾宾浩斯'
+          }
+        ]}
       />
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />

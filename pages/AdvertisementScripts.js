@@ -14,13 +14,10 @@ export default function AdvertisementScripts() {
     umamiScript.src = "https://umami.jerryz.com.cn/script.js";
     umamiScript.dataset.websiteId = "2146d192-8185-4e7d-a402-e005dd097571";
     document.head.appendChild(umamiScript);
-    
-    // 清理函数
     return () => {
       document.head.removeChild(gadsScript);
       document.head.removeChild(umamiScript);
-      
-      // 清理广告内容
+
       const adElements = document.querySelectorAll('.adsbygoogle');
       adElements.forEach(el => el.remove());
       

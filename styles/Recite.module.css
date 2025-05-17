@@ -23,8 +23,14 @@
 
 .lineWithTranslation {
     margin: 0.5rem 0; /* 减少上下边距 */
-    padding-bottom: 0.3rem; /* 减少底部填充 */
+    /* 只在特殊格式时使用分割线，默认不使用 */
+    border-bottom: none;
+}
+
+/* 特殊格式行（词或文言文）使用分割线 */
+.specialFormatLine {
     border-bottom: 1px dashed var(--border);
+    padding-bottom: 0.3rem;
 }
 
 .originalLine {
@@ -40,6 +46,16 @@
     line-height: 1.4; /* 减小行高 */
     margin-bottom: 0.3rem; /* 减少底部边距 */
     text-align: center;
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
+}
+
+/* 特殊格式文本（词或文言文）的样式 */
+.specialFormatText {
+    font-size: 1.05rem;
+    line-height: 1.4;
+    margin-bottom: 0.3rem;
+    text-align: left;
+    text-indent: 2em; /* 首行缩进2个字符 */
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
 }
 
