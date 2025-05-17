@@ -64,7 +64,7 @@
     color: var(--text-light);
     font-style: italic;
     padding: 0.2rem 0.5rem; /* 减少内边距 */
-    background-color: rgba(179, 109, 97, 0.08);
+    background-color: rgba(193, 75, 61, 0.08); /* 使用朱砂红色调 */
     border-radius: var(--radius);
 }
 
@@ -112,48 +112,48 @@
 }
 
 .difficultyUp {
-    background-color: #e53e3e;
+    background-color: var(--button-danger);
     color: white;
 }
 
 .difficultyDown {
-    background-color: #38a169;
+    background-color: var(--button-success);
     color: white;
 }
 
 .difficultyLabel.level0 {
     background-color: #e2e8f0;
-    color: #4a5568;
+    color: var(--text);
 }
 
 .difficultyLabel.level1 {
-    background-color: #c6f6d5;
-    color: #22543d;
+    background-color: var(--level-1);
+    color: #3c6b35; /* 深青竹绿 */
 }
 
 .difficultyLabel.level2 {
-    background-color: #bee3f8;
-    color: #2c5282;
+    background-color: var(--level-2);
+    color: #2c5282; /* 深云水蓝 */
 }
 
 .difficultyLabel.level3 {
-    background-color: #fed7d7;
-    color: #9b2c2c;
+    background-color: var(--level-3);
+    color: #9b2c2c; /* 深朱砂红 */
 }
 
 .difficultyLabel.level4 {
-    background-color: #feebc8;
-    color: #975a16;
+    background-color: var(--level-4);
+    color: #975a16; /* 深杏黄 */
 }
 
 .difficultyLabel.level5 {
-    background-color: #e2e8f0;
+    background-color: var(--level-5);
     color: #1a202c;
 }
 
 .difficultyLabel.level6 {
-    background-color: #fbd38d;
-    color: #744210;
+    background-color: var(--button-warning);
+    color: #48392a; /* 深枯黄 */
 }
 
 .difficultyLabel.level7 {
@@ -295,28 +295,28 @@
 }
 
 .masteryBadge[data-level="1"] {
-    background-color: rgba(234, 179, 8, 0.15);
-    color: #B7932A;
+    background-color: var(--mastery-1);
+    color: #9c7c3c;
 }
 
 .masteryBadge[data-level="2"] {
-    background-color: rgba(234, 179, 8, 0.2);
-    color: #A07900;
+    background-color: var(--mastery-2);
+    color: #8a6d2e;
 }
 
 .masteryBadge[data-level="3"] {
-    background-color: rgba(59, 130, 246, 0.15);
-    color: #3B82F6;
+    background-color: var(--mastery-3);
+    color: #3a6b9c;
 }
 
 .masteryBadge[data-level="4"] {
-    background-color: rgba(16, 185, 129, 0.15);
-    color: #10B981;
+    background-color: var(--mastery-4);
+    color: #3d7136;
 }
 
 .masteryBadge[data-level="5"] {
-    background-color: rgba(16, 185, 129, 0.25);
-    color: #047857;
+    background-color: var(--mastery-5);
+    color: #2d5c27;
 }
 
 .reviewDate {
@@ -542,7 +542,7 @@
 }
 
 .completeBadge svg {
-    color: #10B981;
+    color: var(--button-success);
     margin-bottom: 1rem;
 }
 

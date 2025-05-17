@@ -130,7 +130,7 @@
     padding: 0.25rem 0.75rem;
     border-radius: 20px;
     font-size: 0.8rem;
-    background-color: rgba(179, 109, 97, 0.2);
+    background-color: rgba(193, 75, 61, 0.2); /* 朱砂红 */
     color: var(--accent);
     margin-right: 1rem;
 }
@@ -190,7 +190,7 @@
 .poemProgressItem[data-level="3"]::before,
 .poemProgressItem[data-level="4"]::before,
 .poemProgressItem[data-level="5"]::before {
-    background-color: #10B981;
+    background-color: var(--button-success);
 }
 
 .poemProgressItem:hover {
@@ -229,19 +229,19 @@
 
 .poemProgressItem[data-level="1"] .poemProgressBadge,
 .poemProgressItem[data-level="2"] .poemProgressBadge {
-    background-color: rgba(234, 179, 8, 0.15);
-    color: #B7932A;
+    background-color: var(--mastery-1);
+    color: #9c7c3c;
 }
 
 .poemProgressItem[data-level="3"] .poemProgressBadge,
 .poemProgressItem[data-level="4"] .poemProgressBadge {
-    background-color: rgba(59, 130, 246, 0.15);
-    color: #3B82F6;
+    background-color: var(--mastery-3);
+    color: #3a6b9c;
 }
 
 .poemProgressItem[data-level="5"] .poemProgressBadge {
-    background-color: rgba(16, 185, 129, 0.15);
-    color: #10B981;
+    background-color: var(--mastery-5);
+    color: #2d5c27;
 }
 
 /* 响应式调整 */
