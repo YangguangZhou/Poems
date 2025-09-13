@@ -640,12 +640,12 @@
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
     .reciteContainer {
-        margin: 1rem 0.5rem;
-        padding: 1.5rem;
+        margin: 0.75rem 0.25rem;
+        padding: 1rem;
     }
 
     .title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .buttonGroup {
@@ -701,8 +701,8 @@
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
     .reciteContainer {
-        margin: 1rem 0.5rem;
-        padding: 1.5rem;
+        margin: 0.75rem 0.25rem;
+        padding: 1rem;
     }
 
     .controlButtons {
@@ -721,6 +721,6 @@
 
     .reciteAllContent,
     .readthroughMode {
-        padding: 1rem;
+        padding: 0.75rem;
     }
 }

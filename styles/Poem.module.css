@@ -190,23 +190,34 @@
 
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1.5rem;
-    margin: 1rem 0.5rem;
-    /* 减少移动端边距 */
+    padding: 1rem;
+    margin: 0.75rem 0.25rem;
+    /* 进一步减少移动端边距 */
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
   }
 
   .contentClassical,
   .content {
-    padding: 1rem;
+    padding: 0.75rem;
+    margin: 1rem 0;
+    line-height: 1.6;
+  }
+
+  .poemLine {
+    margin: 0.5rem 0;
+  }
+
+  .showPinyin {
+    line-height: 2.2;
   }
 
   .translationToggle {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
   }
 }
 
