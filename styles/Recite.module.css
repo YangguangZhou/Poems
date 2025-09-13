@@ -206,8 +206,6 @@
     background-color: var(--background);
     border-radius: var(--radius);
     padding: 1.2rem; /* 减少内边距 */
-    max-height: 500px;
-    overflow-y: auto;
 }
 
 /* 新增：诗句展示区域，不限制在框内 */
@@ -370,6 +368,50 @@
     transform: translateY(-2px);
 }
 
+.dangerButton {
+    background-color: var(--button-danger);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.dangerButton:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+.startButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    display: block;
+    margin: 1rem auto 0;
+    transition: var(--transition);
+}
+
+.startButton:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.controlButton:active,
+.primaryButton:active,
+.secondaryButton:active,
+.finishButton:active,
+.startButton:active,
+.dangerButton:active {
+    transform: translateY(0);
+    filter: brightness(0.9);
+}
+
 .history {
     margin-top: 2rem;
     padding-top: 1rem;
@@ -473,6 +515,11 @@
     color: transparent;
     border-bottom: 1px solid var(--text-light);
     margin: 0 2px;
+}
+
+.hidden::selection {
+    background-color: var(--accent);
+    color: transparent;
 }
 
 .placeholder {
@@ -674,7 +721,6 @@
 
     .reciteAllContent,
     .readthroughMode {
-        max-height: 400px;
         padding: 1rem;
     }
 }
