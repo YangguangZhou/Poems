@@ -244,19 +244,26 @@
 
 @media screen and (max-width: 768px) {
     .container {
-        padding: 1rem;
+        padding: 0.75rem;
     }
 
     .title {
-        font-size: 2.2rem;
+        font-size: 2rem;
+        margin: 1.2rem 0;
     }
 
     .poemList {
         grid-template-columns: 1fr;
+        gap: 1rem;
+        margin: 1rem 0;
+    }
+
+    .searchContainer {
+        margin: 1rem auto;
     }
 
     .searchInput {
-        padding: 0.8rem 1.2rem;
+        padding: 0.7rem 1rem;
     }
 }
 

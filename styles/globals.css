@@ -284,6 +284,15 @@ a {
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
     .container {
-        padding: 1rem;
+        padding: 0.75rem;
+    }
+
+    body {
+        line-height: 1.5;
+    }
+
+    .page-title {
+        margin: 1.2rem 0;
+        font-size: 2rem;
     }
 }
