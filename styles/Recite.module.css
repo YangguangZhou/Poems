@@ -206,8 +206,6 @@
     background-color: var(--background);
     border-radius: var(--radius);
     padding: 1.2rem; /* 减少内边距 */
-    max-height: 500px;
-    overflow-y: auto;
 }
 
 /* 新增：诗句展示区域，不限制在框内 */
@@ -253,6 +251,12 @@
     background-color: var(--accent);
     color: white;
     transform: translateX(-5px);
+}
+
+.backButton:visited,
+.backButton:active {
+    background-color: var(--background);
+    color: var(--primary);
 }
 
 .title {
@@ -370,6 +374,56 @@
     transform: translateY(-2px);
 }
 
+.secondaryButton:visited,
+.secondaryButton:active {
+    background-color: var(--background);
+    color: var(--text);
+}
+
+.dangerButton {
+    background-color: var(--button-danger);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.dangerButton:hover {
+    filter: brightness(0.9);
+    transform: translateY(-2px);
+}
+
+.startButton {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-size: 1rem;
+    display: block;
+    margin: 1rem auto 0;
+    transition: var(--transition);
+}
+
+.startButton:hover {
+    background-color: var(--primary);
+    transform: translateY(-2px);
+}
+
+.controlButton:active,
+.primaryButton:active,
+.secondaryButton:active,
+.finishButton:active,
+.startButton:active,
+.dangerButton:active {
+    transform: translateY(0);
+    filter: brightness(0.9);
+}
+
 .history {
     margin-top: 2rem;
     padding-top: 1rem;
@@ -473,6 +527,11 @@
     color: transparent;
     border-bottom: 1px solid var(--text-light);
     margin: 0 2px;
+}
+
+.hidden::selection {
+    background-color: var(--accent);
+    color: transparent;
 }
 
 .placeholder {
@@ -593,22 +652,24 @@
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
     .reciteContainer {
-        margin: 1rem 0.5rem;
-        padding: 1.5rem;
+        margin: 0.5rem 0.25rem;
+        padding: 1rem;
     }
 
     .title {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
     .buttonGroup {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
     }
 
-    .reciteControls {
+    .reciteControls,
+    .controlButtons {
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.4rem;
+        align-items: stretch;
     }
 
     .hintButton,
@@ -616,11 +677,34 @@
         width: 100%;
     }
 
+    .lineWithTranslation {
+        margin: 0.4rem 0;
+    }
+
+    .originalLine,
+    .hiddenLine,
+    .specialFormatText {
+        font-size: 1rem;
+        line-height: 1.35;
+    }
+
+    .translationLine {
+        font-size: 0.8rem;
+        padding: 0.15rem 0.5rem;
+    }
+
+    .reciteAllContent,
+    .readthroughMode {
+        padding: 0.8rem;
+    }
+
     .fullReveal,
     .partialReveal,
     .firstCharReveal,
-    .noReveal {
-        font-size: 1.1rem;
+    .noReveal,
+    .activeLine {
+        font-size: 1rem;
+        line-height: 1.4;
     }
 }
 
@@ -649,32 +733,4 @@
     margin: 0.4rem 0; /* 减少上下边距 */
     text-align: center;
     font-family: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", STSong, "SimSun", "宋体", serif;
-}
-
-/* 响应式调整 */
-@media screen and (max-width: 768px) {
-    .reciteContainer {
-        margin: 1rem 0.5rem;
-        padding: 1.5rem;
-    }
-
-    .controlButtons {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .originalLine,
-    .hiddenLine {
-        font-size: 1rem;
-    }
-
-    .translationLine {
-        font-size: 0.8rem;
-    }
-
-    .reciteAllContent,
-    .readthroughMode {
-        max-height: 400px;
-        padding: 1rem;
-    }
 }

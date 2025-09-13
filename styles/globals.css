@@ -135,6 +135,11 @@ a:hover {
     color: var(--accent);
 }
 
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
 /* 文本选择样式 */
 ::selection {
     background-color: var(--accent);
@@ -278,6 +283,10 @@ a:hover {
 
 /* 响应式调整 */
 @media screen and (max-width: 768px) {
+    body {
+        line-height: 1.5;
+    }
+
     .container {
         padding: 1rem;
     }

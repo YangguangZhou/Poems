@@ -39,6 +39,12 @@
   transform: translateX(-5px);
 }
 
+.homeButton:visited,
+.homeButton:active {
+  background-color: var(--background);
+  color: var(--primary);
+}
+
 .title {
   font-size: 2rem;
   text-align: center;
@@ -90,6 +96,10 @@
 
 /* 文言文和词的首行缩进 */
 .contentClassical .poemLine {
+  text-indent: 2em;
+}
+
+.contentClassical .translation {
   text-indent: 2em;
 }
 
@@ -149,6 +159,17 @@
   transform: translateY(-2px);
 }
 
+.translationToggle:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+  color: white;
+}
+
+.translationToggle:visited {
+  background-color: var(--accent);
+  color: white;
+}
+
 .footer {
   text-align: center;
   padding: 2rem 0;
@@ -175,23 +196,34 @@
 
 @media screen and (max-width: 768px) {
   .container {
-    padding: 1.5rem;
-    margin: 1rem 0.5rem;
-    /* 减少移动端边距 */
+    padding: 1rem;
+    margin: 0.5rem 0.25rem;
+    /* 进一步压缩移动端边距 */
   }
 
   .title {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 
   .contentClassical,
   .content {
-    padding: 1rem;
+    padding: 0.75rem;
+    line-height: 1.6;
+  }
+
+  .poemLine {
+    margin: 0.6rem 0;
+  }
+
+  .translation {
+    margin-top: 0.3rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
   }
 
   .translationToggle {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.85rem;
+    padding: 0.35rem 0.7rem;
+    font-size: 0.8rem;
   }
 }
 
@@ -209,7 +241,6 @@
   }
   
   .translation {
-    display: block !important;
     page-break-inside: avoid;
   }
   
