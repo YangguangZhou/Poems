@@ -93,6 +93,10 @@
   text-indent: 2em;
 }
 
+.contentClassical .translation {
+  text-indent: 2em;
+}
+
 .poemLine {
   margin: 1rem 0;
   position: relative;
@@ -147,6 +151,17 @@
 .translationToggle:hover {
   background-color: var(--primary);
   transform: translateY(-2px);
+}
+
+.translationToggle:active {
+  transform: translateY(0);
+  filter: brightness(0.9);
+  color: white;
+}
+
+.translationToggle:visited {
+  background-color: var(--accent);
+  color: white;
 }
 
 .footer {
@@ -209,7 +224,6 @@
   }
   
   .translation {
-    display: block !important;
     page-break-inside: avoid;
   }
   
