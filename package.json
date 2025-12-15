@@ -1,19 +1,19 @@
 {
-    "name": "gu-shi-wen",
-    "version": "1.0.0",
-    "scripts": {
-        "dev": "npm run generate-sitemap && next dev",
-        "generate-sitemap": "node scripts/generate-sitemap.js",
-        "build": "next build && npm run generate-sitemap",
-        "start": "next start"
-    },
-    "dependencies": {
-        "debug": "^4.3.7",
-        "next": "latest",
-        "next-seo": "^6.6.0",
-        "next-sitemap": "^4.2.3",
-        "pinyin-pro": "^3.26.0",
-        "react": "latest",
-        "react-dom": "latest"
-    }
+  "name": "gu-shi-wen",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm run generate-sitemap && next dev",
+    "generate-sitemap": "node scripts/generate-sitemap.js",
+    "build": "next build && npm run generate-sitemap",
+    "start": "next start"
+  },
+  "dependencies": {
+    "debug": "^4.3.7",
+    "next": "15.5.8",
+    "next-seo": "^6.6.0",
+    "next-sitemap": "^4.2.3",
+    "pinyin-pro": "^3.26.0",
+    "react": "latest",
+    "react-dom": "latest"
+  }
 }
